@@ -1,0 +1,5 @@
+# LearnHouse local instance — Docker, .env, DB (do not commit)
+instance/
+.env
+deploy-production.env
+*.log

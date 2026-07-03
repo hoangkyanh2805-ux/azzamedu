@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIP Private Desk — Alpha Elite</title>
+  <link rel="stylesheet" href="alpha-elite-tokens.css" />
+  <style>
+    .header-inner {
+      max-width: var(--ae-max); margin: 0 auto; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .nav { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+    .nav a { color: var(--ae-muted); font-size: 0.875rem; text-decoration: none; font-weight: 500; }
+    .nav a:hover { color: var(--ae-gold); }
+
+    .ae-section { padding: 80px 0; border-top: 1px solid var(--ae-border); }
+    .ae-section-head {
+      text-align: center; max-width: 680px; margin: 0 auto 48px;
+    }
+    .ae-section-head h2 {
+      font-family: var(--ae-font-display); text-transform: uppercase;
+      font-size: clamp(1.75rem, 3vw, 2.5rem); letter-spacing: 0.02em; line-height: 1.05; margin-bottom: 14px;
+      background: linear-gradient(180deg, #ffd700, #b8860b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .ae-section-head p { color: var(--ae-muted); font-size: 1.05rem; line-height: 1.65; }
+
+    .vip-hero { padding: 72px 0 80px; border-top: none; text-align: center; max-width: 720px; margin: 0 auto; }
+    .vip-hero h1 {
+      font-family: var(--ae-font-display);
+      font-size: clamp(2rem, 4.5vw, 3rem); text-transform: uppercase; line-height: 0.95;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffd700, #eab308 50%, #b8860b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .vip-hero .ae-body-text { max-width: 600px; margin: 0 auto 28px; text-align: center; }
+
+    .billing-toggle {
+      display: inline-flex; background: #1a1a1a; border: 1px solid var(--ae-border);
+      border-radius: 999px; padding: 4px; margin-bottom: 32px;
+    }
+    .billing-toggle button {
+      border: none; background: transparent; color: var(--ae-muted);
+      padding: 10px 24px; border-radius: 999px; font-family: var(--ae-font-body);
+      font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: 0.2s;
+    }
+    .billing-toggle button.active {
+      background: linear-gradient(180deg, #ffd700, #eab308);
+      color: #000;
+    }
+    .hero-cta { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+
+    .desk-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 900px; margin: 0 auto;
+    }
+    .desk-feature {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border); border-radius: 12px; padding: 28px;
+      transition: border-color 0.2s;
+    }
+    .desk-feature:hover { border-color: var(--ae-border-gold); }
+    .desk-feature-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(255,215,0,0.1); border: 1px solid var(--ae-border-gold);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ae-gold); font-size: 1.1rem; margin-bottom: 14px;
+    }
+    .desk-feature h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .desk-feature p { font-size: 0.88rem; color: var(--ae-muted); line-height: 1.55; }
+
+    .compare-wrap { overflow-x: auto; max-width: 800px; margin: 0 auto; }
+    .compare-table {
+      width: 100%; border-collapse: collapse; font-size: 0.9rem;
+    }
+    .compare-table th, .compare-table td {
+      padding: 14px 16px; border-bottom: 1px solid var(--ae-border); text-align: left;
+    }
+    .compare-table th {
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--ae-disclaimer); font-weight: 600;
+    }
+    .compare-table th.vip-col { color: var(--ae-gold); }
+    .compare-table td { color: var(--ae-muted); }
+    .compare-table td:first-child { color: var(--ae-text); font-weight: 500; }
+    .check { color: var(--ae-gold); font-weight: 700; }
+    .dash { color: #555; }
+
+    .telegram-mock {
+      max-width: 420px; margin: 0 auto;
+      background: linear-gradient(145deg, #141414, #0a0a0a);
+      border: 1px solid var(--ae-border-gold); border-radius: 16px; overflow: hidden;
+      box-shadow: 0 0 48px rgba(245, 158, 11, 0.08);
+    }
+    .tg-header {
+      background: #1a1a1a; padding: 14px 18px; font-size: 0.9rem; font-weight: 600;
+      border-bottom: 1px solid var(--ae-border);
+    }
+    .tg-pinned {
+      background: rgba(255,215,0,0.06); border-left: 3px solid var(--ae-gold);
+      padding: 12px 18px; font-size: 0.8rem; color: var(--ae-muted); line-height: 1.5;
+    }
+    .tg-pinned strong { color: var(--ae-gold); display: block; margin-bottom: 4px; font-size: 0.75rem; letter-spacing: 0.06em; }
+    .tg-msg {
+      padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.82rem; color: var(--ae-muted); line-height: 1.5;
+    }
+    .tg-msg .label { font-size: 0.7rem; color: var(--ae-gold-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .tg-foot { padding: 12px 18px; font-size: 11px; color: #555; text-align: center; }
+
+    .pricing-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 720px; margin: 0 auto;
+    }
+    .price-card {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border); border-radius: 12px; padding: 32px 24px; text-align: center;
+    }
+    .price-card--featured {
+      border-color: var(--ae-border-gold);
+      box-shadow: 0 0 48px rgba(245, 158, 11, 0.1);
+    }
+    .price-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .price-card .amount {
+      font-family: var(--ae-font-display); font-size: 2.25rem; color: var(--ae-gold); margin: 12px 0;
+    }
+    .price-card .period { font-size: 0.85rem; color: var(--ae-disclaimer); margin-bottom: 20px; }
+    .price-card .ae-btn-gold, .price-card .ae-btn-outline { width: 100%; }
+    .bundle-note {
+      text-align: center; font-size: 0.9rem; color: var(--ae-muted); margin-top: 24px; max-width: 560px;
+      margin-left: auto; margin-right: auto; line-height: 1.6;
+    }
+    .dwy-note {
+      text-align: center; margin-top: 32px; padding: 20px;
+      border: 1px dashed var(--ae-border); border-radius: 8px; max-width: 600px; margin-left: auto; margin-right: auto;
+      font-size: 0.9rem; color: var(--ae-muted);
+    }
+    .dwy-note a { color: var(--ae-gold); }
+
+    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-list details {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border); border-radius: 8px;
+      padding: 18px 22px; margin-bottom: 10px;
+    }
+    .faq-list details[open] { border-color: var(--ae-border-gold); }
+    .faq-list summary { font-weight: 600; cursor: pointer; color: var(--ae-text); list-style: none; }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list details p { margin-top: 14px; font-size: 0.9rem; color: var(--ae-muted); line-height: 1.6; }
+    .faq-list details p strong { color: var(--ae-text); }
+
+    .footer {
+      border-top: 1px solid var(--ae-border); padding: 40px 24px; text-align: center;
+      font-size: 12px; color: #666; line-height: 1.6;
+    }
+    .footer a { color: var(--ae-gold-muted); }
+
+    .sticky-enroll {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(0,0,0,0.95); backdrop-filter: blur(12px);
+      border-top: 1px solid var(--ae-border-gold);
+      padding: 12px 20px; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .sticky-enroll .sticky-price { font-family: var(--ae-font-display); font-size: 1.25rem; color: var(--ae-gold); }
+    .sticky-enroll .sticky-label { font-size: 11px; color: var(--ae-disclaimer); }
+
+    @media (max-width: 767px) {
+      .desk-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .sticky-enroll { display: flex; }
+      body { padding-bottom: 72px; }
+      .ae-section { padding: 56px 0; }
+      .hero-cta .ae-btn-gold { width: 100%; }
+    }
+  </style>
+</head>
+<body class="ae-theme-gold">
+
+  <header class="ae-header-gold">
+    <div class="header-inner">
+      <a href="homepage-dark-gold.html" class="ae-logo-gold">Alpha <span>Elite</span></a>
+      <nav class="nav">
+        <a href="#desk">Desk</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#pricing" class="ae-btn-gold" id="nav-cta">Start VIP Private Desk</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="ae-container">
+
+    <section class="ae-section vip-hero">
+      <span class="ae-eyebrow-gold">VIP private system</span>
+      <h1>Your Private Operating Desk — Not Another Alert Channel</h1>
+      <p class="ae-body-text">
+        Telegram accountability, SOP library, structured trade ideas (education), and automation support docs —
+        for operators who finished Apprentice and want a rules-first private desk. Not a signal group.
+      </p>
+      <div class="billing-toggle" role="tablist">
+        <button type="button" class="active" data-plan="monthly" aria-selected="true">Monthly</button>
+        <button type="button" data-plan="annual" aria-selected="false">Annual</button>
+      </div>
+      <div class="hero-cta">
+        <a href="/checkout/?add-to-cart=AE-VIP-MON" class="ae-btn-gold" id="hero-checkout">Start VIP — Monthly</a>
+      </div>
+      <p class="ae-disclaimer-micro" style="text-align:center">
+        No profit guarantees. Trading involves risk. Not investment advice.
+      </p>
+    </section>
+
+    <section class="ae-section" id="desk">
+      <div class="ae-section-head">
+        <span class="ae-eyebrow-gold">Private desk</span>
+        <h2>What's On The Desk</h2>
+        <p>Accountability and structure — not entries to copy blindly.</p>
+      </div>
+      <div class="desk-grid">
+        <div class="desk-feature">
+          <div class="desk-feature-icon">◉</div>
+          <h3>Telegram VIP accountability</h3>
+          <p>Rules-first channel: pinned SOPs, review rhythm, and community accountability — not an alert feed.</p>
+        </div>
+        <div class="desk-feature">
+          <div class="desk-feature-icon">☰</div>
+          <h3>SOP library</h3>
+          <p>Pre-trade, session, and weekly review PDFs — the operating backbone of your desk.</p>
+        </div>
+        <div class="desk-feature">
+          <div class="desk-feature-icon">◈</div>
+          <h3>Structured trade idea format</h3>
+          <p>How ideas are documented inside SOPs for education — context, invalidation, risk notes.</p>
+        </div>
+        <div class="desk-feature">
+          <div class="desk-feature-icon">⚙</div>
+          <h3>Automation support docs</h3>
+          <p>Setup guides and checklists. You own every trade decision — no passive income framing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ae-section" id="compare">
+      <div class="ae-section-head">
+        <span class="ae-eyebrow-gold">Compare</span>
+        <h2>Apprentice vs VIP</h2>
+      </div>
+      <div class="compare-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Apprentice</th>
+              <th class="vip-col">VIP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>LearnHouse course (5 modules)</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>SOP worksheets</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td>Telegram VIP desk</td><td class="dash">—</td><td class="check">✓</td></tr>
+            <tr><td>SOP library archive</td><td class="dash">—</td><td class="check">✓</td></tr>
+            <tr><td>Structured ideas format (edu)</td><td class="dash">—</td><td class="check">✓</td></tr>
+            <tr><td>Annotated walkthroughs</td><td class="dash">—</td><td class="check">✓</td></tr>
+            <tr><td>Community accountability</td><td class="dash">Limited</td><td class="check">Full</td></tr>
+            <tr><td>Signal / alert feed</td><td class="dash">—</td><td class="dash">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="bundle-note">
+        New to Alpha Elite? Start with the <a href="apprentice-preview.html" style="color:var(--ae-gold)">Apprentice course</a>
+        or the free <a href="homepage-dark-gold.html#get-gameplan" style="color:var(--ae-gold)">Gameplan</a> first.
+      </p>
+    </section>
+
+    <section class="ae-section">
+      <div class="ae-section-head">
+        <span class="ae-eyebrow-gold">Channel preview</span>
+        <h2>Rules First — Not Alerts</h2>
+        <p>Illustrative mock — not a live signal feed.</p>
+      </div>
+      <div class="telegram-mock" role="img" aria-label="Telegram desk mock">
+        <div class="tg-header">Alpha Elite · VIP Desk</div>
+        <div class="tg-pinned">
+          <strong>📌 PINNED — DESK RULES</strong>
+          Education only · 2% risk framework · Document every setup in SOP · No profit guarantees · Not investment advice
+        </div>
+        <div class="tg-msg">
+          <div class="label">Weekly review · Mon</div>
+          Reminder: complete journal + SOP checklist before next session. Accountability, not alerts.
+        </div>
+        <div class="tg-msg">
+          <div class="label">Structured idea format · edu</div>
+          Example: XAUUSD context + invalidation + risk note — template inside SOP library. You execute.
+        </div>
+        <div class="tg-foot">Mock UI only · Not real messages · Trading involves risk</div>
+      </div>
+    </section>
+
+    <section class="ae-section" id="pricing">
+      <div class="ae-section-head">
+        <span class="ae-eyebrow-gold">Pricing</span>
+        <h2>Join VIP Private Desk</h2>
+        <p>Includes full Apprentice course + Operating Toolkit. Save 28% with annual billing.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card" id="card-monthly">
+          <h3>Monthly</h3>
+          <div class="amount">$149</div>
+          <p class="period">/ month · AE-VIP-MON</p>
+          <a href="/checkout/?add-to-cart=AE-VIP-MON" class="ae-btn-outline checkout-link" data-sku="AE-VIP-MON">Start VIP Private Desk</a>
+        </div>
+        <div class="price-card price-card--featured" id="card-annual">
+          <span class="ae-badge-seal" style="margin-bottom:12px;display:inline-block">Save 28%</span>
+          <h3>Annual</h3>
+          <div class="amount">$1,290</div>
+          <p class="period">/ year · AE-VIP-YR</p>
+          <a href="/checkout/?add-to-cart=AE-VIP-YR" class="ae-btn-gold checkout-link" data-sku="AE-VIP-YR">Start VIP Private Desk</a>
+        </div>
+      </div>
+      <p class="bundle-note">Apprentice course bundled with VIP membership. Manual Telegram add within 24h (MVP).</p>
+      <div class="dwy-note">
+        Need hands-on setup? <strong>Done-With-You Bot &amp; Broker Setup</strong> — $497 at checkout (AE-DWY-001) — implementation support, not managed account.
+      </div>
+    </section>
+
+    <section class="ae-section" id="faq">
+      <div class="ae-section-head">
+        <span class="ae-eyebrow-gold">FAQ</span>
+        <h2>Before You Join</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>Is VIP a signal group?</summary>
+          <p><strong>No.</strong> VIP is a rules-first accountability desk with structured trade ideas for education inside SOPs — not an alert channel to copy entries.</p>
+        </details>
+        <details>
+          <summary>Do I need Apprentice first?</summary>
+          <p>Strongly recommended. VIP assumes you understand the 2% framework and daily SOPs. You can enroll in Apprentice separately or as part of the VIP bundle.</p>
+        </details>
+        <details>
+          <summary>Will VIP guarantee profits?</summary>
+          <p><strong>No.</strong> All desk content is educational. Trading involves substantial risk. Past walkthroughs do not guarantee future results.</p>
+        </details>
+        <details>
+          <summary>What happens after I pay?</summary>
+          <p>LearnHouse access + VIP group add manually within 24h at MVP. You'll receive login and Telegram instructions by email.</p>
+        </details>
+        <details>
+          <summary>Can I cancel?</summary>
+          <p>Monthly plans cancel at period end. See refund policy on checkout. No fake countdowns or pressure tactics.</p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" id="risk">
+    <strong>RISK WARNING:</strong> Trading forex, crypto, and XAUUSD involves substantial risk of loss.
+    Alpha Elite provides education, structured trade ideas, automation support, SOPs, and community accountability —
+    not investment advice or guaranteed returns.
+    <p style="margin-top:12px">
+      <a href="homepage-dark-gold.html">Homepage</a> ·
+      <a href="apprentice-preview.html">Apprentice</a> ·
+      <a href="../course-curriculum-copy.md">Curriculum copy</a>
+    </p>
+  </footer>
+
+  <div class="sticky-enroll">
+    <div>
+      <div class="sticky-price" id="sticky-price">$149 / mo</div>
+      <div class="sticky-label" id="sticky-label">VIP Monthly</div>
+    </div>
+    <a href="/checkout/?add-to-cart=AE-VIP-MON" class="ae-btn-gold" id="sticky-cta">Start VIP Private Desk</a>
+  </div>
+
+  <script>
+    (function () {
+      var monthlyUrl = '/checkout/?add-to-cart=AE-VIP-MON';
+      var annualUrl = '/checkout/?add-to-cart=AE-VIP-YR';
+      var heroCta = document.getElementById('hero-checkout');
+      var stickyCta = document.getElementById('sticky-cta');
+      var stickyPrice = document.getElementById('sticky-price');
+      var stickyLabel = document.getElementById('sticky-label');
+      var buttons = document.querySelectorAll('.billing-toggle button');
+
+      function setPlan(plan) {
+        var isMonthly = plan === 'monthly';
+        var url = isMonthly ? monthlyUrl : annualUrl;
+        heroCta.href = url;
+        heroCta.textContent = 'Start VIP Private Desk';
+        stickyCta.href = url;
+        stickyPrice.textContent = isMonthly ? '$149 / mo' : '$1,290 / yr';
+        stickyLabel.textContent = isMonthly ? 'VIP Monthly' : 'VIP Annual';
+        buttons.forEach(function (btn) {
+          var active = btn.dataset.plan === plan;
+          btn.classList.toggle('active', active);
+          btn.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () { setPlan(btn.dataset.plan); });
+      });
+    })();
+  </script>
+</body>
+</html>

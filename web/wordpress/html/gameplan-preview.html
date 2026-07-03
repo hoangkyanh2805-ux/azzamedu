@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Alpha Elite Gameplan — Free PDF</title>
+  <link rel="stylesheet" href="alpha-elite-tokens.css" />
+  <style>
+    .header-inner {
+      max-width: 720px; margin: 0 auto; padding: 20px 24px;
+      display: flex; justify-content: center;
+    }
+    .page-narrow { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+    .ae-section { padding: 64px 0; border-top: 1px solid var(--ae-border); }
+    .ae-section:first-of-type { border-top: none; }
+
+    .gameplan-hero { text-align: center; padding: 56px 0 64px; }
+    .gameplan-hero h1 {
+      font-family: var(--ae-font-display);
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      text-transform: uppercase; line-height: 0.95; letter-spacing: 0.02em;
+      margin-bottom: 18px;
+      background: linear-gradient(180deg, #ffd700, #eab308 50%, #b8860b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub { color: var(--ae-muted); font-size: 1.15rem; line-height: 1.65; max-width: 520px; margin: 0 auto 20px; }
+    .hero-bullets {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 24px 0;
+    }
+    .hero-bullets span {
+      font-size: 12px; color: var(--ae-muted); padding: 6px 14px;
+      border: 1px solid var(--ae-border); border-radius: 999px;
+    }
+    .hero-bullets span::before { content: '✓ '; color: var(--ae-gold); font-weight: 700; }
+
+    .chapters-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;
+    }
+    .chapter-card {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border); border-radius: 10px; padding: 20px;
+      transition: border-color 0.2s;
+    }
+    .chapter-card:hover { border-color: var(--ae-border-gold); }
+    .chapter-num {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--ae-gold); margin-bottom: 8px;
+    }
+    .chapter-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+    .chapter-card p { font-size: 0.82rem; color: var(--ae-muted); line-height: 1.45; }
+
+    .pdf-mock {
+      background: linear-gradient(145deg, #141414, #0a0a0a);
+      border: 1px solid var(--ae-border-gold); border-radius: 12px;
+      padding: 28px; margin: 0 auto; max-width: 400px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .pdf-mock-cover {
+      background: #1a1a1a; border-radius: 8px; padding: 32px 24px; text-align: center;
+      border: 1px solid var(--ae-border); margin-bottom: 16px;
+    }
+    .pdf-mock-cover .title {
+      font-family: var(--ae-font-display); font-size: 1.5rem; text-transform: uppercase;
+      color: var(--ae-gold); line-height: 1; margin-bottom: 8px;
+    }
+    .pdf-mock-cover .sub { font-size: 0.75rem; color: var(--ae-disclaimer); line-height: 1.4; }
+    .pdf-lines { display: flex; flex-direction: column; gap: 8px; }
+    .pdf-line { height: 8px; background: #222; border-radius: 4px; }
+    .pdf-line.short { width: 70%; }
+    .pdf-line.shorter { width: 45%; }
+    .pdf-blur {
+      filter: blur(4px); opacity: 0.5; margin-top: 12px;
+    }
+    .pdf-caption { font-size: 11px; color: #555; text-align: center; margin-top: 12px; }
+
+    .form-section { text-align: center; }
+    .form-section h2 {
+      font-family: var(--ae-font-display); text-transform: uppercase;
+      font-size: 1.75rem; margin-bottom: 12px;
+      background: linear-gradient(180deg, #ffd700, #b8860b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .form-intro { color: var(--ae-muted); margin-bottom: 28px; font-size: 0.95rem; }
+
+    .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .who-card { border-radius: 10px; padding: 22px; }
+    .who-card--for {
+      background: linear-gradient(145deg, #141414, #0a0a0a);
+      border: 1px solid var(--ae-border-gold);
+    }
+    .who-card--not { background: rgba(255,255,255,0.02); border: 1px solid var(--ae-border); }
+    .who-card h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .who-card--for h3 { color: var(--ae-gold); }
+    .who-card--not h3 { color: #888; }
+    .who-list { list-style: none; }
+    .who-list li {
+      font-size: 0.85rem; color: var(--ae-muted); padding: 6px 0 6px 18px; position: relative; line-height: 1.45;
+    }
+    .who-card--for .who-list li { color: var(--ae-text); }
+    .who-card--for .who-list li::before { content: '✓'; position: absolute; left: 0; color: var(--ae-gold); }
+    .who-card--not .who-list li::before { content: '✕'; position: absolute; left: 0; color: #666; }
+
+    .soft-pitch {
+      text-align: center; padding: 40px 0; color: var(--ae-muted); font-size: 0.95rem;
+    }
+    .soft-pitch a { color: var(--ae-gold); font-weight: 600; text-decoration: none; }
+    .soft-pitch a:hover { text-decoration: underline; }
+
+    .footer {
+      border-top: 1px solid var(--ae-border); padding: 32px 24px;
+      font-size: 12px; color: #666; line-height: 1.6; text-align: center;
+    }
+    .footer a { color: var(--ae-gold-muted); }
+
+    @media (max-width: 767px) {
+      .who-grid { grid-template-columns: 1fr; }
+      .chapters-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="ae-theme-gold">
+
+  <header class="ae-header-gold">
+    <div class="header-inner">
+      <a href="homepage-dark-gold.html" class="ae-logo-gold">Alpha <span>Elite</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="ae-section gameplan-hero page-narrow" id="gameplan-hero">
+      <span class="ae-badge-seal">Free PDF</span>
+      <h1 style="margin-top:16px">The Alpha Elite Gameplan</h1>
+      <p class="hero-sub">
+        The 2% rule operating framework — daily SOPs and a 7-day sprint to replace emotional execution with structure.
+      </p>
+      <div class="hero-bullets">
+        <span>Risk framework</span>
+        <span>SOP checklists</span>
+        <span>Not a signal list</span>
+      </div>
+      <p class="ae-disclaimer-micro" style="text-align:center;max-width:480px;margin:0 auto">
+        Education only. No profit guarantees. Trading involves risk. Not investment advice.
+      </p>
+      <p style="margin-top:24px">
+        <a href="#get-gameplan" class="ae-btn-gold">Send Me The Gameplan</a>
+      </p>
+    </section>
+
+    <section class="ae-section page-narrow" id="whats-inside">
+      <span class="ae-eyebrow-gold">What's inside</span>
+      <h2 style="font-family:var(--ae-font-display);text-transform:uppercase;font-size:1.5rem;margin:12px 0 24px;color:var(--ae-gold-muted)">
+        5 Chapters · ~15 Min Read
+      </h2>
+      <div class="chapters-grid">
+        <div class="chapter-card">
+          <div class="chapter-num">§1</div>
+          <h3>Why emotion breaks accounts</h3>
+          <p>5 signs of emotional trading + 10-point self-audit.</p>
+        </div>
+        <div class="chapter-card">
+          <div class="chapter-num">§2</div>
+          <h3>Signals vs operating systems</h3>
+          <p>Contrast table: alerts vs SOP, risk, and review cadence.</p>
+        </div>
+        <div class="chapter-card">
+          <div class="chapter-num">§3</div>
+          <h3>The 2% rule explained</h3>
+          <p>Sizing walkthrough + printable pre-trade checklist.</p>
+        </div>
+        <div class="chapter-card">
+          <div class="chapter-num">§4</div>
+          <h3>7-day operating sprint</h3>
+          <p>Daily micro-actions + automation support intro (education).</p>
+        </div>
+        <div class="chapter-card">
+          <div class="chapter-num">§5</div>
+          <h3>What comes next</h3>
+          <p>Path to Apprentice + compliance-safe FAQ.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ae-section page-narrow" id="pdf-preview">
+      <div class="pdf-mock" role="img" aria-label="PDF preview mock">
+        <div class="pdf-mock-cover">
+          <div class="title">Alpha Elite<br>Gameplan</div>
+          <p class="sub">2% Rule operating framework · Education only</p>
+        </div>
+        <div class="pdf-lines">
+          <div class="pdf-line"></div>
+          <div class="pdf-line short"></div>
+          <div class="pdf-line"></div>
+          <div class="pdf-line shorter"></div>
+        </div>
+        <div class="pdf-lines pdf-blur">
+          <div class="pdf-line"></div>
+          <div class="pdf-line short"></div>
+        </div>
+        <p class="pdf-caption">Preview mock · Full PDF on opt-in</p>
+      </div>
+    </section>
+
+    <section class="ae-section form-section page-narrow" id="get-gameplan">
+      <h2>Get The Gameplan</h2>
+      <p class="form-intro">Enter your email — we'll send the PDF and start the 7-day education sequence.</p>
+      <div class="ae-form-card-gold" style="max-width:440px;margin:0 auto;text-align:left">
+        <form action="gameplan-thank-you.html" method="get">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          <label for="name">First name</label>
+          <input type="text" id="name" name="first_name" placeholder="Your first name" required />
+          <button type="submit" class="ae-btn-gold">Send Me The Gameplan</button>
+        </form>
+      </div>
+      <p class="form-legal" style="margin-top:20px;font-size:12px;color:var(--ae-disclaimer)">
+        Educational emails from Alpha Elite. <a href="#" style="color:var(--ae-gold)">Privacy Policy</a>.<br>
+        Trading involves risk. No profit guarantees. Not investment advice.
+      </p>
+    </section>
+
+    <section class="ae-section page-narrow" id="who-its-for">
+      <div class="who-grid">
+        <div class="who-card who-card--for">
+          <h3>For you if</h3>
+          <ul class="who-list">
+            <li>You want one risk rule before paying for anything</li>
+            <li>You're tired of alert chasing on XAUUSD</li>
+            <li>You'll run the 7-day sprint honestly</li>
+          </ul>
+        </div>
+        <div class="who-card who-card--not">
+          <h3>Not for you if</h3>
+          <ul class="who-list">
+            <li>You want free signals or guaranteed profits</li>
+            <li>You won't journal or review your trades</li>
+            <li>You want financial advice — this is education</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <p class="soft-pitch page-narrow">
+      When you're ready to install the full operating protocol →
+      <a href="apprentice-preview.html">Apprentice Operating Course</a>
+    </p>
+  </main>
+
+  <footer class="footer" id="risk">
+    <strong>RISK WARNING:</strong> Trading forex, crypto, and XAUUSD involves substantial risk of loss.
+    Alpha Elite provides education and operating frameworks — not investment advice or guaranteed returns.
+    <p style="margin-top:12px">
+      <a href="homepage-dark-gold.html">Full homepage</a> ·
+      <a href="gameplan-thank-you.html">Thank you preview</a>
+    </p>
+  </footer>
+</body>
+</html>

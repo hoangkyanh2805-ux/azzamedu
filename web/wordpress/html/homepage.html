@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alpha Elite — Private Financial Operating System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-base: #09090b;
+      --bg-elevated: #18181b;
+      --bg-panel: #27272a;
+      --border: rgba(255,255,255,0.08);
+      --text: #fafafa;
+      --muted: #a1a1aa;
+      --disclaimer: #71717a;
+      --accent: #22d3ee;
+      --accent-hover: #0891b2;
+      --success: #34d399;
+      --max: 1140px;
+    }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-base);
+      color: var(--text);
+      line-height: 1.5;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34,211,238,0.08), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 0%, rgba(34,211,238,0.04), transparent);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-hover); }
+
+    /* Header */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(9,9,11,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: var(--max); margin: 0 auto;
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .logo { font-weight: 700; font-size: 1.125rem; color: var(--text); letter-spacing: -0.02em; }
+    .logo span { color: var(--accent); }
+    .nav { display: flex; gap: 28px; align-items: center; }
+    .nav a { color: var(--muted); font-size: 0.9rem; font-weight: 500; }
+    .nav a:hover { color: var(--text); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 0.95rem;
+      border: none; cursor: pointer; text-decoration: none; transition: 0.2s;
+      min-height: 48px;
+    }
+    .btn-primary { background: var(--accent); color: var(--bg-base); }
+    .btn-primary:hover { background: var(--accent-hover); color: var(--text); }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-sm { padding: 10px 20px; font-size: 0.875rem; min-height: 40px; }
+
+    /* Layout */
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+    .section-sm { padding: 64px 0; }
+
+    /* Hero */
+    .hero { padding-top: 80px; padding-bottom: 96px; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+    }
+    .eyebrow {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: block;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 600;
+      line-height: 1.1; max-width: 560px; margin-bottom: 24px;
+    }
+    .subhead {
+      color: var(--muted); font-size: 1.125rem; line-height: 1.6;
+      max-width: 520px; margin-bottom: 16px;
+    }
+    .subhead strong { color: var(--text); font-weight: 500; }
+    .disclaimer-micro {
+      font-size: 13px; color: var(--disclaimer); margin-bottom: 32px; max-width: 520px;
+    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
+    .trust-pills { display: flex; flex-wrap: wrap; gap: 12px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border: 1px solid var(--border); border-radius: 999px;
+      font-size: 13px; color: var(--muted);
+    }
+    .pill::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    }
+
+    /* Desk card */
+    .desk-card {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    }
+    .desk-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+    }
+    .desk-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--disclaimer);
+    }
+    .desk-status {
+      display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--success);
+    }
+    .desk-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+    .desk-panel {
+      background: var(--bg-panel); border-radius: 8px; padding: 16px; margin-bottom: 12px;
+    }
+    .desk-panel-title { font-size: 12px; color: var(--disclaimer); margin-bottom: 8px; }
+    .check-item {
+      display: flex; align-items: center; gap: 8px; font-size: 14px; margin-bottom: 8px;
+    }
+    .check-item:last-child { margin-bottom: 0; }
+    .check-box {
+      width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0;
+    }
+    .check-box.on { border: 1px solid var(--accent); }
+    .check-box.off { border: 1px solid #52525b; }
+    .desk-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .stat-box { background: var(--bg-panel); border-radius: 8px; padding: 12px; }
+    .stat-label { font-size: 11px; color: var(--disclaimer); }
+    .stat-value { font-size: 20px; font-weight: 600; color: var(--accent); }
+    .stat-value-text { font-size: 14px; font-weight: 500; color: var(--text); }
+    .desk-footnote { margin-top: 16px; font-size: 11px; color: #52525b; line-height: 1.4; }
+
+    /* Opt-in */
+    .optin { border-top: 1px solid var(--border); }
+    .optin-head { text-align: center; max-width: 640px; margin: 0 auto 40px; }
+    h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 600; margin-bottom: 16px; }
+    .optin-intro { color: var(--muted); font-size: 1.125rem; line-height: 1.6; }
+    .optin-intro strong { color: var(--text); }
+    .features {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      margin-bottom: 40px;
+    }
+    .feature-card { text-align: center; padding: 20px; }
+    .feature-icon {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px; font-size: 18px;
+    }
+    .feature-title { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+    .feature-desc { font-size: 0.875rem; color: var(--muted); }
+    .form-card {
+      max-width: 480px; margin: 0 auto;
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: 12px; padding: 40px;
+    }
+    .form-group { margin-bottom: 16px; }
+    label {
+      display: block; font-size: 0.875rem; font-weight: 500;
+      margin-bottom: 6px; color: var(--text);
+    }
+    input, select {
+      width: 100%; padding: 12px 14px; border-radius: 8px;
+      background: var(--bg-panel); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text); font-size: 1rem; font-family: inherit;
+    }
+    input:focus, select:focus {
+      outline: none; border-color: var(--accent);
+    }
+    .form-card .btn-primary { width: 100%; margin-top: 8px; }
+    .form-legal {
+      text-align: center; font-size: 13px; color: var(--disclaimer);
+      margin-top: 20px; line-height: 1.5; max-width: 480px; margin-left: auto; margin-right: auto;
+    }
+    .form-secondary {
+      text-align: center; margin-top: 24px; font-size: 0.95rem; color: var(--muted);
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 24px 32px;
+      text-align: center;
+    }
+    .footer-disclaimer {
+      font-size: 12px; color: #52525b; line-height: 1.6; max-width: 800px; margin: 0 auto 16px;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 13px; color: var(--disclaimer); }
+
+  /* Mobile */
+    @media (max-width: 767px) {
+      .nav { display: none; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { order: 2; }
+      .hero-content { order: 1; }
+      .cta-row { flex-direction: column; }
+      .cta-row .btn { width: 100%; }
+      .features { grid-template-columns: 1fr; }
+      .form-card { padding: 24px; }
+      .section { padding: 64px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo">Alpha <span>Elite</span></a>
+      <nav class="nav">
+        <a href="#how-it-works">Cách hoạt động</a>
+        <a href="#offers">Gói dịch vụ</a>
+        <a href="#faq">FAQ</a>
+        <a href="#get-gameplan" class="btn btn-primary btn-sm">Nhận Gameplan</a>
+      </nav>
+      <a href="#get-gameplan" class="btn btn-primary btn-sm" style="display:none" id="mobile-cta">Gameplan</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero section">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="eyebrow">Private financial operating system</span>
+          <h1>Bạn không cần thêm tín hiệu. Bạn cần hệ thống giúp ngừng giao dịch theo cảm xúc.</h1>
+          <p class="subhead">
+            Alpha Elite giúp trader nghiêm túc vận hành có cấu trúc —
+            <strong>giáo dục, structured trade ideas, automation support, SOP và community accountability</strong>
+            — xoay quanh framework quản lý rủi ro 2%. Không phải nhóm tín hiệu. Không cam kết lợi nhuận.
+          </p>
+          <p class="disclaimer-micro">
+            Giao dịch có rủi ro mất vốn. Nội dung mang tính giáo dục — không phải tư vấn đầu tư.
+          </p>
+          <div class="cta-row">
+            <a href="#get-gameplan" class="btn btn-primary">Nhận Alpha Elite Gameplan</a>
+            <a href="apprentice-preview.html" class="btn btn-ghost">Xem Khóa Apprentice →</a>
+          </div>
+          <div class="trust-pills">
+            <span class="pill">Framework rủi ro 2%</span>
+            <span class="pill">SOP hàng ngày</span>
+            <span class="pill">Private Desk</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="desk-card" role="img" aria-label="Minh họa operating desk">
+            <div class="desk-header">
+              <span class="desk-label">Today's operating desk</span>
+              <span class="desk-status">
+                <span class="desk-status-dot"></span>
+                Review mode
+              </span>
+            </div>
+            <div class="desk-panel">
+              <div class="desk-panel-title">Pre-trade checklist</div>
+              <div class="check-item" style="color:#fafafa">
+                <span class="check-box on"></span>
+                Đã size theo 2% risk
+              </div>
+              <div class="check-item" style="color:#a1a1aa">
+                <span class="check-box off"></span>
+                SOP bước 2 — ghi journal
+              </div>
+              <div class="check-item" style="color:#a1a1aa">
+                <span class="check-box off"></span>
+                Đã lên lịch weekly review
+              </div>
+            </div>
+            <div class="desk-stats">
+              <div class="stat-box">
+                <div class="stat-label">Risk budget (edu)</div>
+                <div class="stat-value">2%</div>
+                <div class="stat-label">tối đa mỗi lệnh</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-label">Trạng thái vận hành</div>
+                <div class="stat-value-text">Structured</div>
+                <div class="stat-label">không emotional</div>
+              </div>
+            </div>
+            <p class="desk-footnote">Minh họa giao diện. Không phải dữ liệu tài khoản thật. Giao dịch có rủi ro.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPT-IN -->
+  <section class="optin section" id="get-gameplan">
+    <div class="container">
+      <div class="optin-head">
+        <h2>Nhận Alpha Elite Gameplan — miễn phí</h2>
+        <p class="optin-intro">
+          Quy tắc 2%, checklist SOP hàng ngày và sprint vận hành 7 ngày — một file PDF.
+          Dành cho trader muốn <strong>cấu trúc và accountability, không phải thêm kênh alert</strong>.
+        </p>
+      </div>
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">⚖</div>
+          <div class="feature-title">2% Risk Framework</div>
+          <div class="feature-desc">Framework quản lý rủi ro mang tính giáo dục</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">☑</div>
+          <div class="feature-title">Daily SOPs</div>
+          <div class="feature-desc">Checklist trước & sau lệnh</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">7</div>
+          <div class="feature-title">7-Day Sprint</div>
+          <div class="feature-desc">Cài thói quen vận hành</div>
+        </div>
+      </div>
+      <div class="form-card">
+        <form action="gameplan-thank-you.html" method="get">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="ban@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="name">Tên</label>
+            <input type="text" id="name" name="name" placeholder="Tên của bạn" required />
+          </div>
+          <div class="form-group">
+            <label for="exp">Kinh nghiệm (tuỳ chọn)</label>
+            <select id="exp" name="exp">
+              <option value="">— Chọn —</option>
+              <option>Mới bắt đầu</option>
+              <option>6–24 tháng</option>
+              <option>Trên 2 năm</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Gửi Gameplan cho tôi</button>
+        </form>
+      </div>
+      <p class="form-legal">
+        Bằng việc đăng ký, bạn đồng ý nhận email giáo dục từ Alpha Elite.
+        <a href="#">Chính sách bảo mật</a>. Hủy đăng ký bất cứ lúc nào.<br><br>
+        Giao dịch có rủi ro. Không cam kết lợi nhuận. Không phải tư vấn đầu tư.
+      </p>
+      <p class="form-secondary">
+        Đã sẵn sàng đi sâu hơn?
+        <a href="apprentice-preview.html"><strong>Xem Khóa Apprentice →</strong></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="risk">
+    <p class="footer-disclaimer">
+      <strong>CẢNH BÁO RỦI RO:</strong> Giao dịch forex, crypto, vàng (XAUUSD) và công cụ có đòn bẩy mang rủi ro cao.
+      Bạn có thể mất một phần hoặc toàn bộ vốn. Alpha Elite cung cấp giáo dục, trade ideas, hỗ trợ automation,
+      SOP và community accountability — không phải tư vấn đầu tư hay cam kết lợi nhuận.
+      Kết quả quá khứ không đảm bảo tương lai.
+    </p>
+    <div class="footer-links">
+      <a href="#">Điều khoản</a>
+      <a href="#">Bảo mật</a>
+      <a href="#">Cảnh báo rủi ro</a>
+      <a href="#">Hoàn tiền</a>
+    </div>
+    <p style="margin-top:16px;font-size:12px;color:#52525b;">© Alpha Elite · Preview HTML — chưa kết nối Brevo</p>
+  </footer>
+
+  <script>
+    if (window.innerWidth < 768) {
+      document.getElementById('mobile-cta').style.display = 'inline-flex';
+    }
+  </script>
+</body>
+</html>

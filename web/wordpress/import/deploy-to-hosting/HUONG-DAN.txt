@@ -1,0 +1,50 @@
+# Auto setup — 3 phút, không cần wp-admin import
+
+`wp-admin` bị 403 → dùng **File Manager** + chạy script 1 lần.
+
+## Bước 1 — Upload theme (nếu chưa)
+
+`alpha-elite-child-elementor.zip` → WP Themes → Upload → Activate
+
+## Bước 2 — Upload 2 file vào WordPress root
+
+**Quản lý tập tin** → folder có `wp-config.php` (thường `public_html`)
+
+Upload từ `deploy-to-hosting/` hoặc `ae-auto-setup.zip`:
+
+- `ae-setup-once.php`
+- `elementor-alpha-elite-homepage.json`
+
+## Bước 3 — Mở link này trên browser
+
+```
+http://hoa-homes.com/ae-setup-once.php?key=alpha-elite-2026
+```
+
+Thấy chữ **=== DONE ===** là xong.
+
+## Bước 4 — Tạo sản phẩm WooCommerce (không cần wp-admin)
+
+Upload `ae-setup-products.php` vào cùng folder, mở:
+
+http://hoa-homes.com/ae-setup-products.php?key=alpha-elite-2026
+
+Thấy === DONE === → 4 SKU đã có (AE-APP-001, VIP, DWY).
+
+## Bước 5 — Xóa ngay (bảo mật)
+
+Xóa trên server:
+- `ae-setup-once.php`
+- `elementor-alpha-elite-homepage.json`
+- `ae-setup-products.php`
+
+## Kết quả
+
+- Homepage Elementor full dark/gold
+- `Settings → Reading` đã set static homepage
+- Đăng nhập admin → **Edit with Elementor** trên trang chủ
+
+## Lưu ý
+
+- Plugin **Elementor** phải đã **Activate** (làm qua panel Login → Plugins nếu wp-admin lỗi từng URL)
+- Nếu script báo Elementor chưa active → activate rồi chạy lại link

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apprentice Operating Course — Alpha Elite</title>
+  <link rel="stylesheet" href="alpha-elite-tokens.css" />
+  <style>
+    .header-inner {
+      max-width: var(--ae-max); margin: 0 auto; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .nav { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+    .nav a { color: var(--ae-muted); font-size: 0.875rem; text-decoration: none; font-weight: 500; }
+    .nav a:hover { color: var(--ae-gold); }
+
+    .ae-section { padding: 80px 0; border-top: 1px solid var(--ae-border); }
+    .ae-section-head {
+      text-align: center; max-width: 680px; margin: 0 auto 48px;
+    }
+    .ae-section-head h2 {
+      font-family: var(--ae-font-display);
+      text-transform: uppercase;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      letter-spacing: 0.02em; line-height: 1.05; margin-bottom: 14px;
+      background: linear-gradient(180deg, #ffd700, #b8860b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .ae-section-head p { color: var(--ae-muted); font-size: 1.05rem; line-height: 1.65; }
+
+    /* Hero */
+    .apprentice-hero {
+      padding: 72px 0 80px;
+      border-top: none;
+    }
+    .hero-split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+    }
+    .hero-split h1 {
+      font-family: var(--ae-font-display);
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      text-transform: uppercase;
+      line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffd700, #eab308 50%, #b8860b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-stats {
+      display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0;
+    }
+    .hero-stat {
+      padding: 8px 14px; border: 1px solid var(--ae-border); border-radius: 999px;
+      font-size: 12px; color: var(--ae-muted);
+    }
+    .hero-stat strong { color: var(--ae-gold); }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+    .pricing-card-hero {
+      background: linear-gradient(145deg, #141414, #0a0a0a);
+      border: 1px solid var(--ae-border-gold);
+      border-radius: 16px; padding: 28px;
+      box-shadow: 0 0 48px rgba(245, 158, 11, 0.08);
+    }
+    .pricing-card-hero .sku {
+      font-size: 11px; color: var(--ae-disclaimer); letter-spacing: 0.1em; margin-bottom: 8px;
+    }
+    .pricing-card-hero .price {
+      font-family: var(--ae-font-display); font-size: 2.5rem; color: var(--ae-gold); margin-bottom: 4px;
+    }
+    .pricing-card-hero .price-note { font-size: 0.85rem; color: var(--ae-disclaimer); margin-bottom: 20px; }
+    .pricing-includes { list-style: none; margin-bottom: 24px; }
+    .pricing-includes li {
+      font-size: 0.9rem; color: var(--ae-muted); padding: 8px 0 8px 20px; position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .pricing-includes li::before { content: '✓'; position: absolute; left: 0; color: var(--ae-gold); font-weight: 700; }
+    .not-included {
+      font-size: 12px; color: var(--ae-disclaimer); margin-top: 16px; line-height: 1.5;
+    }
+
+    /* Outcomes */
+    .outcomes-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .outcome-card {
+      text-align: center; padding: 28px 20px;
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border); border-radius: 12px;
+    }
+    .outcome-card:hover { border-color: var(--ae-border-gold); }
+    .outcome-icon {
+      width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 14px;
+      background: rgba(255,215,0,0.1); border: 1px solid var(--ae-border-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: var(--ae-gold);
+    }
+    .outcome-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .outcome-card p { font-size: 0.88rem; color: var(--ae-muted); line-height: 1.5; }
+
+    /* Curriculum */
+    .curriculum-meta {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 16px;
+      margin-bottom: 32px; font-size: 0.9rem; color: var(--ae-muted);
+    }
+    .curriculum-meta span strong { color: var(--ae-gold); }
+    .curriculum-list { max-width: 840px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .module-card {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border); border-radius: 12px; overflow: hidden;
+    }
+    .module-card[open] { border-color: var(--ae-border-gold); }
+    .module-card summary {
+      padding: 20px 24px; cursor: pointer; list-style: none;
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .module-card summary::-webkit-details-marker { display: none; }
+    .module-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #000; background: linear-gradient(135deg, #c5a059, #ffd700);
+      padding: 5px 11px; border-radius: 4px; flex-shrink: 0;
+    }
+    .module-title { font-weight: 700; font-size: 1.05rem; color: var(--ae-text); flex: 1; min-width: 180px; }
+    .module-meta { font-size: 0.8rem; color: var(--ae-disclaimer); }
+    .module-body { padding: 0 24px 24px; border-top: 1px solid var(--ae-border); }
+    .module-outcome {
+      font-size: 0.9rem; color: var(--ae-gold-muted); font-weight: 600;
+      margin: 16px 0 14px;
+    }
+    .lesson-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .lesson-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.9rem; color: var(--ae-muted);
+    }
+    .lesson-list li:last-child { border-bottom: none; }
+    .lesson-num {
+      font-size: 11px; font-weight: 700; color: var(--ae-gold); min-width: 36px; padding-top: 2px;
+    }
+    .lesson-title { color: var(--ae-text); font-weight: 500; display: block; margin-bottom: 2px; }
+    .lesson-desc { font-size: 0.82rem; color: var(--ae-disclaimer); }
+
+    /* LearnHouse preview */
+    .platform-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center;
+    }
+    .platform-mock {
+      background: linear-gradient(145deg, #141414, #0a0a0a);
+      border: 1px solid var(--ae-border-gold); border-radius: 12px; padding: 20px;
+    }
+    .mock-bar {
+      height: 8px; background: #222; border-radius: 4px; margin-bottom: 16px;
+      display: flex; gap: 6px; padding: 0 8px; align-items: center;
+    }
+    .mock-dot { width: 6px; height: 6px; border-radius: 50%; background: #444; }
+    .mock-module {
+      background: #1a1a1a; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px;
+      font-size: 13px; color: var(--ae-muted); display: flex; justify-content: space-between;
+    }
+    .mock-module.active { border-left: 3px solid var(--ae-gold); color: var(--ae-text); }
+    .mock-progress {
+      height: 4px; background: #222; border-radius: 2px; margin-top: 16px; overflow: hidden;
+    }
+    .mock-progress span {
+      display: block; height: 100%; width: 35%; background: linear-gradient(90deg, #b8860b, #ffd700);
+    }
+    .platform-copy h3 { font-size: 1.35rem; margin-bottom: 12px; }
+    .platform-copy p { color: var(--ae-muted); line-height: 1.65; margin-bottom: 12px; font-size: 0.95rem; }
+    .platform-copy ul { list-style: none; margin-top: 16px; }
+    .platform-copy li {
+      font-size: 0.9rem; color: var(--ae-muted); padding: 6px 0 6px 20px; position: relative;
+    }
+    .platform-copy li::before { content: '✓'; position: absolute; left: 0; color: var(--ae-gold); }
+
+    /* Who */
+    .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: 0 auto; }
+    .who-card { border-radius: 12px; padding: 28px; }
+    .who-card--for {
+      background: linear-gradient(145deg, #141414, #0a0a0a);
+      border: 1px solid var(--ae-border-gold);
+    }
+    .who-card--not { background: rgba(255,255,255,0.02); border: 1px solid var(--ae-border); }
+    .who-card h3 {
+      font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 16px;
+    }
+    .who-card--for h3 { color: var(--ae-gold); }
+    .who-card--not h3 { color: #888; }
+    .who-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .who-list li {
+      font-size: 0.9rem; line-height: 1.5; padding-left: 20px; position: relative; color: var(--ae-muted);
+    }
+    .who-card--for .who-list li { color: var(--ae-text); }
+    .who-card--for .who-list li::before { content: '✓'; position: absolute; left: 0; color: var(--ae-gold); }
+    .who-card--not .who-list li::before { content: '✕'; position: absolute; left: 0; color: #666; }
+    .who-prereq {
+      text-align: center; font-size: 0.88rem; color: var(--ae-disclaimer);
+      margin-top: 24px; max-width: 680px; margin-left: auto; margin-right: auto; line-height: 1.6;
+    }
+
+    /* Pricing band */
+    .pricing-band {
+      background: linear-gradient(160deg, #121212 0%, #080808 50%, #0a0a0a 100%);
+      border-top: 1px solid var(--ae-border-gold);
+      border-bottom: 1px solid var(--ae-border-gold);
+    }
+    .pricing-band-inner {
+      max-width: 520px; margin: 0 auto; text-align: center;
+    }
+    .pricing-band .price { font-family: var(--ae-font-display); font-size: 3rem; color: var(--ae-gold); }
+    .pricing-band .ae-btn-gold { width: 100%; margin-top: 20px; }
+    .pricing-legal { font-size: 12px; color: var(--ae-disclaimer); margin-top: 16px; line-height: 1.6; }
+
+    /* Bonus stack */
+    .bonus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .bonus-card {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border);
+      border-radius: 12px;
+      padding: 22px 20px;
+    }
+    .bonus-card:hover { border-color: var(--ae-border-gold); }
+    .bonus-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--ae-gold-muted);
+      margin-bottom: 8px;
+    }
+    .bonus-card h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ae-text);
+      margin-bottom: 6px;
+    }
+    .bonus-card p {
+      font-size: 0.82rem;
+      color: var(--ae-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .bonus-note {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--ae-disclaimer);
+      margin-top: 24px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* FAQ */
+    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-list details {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border); border-radius: 8px;
+      padding: 18px 22px; margin-bottom: 10px;
+    }
+    .faq-list details[open] { border-color: var(--ae-border-gold); }
+    .faq-list summary {
+      font-weight: 600; cursor: pointer; color: var(--ae-text); list-style: none;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list details p {
+      margin-top: 14px; font-size: 0.9rem; color: var(--ae-muted); line-height: 1.6;
+    }
+    .faq-list details p strong { color: var(--ae-text); }
+
+    .footer {
+      border-top: 1px solid var(--ae-border); padding: 40px 24px; text-align: center;
+      font-size: 12px; color: #666; line-height: 1.6;
+    }
+    .footer a { color: var(--ae-gold-muted); }
+
+    /* Sticky mobile bar */
+    .sticky-enroll {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(0,0,0,0.95); backdrop-filter: blur(12px);
+      border-top: 1px solid var(--ae-border-gold);
+      padding: 12px 20px; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .sticky-enroll .sticky-price {
+      font-family: var(--ae-font-display); font-size: 1.25rem; color: var(--ae-gold);
+    }
+    .sticky-enroll .sticky-label { font-size: 11px; color: var(--ae-disclaimer); }
+    .sticky-enroll .ae-btn-gold { padding: 12px 24px; min-height: 44px; font-size: 0.85rem; white-space: nowrap; }
+
+    @media (max-width: 767px) {
+      .nav .nav-text { display: none; }
+      .hero-split { grid-template-columns: 1fr; }
+      .hero-split .pricing-card-hero { order: 2; }
+      .outcomes-grid { grid-template-columns: 1fr; }
+      .platform-grid { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr; }
+      .bonus-grid { grid-template-columns: 1fr; }
+      .sticky-enroll { display: flex; }
+      body { padding-bottom: 72px; }
+      .ae-section { padding: 56px 0; }
+      .hero-cta .ae-btn-gold, .hero-cta .ae-btn-outline { width: 100%; }
+    }
+  </style>
+</head>
+<body class="ae-theme-gold">
+
+  <header class="ae-header-gold">
+    <div class="header-inner">
+      <a href="homepage-dark-gold.html" class="ae-logo-gold">Alpha <span>Elite</span></a>
+      <nav class="nav">
+        <a href="#curriculum" class="nav-text">Curriculum</a>
+        <a href="#pricing" class="nav-text">Pricing</a>
+        <a href="#faq" class="nav-text">FAQ</a>
+        <a href="#enroll" class="ae-btn-gold">Start Apprentice Course</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="ae-container">
+
+    <!-- Hero -->
+    <section class="ae-section apprentice-hero" id="apprentice-hero">
+      <div class="hero-split">
+        <div>
+          <span class="ae-eyebrow-gold">Apprentice operating course</span>
+          <h1>Install The Habits Before You Upgrade The Desk</h1>
+          <p class="ae-body-text">
+            LearnHouse modules, worksheets, and SOPs that turn the free Gameplan into a repeatable
+            operating protocol — education, structure, and risk-aware habits on XAUUSD. Not a signal group.
+          </p>
+          <div class="hero-stats">
+            <span class="hero-stat"><strong>5</strong> modules</span>
+            <span class="hero-stat"><strong>~14</strong> lessons</span>
+            <span class="hero-stat"><strong>2–3h</strong> video</span>
+            <span class="hero-stat"><strong>Worksheets</strong> per module</span>
+          </div>
+          <div class="hero-cta">
+            <a href="#enroll" class="ae-btn-gold">Start Apprentice Course</a>
+            <a href="#curriculum" class="ae-btn-outline">See full curriculum</a>
+          </div>
+          <p class="ae-disclaimer-micro">
+            No profit guarantees. Trading involves risk. Not investment advice.
+          </p>
+        </div>
+        <div class="pricing-card-hero" id="enroll">
+          <div class="sku">SKU · AE-APP-001</div>
+          <div class="price">$297</div>
+          <p class="price-note">One-time · LearnHouse access · manual provision ≤24h</p>
+          <ul class="pricing-includes">
+            <li>5 modules · ~14 lessons · unlisted video</li>
+            <li>Market structure literacy + 2% risk protocol</li>
+            <li><strong>Operating Toolkit</strong> — 6 worksheets &amp; SOP templates</li>
+            <li>Automation support literacy (education)</li>
+            <li>Path to VIP private desk</li>
+          </ul>
+          <a href="/checkout/?add-to-cart=AE-APP-001" class="ae-btn-gold" style="width:100%">Start Apprentice Course</a>
+          <p class="not-included">
+            Not included: VIP Telegram · live desk · guaranteed outcomes
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Outcomes -->
+    <section class="ae-section" id="outcomes">
+      <div class="ae-section-head">
+        <span class="ae-eyebrow-gold">Outcomes</span>
+        <h2>What You Install</h2>
+        <p>Process and discipline — not profit promises. You own every trade decision.</p>
+      </div>
+      <div class="outcomes-grid">
+        <div class="outcome-card">
+          <div class="outcome-icon">◎</div>
+          <h3>Discipline</h3>
+          <p>Separate emotional execution from structured pre-trade and post-trade habits.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-icon">⚖</div>
+          <h3>Risk protocol</h3>
+          <p>Apply the 2% risk management framework with worksheets — every session.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-icon">↻</div>
+          <h3>Review cadence</h3>
+          <p>Run daily SOPs and weekly reviews so the desk stays accountable.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Operating Toolkit (bonus stack) -->
+    <section class="ae-section" id="bonus-stack">
+      <div class="ae-section-head">
+        <span class="ae-eyebrow-gold">Included</span>
+        <h2>Operating Toolkit</h2>
+        <p>Six printable templates and checklists — install the protocol on day one, not after every video.</p>
+      </div>
+      <div class="bonus-grid">
+        <div class="bonus-card">
+          <div class="bonus-num">TOOL 01</div>
+          <h4>2% Sizing Worksheet</h4>
+          <p>Printable PDF · size every trade to the framework before your session.</p>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-num">TOOL 02</div>
+          <h4>Pre-Trade Risk Gate</h4>
+          <p>One-page go/no-go checklist · emotional-trading filter.</p>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-num">TOOL 03</div>
+          <h4>Daily SOP Checklist</h4>
+          <p>Same before/after session process every day.</p>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-num">TOOL 04</div>
+          <h4>Weekly Review Template</h4>
+          <p>PDF + Google Sheet · structured review — journal habits, not P&amp;L marketing.</p>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-num">TOOL 05</div>
+          <h4>Journal Field Guide</h4>
+          <p>Which fields to log and why — education only.</p>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-num">TOOL 06</div>
+          <h4>Automation Support Checklist</h4>
+          <p>What you decide vs what tools assist — not passive income.</p>
+        </div>
+      </div>
+      <p class="bonus-note">
+        Templates support habit formation and education. They do not generate trade signals or guarantee outcomes.
+      </p>
+    </section>
+
+    <!-- Full curriculum -->
+    <section class="ae-section" id="curriculum">
+      <div class="ae-section-head">
+        <span class="ae-eyebrow-gold">Full curriculum</span>
+        <h2>Apprentice Operating Course</h2>
+        <p>Every lesson: objective · unlisted video · key points · worksheet · compliance note.</p>
+      </div>
+      <div class="curriculum-meta">
+        <span><strong>14</strong> lessons</span>
+        <span><strong>5</strong> modules</span>
+        <span>LearnHouse · <strong>education only</strong></span>
+      </div>
+      <div class="curriculum-list">
+
+        <details class="module-card">
+          <summary>
+            <span class="module-badge">M1</span>
+            <span class="module-title">Operating Mindset</span>
+            <span class="module-meta">3 lessons · ~25 min</span>
+          </summary>
+          <div class="module-body">
+            <p class="module-outcome">Outcome: Separate emotional execution from structured habits</p>
+            <ul class="lesson-list">
+              <li>
+                <span class="lesson-num">M1L1</span>
+                <div>
+                  <span class="lesson-title">Emotional vs structured execution</span>
+                  <span class="lesson-desc">Define the gap between alert-chasing and operating from SOPs</span>
+                </div>
+              </li>
+              <li>
+                <span class="lesson-num">M1L2</span>
+                <div>
+                  <span class="lesson-title">Why systems beat alert chasing</span>
+                  <span class="lesson-desc">Education framing — not a signal group</span>
+                </div>
+              </li>
+              <li>
+                <span class="lesson-num">M1L3</span>
+                <div>
+                  <span class="lesson-title">Desk readiness checklist</span>
+                  <span class="lesson-desc">Worksheet: minimum standards before any session</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="module-card">
+          <summary>
+            <span class="module-badge">M2</span>
+            <span class="module-title">The 2% Rule In Practice</span>
+            <span class="module-meta">4 lessons · ~35 min</span>
+          </summary>
+          <div class="module-body">
+            <p class="module-outcome">Outcome: Size positions using the risk framework — every trade</p>
+            <ul class="lesson-list">
+              <li>
+                <span class="lesson-num">M2L1</span>
+                <div>
+                  <span class="lesson-title">2% risk management framework</span>
+                  <span class="lesson-desc">Definitions and educational application — not a profit formula</span>
+                </div>
+              </li>
+              <li>
+                <span class="lesson-num">M2L2</span>
+                <div>
+                  <span class="lesson-title">Sizing worksheet walkthrough</span>
+                  <span class="lesson-desc">Downloadable worksheet · practice scenarios</span>
+                </div>
+              </li>
+              <li>
+                <span class="lesson-num">M2L3</span>
+                <div>
+                  <span class="lesson-title">Pre-trade risk gate</span>
+                  <span class="lesson-desc">Checklist before any order is placed</span>
+                </div>
+              </li>
+              <li>
+                <span class="lesson-num">M2L4</span>
+                <div>
+                  <span class="lesson-title">When not to trade</span>
+                  <span class="lesson-desc">Protocol for sitting out — structure over frequency</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="module-card" open>
+          <summary>
+            <span class="module-badge">M3</span>
+            <span class="module-title">Daily &amp; Weekly SOPs</span>
+            <span class="module-meta">3 lessons · ~30 min</span>
+          </summary>
+          <div class="module-body">
+            <p class="module-outcome">Outcome: Run the same before/after session process every week</p>
+            <ul class="lesson-list">
+              <li>
+                <span class="lesson-num">M3L1</span>
+                <div>
+                  <span class="lesson-title">Daily SOP checklist</span>
+                  <span class="lesson-desc">Pre-session · in-session · post-session steps</span>
+                </div>
+              </li>
+              <li>
+                <span class="lesson-num">M3L2</span>
+                <div>
+                  <span class="lesson-title">Weekly review template</span>
+                  <span class="lesson-desc">Review cadence — journal for learning, not P&amp;L marketing</span>
+                </div>
+              </li>
+              <li>
+                <span class="lesson-num">M3L3</span>
+                <div>
+                  <span class="lesson-title">Setup documentation format</span>
+                  <span class="lesson-desc">How to document ideas inside SOPs (education)</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="module-card">
+          <summary>
+            <span class="module-badge">M4</span>
+            <span class="module-title">Automation Support Literacy</span>
+            <span class="module-meta">2 lessons · ~20 min</span>
+          </summary>
+          <div class="module-body">
+            <p class="module-outcome">Outcome: Understand automation as support — not passive income</p>
+            <ul class="lesson-list">
+              <li>
+                <span class="lesson-num">M4L1</span>
+                <div>
+                  <span class="lesson-title">Automation overview (education)</span>
+                  <span class="lesson-desc">What tools can and cannot decide for you</span>
+                </div>
+              </li>
+              <li>
+                <span class="lesson-num">M4L2</span>
+                <div>
+                  <span class="lesson-title">Tool checklist — manual decisions</span>
+                  <span class="lesson-desc">No bot income promises · you own execution</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="module-card">
+          <summary>
+            <span class="module-badge">M5</span>
+            <span class="module-title">Path To VIP</span>
+            <span class="module-meta">2 lessons · ~15 min</span>
+          </summary>
+          <div class="module-body">
+            <p class="module-outcome">Outcome: Know when operating habits are ready for the private desk</p>
+            <ul class="lesson-list">
+              <li>
+                <span class="lesson-num">M5L1</span>
+                <div>
+                  <span class="lesson-title">VIP desk overview &amp; accountability rules</span>
+                  <span class="lesson-desc">Rules-first channel — not an alert service</span>
+                </div>
+              </li>
+              <li>
+                <span class="lesson-num">M5L2</span>
+                <div>
+                  <span class="lesson-title">Upgrade checklist</span>
+                  <span class="lesson-desc">Structure first · when to step up to VIP</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- LearnHouse preview -->
+    <section class="ae-section" id="platform">
+      <div class="platform-grid">
+        <div class="platform-mock" role="img" aria-label="LearnHouse course preview">
+          <div class="mock-bar">
+            <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+          </div>
+          <div class="mock-module active">M1 · Operating Mindset <span>3 lessons</span></div>
+          <div class="mock-module">M2 · 2% Rule In Practice <span>4 lessons</span></div>
+          <div class="mock-module">M3 · Daily &amp; Weekly SOPs <span>3 lessons</span></div>
+          <div class="mock-module">M4 · Automation Support <span>2 lessons</span></div>
+          <div class="mock-module">M5 · Path To VIP <span>2 lessons</span></div>
+          <div class="mock-progress"><span></span></div>
+          <p style="font-size:11px;color:#555;margin-top:12px">UI illustration · learn.[domain].com</p>
+        </div>
+        <div class="platform-copy">
+          <span class="ae-eyebrow-gold">Platform</span>
+          <h3>Delivered on LearnHouse</h3>
+          <p>
+            Self-hosted LMS — progress tracking, worksheets per module, and unlisted YouTube embeds.
+            Access provisioned manually within 24h after payment (MVP).
+          </p>
+          <ul>
+            <li>Mobile-friendly lesson player</li>
+            <li>Downloadable SOP worksheets</li>
+            <li>Compliance note on every lesson</li>
+            <li>No public signal feed inside LMS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who it's for -->
+    <section class="ae-section" id="who-its-for">
+      <div class="ae-section-head">
+        <span class="ae-eyebrow-gold">Fit check</span>
+        <h2>Built For Operators</h2>
+      </div>
+      <div class="who-grid">
+        <div class="who-card who-card--for">
+          <h3>For you if</h3>
+          <ul class="who-list">
+            <li>You completed (or are working through) the free Gameplan</li>
+            <li>You want structure, SOPs, and accountability on XAUUSD</li>
+            <li>You'll paper-trade or backtest before sizing real risk</li>
+          </ul>
+        </div>
+        <div class="who-card who-card--not">
+          <h3>Not for you if</h3>
+          <ul class="who-list">
+            <li>You want guaranteed profits, win-rate hype, or passive bot income</li>
+            <li>You chase alerts and won't run a journal or weekly review</li>
+            <li>You want financial advice — this is education only</li>
+          </ul>
+        </div>
+      </div>
+      <p class="who-prereq">
+        We recommend 1–3 months of practice on the framework before increasing size.
+        Apply the 7-day Gameplan sprint before Module 3. Outcomes vary; trading involves risk.
+      </p>
+    </section>
+
+    <!-- Pricing band -->
+    <section class="ae-section pricing-band" id="pricing">
+      <div class="pricing-band-inner">
+        <span class="ae-eyebrow-gold">Enroll</span>
+        <h2 style="font-family:var(--ae-font-display);text-transform:uppercase;font-size:1.75rem;margin:12px 0;color:var(--ae-text)">
+          Apprentice Operating Course
+        </h2>
+        <div class="price">$297</div>
+        <p style="color:var(--ae-muted);font-size:0.95rem;margin-top:8px">One-time · AE-APP-001 · includes Operating Toolkit</p>
+        <a href="/checkout/?add-to-cart=AE-APP-001" class="ae-btn-gold">Start Apprentice Course</a>
+        <p class="pricing-legal">
+          Trading involves substantial risk of loss. No profit guarantees. Not investment advice.<br>
+          <a href="homepage-dark-gold.html#get-gameplan" style="color:var(--ae-gold-muted)">Get the free Gameplan first →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="ae-section" id="faq">
+      <div class="ae-section-head">
+        <span class="ae-eyebrow-gold">FAQ</span>
+        <h2>Before You Enroll</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>Is this a signal group?</summary>
+          <p><strong>No.</strong> Apprentice installs operating protocols and SOPs — not entry alerts. Structured ideas are taught as education inside a framework.</p>
+        </details>
+        <details>
+          <summary>Does the course guarantee profits?</summary>
+          <p><strong>No.</strong> All modules are educational. Trading involves substantial risk of loss. Past examples do not guarantee future outcomes.</p>
+        </details>
+        <details>
+          <summary>Do I need prior trading experience?</summary>
+          <p>Basic chart and market structure familiarity helps. Start with the free Gameplan if you're newer — Apprentice builds on that foundation.</p>
+        </details>
+        <details>
+          <summary>Will you tell me exactly when to buy or sell?</summary>
+          <p><strong>No.</strong> You learn how to document and review setups inside SOPs. You own every execution decision.</p>
+        </details>
+        <details>
+          <summary>How long to complete?</summary>
+          <p>~2–3 hours of video plus worksheet practice. Most operators spread modules over 2–4 weeks alongside live practice.</p>
+        </details>
+        <details>
+          <summary>How do I get access after payment?</summary>
+          <p>Manual provision at MVP: LearnHouse login emailed within 24h. See order confirmation for support contact.</p>
+        </details>
+        <details>
+          <summary>What's not included?</summary>
+          <p>VIP Telegram desk and Quant Desk are separate tiers — see <a href="vip-preview.html" style="color:var(--ae-gold)">VIP preview</a> after you complete core modules.</p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" id="risk">
+    <strong>RISK WARNING:</strong> Trading forex, crypto, and XAUUSD involves substantial risk of loss.
+    Alpha Elite provides education, structured trade ideas, automation support, SOPs, and community accountability —
+    not investment advice or guaranteed returns. All trading decisions are yours.
+    <p style="margin-top:12px">
+      <a href="homepage-dark-gold.html">← Back to homepage</a> ·
+      <a href="vip-preview.html">VIP Desk →</a> ·
+      <a href="../course-curriculum-copy.md">Curriculum copy doc</a>
+    </p>
+  </footer>
+
+  <div class="sticky-enroll" aria-hidden="false">
+    <div>
+      <div class="sticky-price">$297</div>
+      <div class="sticky-label">Apprentice · AE-APP-001</div>
+    </div>
+    <a href="/checkout/?add-to-cart=AE-APP-001" class="ae-btn-gold">Start Apprentice Course</a>
+  </div>
+
+</body>
+</html>

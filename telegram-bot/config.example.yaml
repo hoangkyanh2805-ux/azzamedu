@@ -1,0 +1,44 @@
+# Alpha Elite Telegram Access Bot — example config
+# Copy to config.yaml (gitignored) or use environment variables
+
+bot:
+  token: ${TELEGRAM_BOT_TOKEN}
+  mode: polling  # polling | webhook
+  webhook_path: /webhook/secret-path-here
+
+admin:
+  telegram_ids:
+    - 123456789  # replace with real admin IDs
+
+site:
+  base_url: https://yourdomain.com
+  learnhouse_url: https://learn.yourdomain.com
+  gameplan_url: /gameplan
+
+checkout:
+  AE-APP-001: /checkout/?add-to-cart=AE-APP-001
+  AE-VIP-MON: /checkout/?add-to-cart=AE-VIP-MON
+  AE-VIP-YR: /checkout/?add-to-cart=AE-VIP-YR
+  AE-QNT-001: /quant-desk
+
+pricing_usd:  # G0 — sync with pricing-draft-g0.md
+  AE-APP-001: 297
+  AE-VIP-MON: 149
+  AE-VIP-YR: 1290
+  AE-DWY-001: 497
+
+payment:
+  paypal_email: hello@yourdomain.com
+  crypto:
+    network: USDT TRC20
+    wallet: TYourWalletAddress
+
+database:
+  provider: supabase  # supabase | sheets
+  url: ${DATABASE_URL}  # Supabase project URL: https://<project>.supabase.co
+  # sheets_id: ${GOOGLE_SHEETS_ID}
+
+compliance:
+  disclaimer_short: |
+    Education and community support only — not investment advice or guaranteed returns.
+    Trading involves substantial risk. You may lose capital.

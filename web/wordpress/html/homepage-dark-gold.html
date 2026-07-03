@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alpha Elite — Private Financial Operating System</title>
+  <link rel="stylesheet" href="alpha-elite-tokens.css" />
+  <style>
+    .header-inner {
+      max-width: var(--ae-max); margin: 0 auto; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav { display: flex; gap: 24px; align-items: center; }
+    .nav a { color: var(--ae-muted); font-size: 0.875rem; text-decoration: none; font-weight: 500; }
+    .nav a:hover { color: var(--ae-gold); }
+    .nav .ae-btn-gold { padding: 10px 20px; min-height: 40px; font-size: 0.8rem; }
+    .header-badge { margin-left: auto; margin-right: 16px; }
+    .optin-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--ae-border);
+    }
+    .optin-section h2 {
+      font-family: var(--ae-font-display);
+      text-transform: uppercase;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      text-align: center;
+      background: linear-gradient(180deg, #ffd700, #b8860b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .optin-intro { text-align: center; color: var(--ae-muted); max-width: 560px; margin: 0 auto 36px; }
+    .features { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 36px; }
+    .feat {
+      text-align: center; padding: 20px;
+      border: 1px solid var(--ae-border); border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+    }
+    .feat h4 { color: var(--ae-gold); font-size: 0.9rem; margin-bottom: 6px; }
+    .feat p { font-size: 0.8rem; color: var(--ae-muted); }
+    .form-wrap { max-width: 480px; margin: 0 auto; }
+    .form-legal { text-align: center; font-size: 12px; color: var(--ae-disclaimer); margin-top: 20px; line-height: 1.6; }
+    .form-legal a { color: var(--ae-gold); }
+    .footer {
+      border-top: 1px solid var(--ae-border);
+      padding: 40px 24px; text-align: center;
+      font-size: 12px; color: #666; line-height: 1.6;
+    }
+    .footer a { color: var(--ae-gold-muted); }
+    .desk-panel { background: #1a1a1a; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+    .desk-label-sm { font-size: 11px; color: var(--ae-disclaimer); text-transform: uppercase; letter-spacing: 0.08em; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stat-inner { background: #1a1a1a; border-radius: 8px; padding: 12px; }
+    .stat-gold { font-size: 22px; font-weight: 700; color: var(--ae-gold); }
+    .desk-foot { font-size: 11px; color: #555; margin-top: 14px; }
+    .tier-row { display: flex; gap: 16px; align-items: center; margin-top: 24px; }
+    .tier-note { font-size: 13px; color: var(--ae-muted); line-height: 1.5; }
+    .tier-note strong { color: var(--ae-text); }
+
+    /* Shared section styles */
+    .ae-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--ae-border);
+    }
+    .ae-section-head {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 48px;
+    }
+    .ae-section-head h2 {
+      font-family: var(--ae-font-display);
+      text-transform: uppercase;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      background: linear-gradient(180deg, #ffd700, #b8860b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ae-section-head p {
+      color: var(--ae-muted);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    /* not-signal-group */
+    .contrast-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .contrast-card {
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .contrast-card--muted {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--ae-border);
+    }
+    .contrast-card--gold {
+      background: linear-gradient(145deg, #141414, #0a0a0a);
+      border: 1px solid var(--ae-border-gold);
+      box-shadow: 0 0 40px rgba(245, 158, 11, 0.06);
+    }
+    .contrast-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .contrast-label--bad { color: #888; }
+    .contrast-label--good { color: var(--ae-gold); }
+    .contrast-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .contrast-list li {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      padding-left: 22px;
+      position: relative;
+      color: var(--ae-muted);
+    }
+    .contrast-card--gold .contrast-list li { color: var(--ae-text); }
+    .contrast-list li::before {
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+    }
+    .contrast-card--muted .contrast-list li::before { content: '✕'; color: #666; }
+    .contrast-card--gold .contrast-list li::before { content: '✓'; color: var(--ae-gold); }
+    .contrast-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--ae-disclaimer);
+      margin-top: 24px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* how-it-works timeline */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--ae-border-gold), transparent);
+      z-index: 0;
+    }
+    .timeline-step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ae-font-display);
+      font-size: 1.25rem;
+      color: var(--ae-gold);
+      background: #0a0a0a;
+      border: 1px solid var(--ae-border-gold);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.12);
+    }
+    .step-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--ae-text);
+    }
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--ae-muted);
+      line-height: 1.5;
+      max-width: 200px;
+      margin: 0 auto;
+    }
+
+    /* offers */
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+    .offer-card {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border);
+      border-radius: 12px;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .offer-card--featured {
+      border-color: var(--ae-border-gold);
+      box-shadow: 0 0 48px rgba(245, 158, 11, 0.1);
+      transform: scale(1.02);
+    }
+    .offer-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #000;
+      background: linear-gradient(135deg, #c5a059, #ffd700);
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      align-self: flex-start;
+    }
+    .offer-tier {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ae-gold-muted);
+      margin-bottom: 8px;
+    }
+    .offer-card h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .offer-price {
+      font-family: var(--ae-font-display);
+      font-size: 2rem;
+      color: var(--ae-gold);
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+    .offer-price span {
+      font-family: var(--ae-font-body);
+      font-size: 0.85rem;
+      color: var(--ae-disclaimer);
+      font-weight: 400;
+    }
+    .offer-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+    .offer-features li {
+      font-size: 0.9rem;
+      color: var(--ae-muted);
+      padding: 8px 0;
+      padding-left: 22px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      line-height: 1.45;
+    }
+    .offer-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--ae-gold);
+      font-weight: 700;
+    }
+    .offer-card .ae-btn-gold,
+    .offer-card .ae-btn-outline {
+      width: 100%;
+      font-size: 0.9rem;
+      padding: 12px 20px;
+      min-height: 44px;
+    }
+    .offers-foot {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 0.9rem;
+      color: var(--ae-muted);
+    }
+    .offers-foot a { color: var(--ae-gold); text-decoration: none; }
+
+    /* faq */
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .faq-list details {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin-bottom: 10px;
+    }
+    .faq-list details[open] { border-color: var(--ae-border-gold); }
+    .faq-list summary {
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--ae-text);
+      list-style: none;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after {
+      content: '+';
+      float: right;
+      color: var(--ae-gold);
+      font-weight: 400;
+      font-size: 1.25rem;
+    }
+    .faq-list details[open] summary::after { content: '−'; }
+    .faq-list details p {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: var(--ae-muted);
+      line-height: 1.6;
+    }
+    .faq-list details p strong { color: var(--ae-text); }
+
+    /* what-you-learn / system library */
+    .library-flow {
+      background: linear-gradient(145deg, #141414, #0a0a0a);
+      border: 1px solid var(--ae-border-gold);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .library-flow p {
+      color: var(--ae-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .library-flow strong { color: var(--ae-text); }
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .library-card {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border);
+      border-radius: 12px;
+      padding: 28px 22px;
+      transition: border-color 0.2s;
+    }
+    .library-card:hover { border-color: var(--ae-border-gold); }
+    .library-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid var(--ae-border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      color: var(--ae-gold);
+    }
+    .library-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--ae-text);
+    }
+    .library-card p {
+      font-size: 0.88rem;
+      color: var(--ae-muted);
+      line-height: 1.55;
+    }
+    .library-cta {
+      text-align: center;
+      margin-top: 28px;
+    }
+    .library-cta a {
+      color: var(--ae-gold);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* curriculum modules */
+    .curriculum-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .module-card {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .module-card[open] { border-color: var(--ae-border-gold); }
+    .module-card summary {
+      padding: 18px 22px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .module-card summary::-webkit-details-marker { display: none; }
+    .module-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #000;
+      background: linear-gradient(135deg, #c5a059, #ffd700);
+      padding: 4px 10px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .module-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--ae-text);
+      flex: 1;
+    }
+    .module-meta {
+      font-size: 0.8rem;
+      color: var(--ae-disclaimer);
+      flex-shrink: 0;
+    }
+    .module-body {
+      padding: 0 22px 20px 22px;
+      border-top: 1px solid var(--ae-border);
+    }
+    .module-outcome {
+      font-size: 0.9rem;
+      color: var(--ae-gold-muted);
+      margin: 14px 0 10px;
+      font-weight: 600;
+    }
+    .module-includes {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .module-includes li {
+      font-size: 0.88rem;
+      color: var(--ae-muted);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .module-includes li::before {
+      content: '·';
+      position: absolute;
+      left: 4px;
+      color: var(--ae-gold);
+      font-weight: 700;
+    }
+
+    /* who-its-for */
+    .who-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .who-card {
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .who-card--for {
+      background: linear-gradient(145deg, #141414, #0a0a0a);
+      border: 1px solid var(--ae-border-gold);
+    }
+    .who-card--not {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--ae-border);
+    }
+    .who-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.85rem;
+    }
+    .who-card--for h3 { color: var(--ae-gold); }
+    .who-card--not h3 { color: #888; }
+    .who-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .who-list li {
+      font-size: 0.9rem;
+      color: var(--ae-muted);
+      line-height: 1.5;
+      padding-left: 20px;
+      position: relative;
+    }
+    .who-card--for .who-list li { color: var(--ae-text); }
+    .who-card--for .who-list li::before { content: '✓'; position: absolute; left: 0; color: var(--ae-gold); }
+    .who-card--not .who-list li::before { content: '✕'; position: absolute; left: 0; color: #666; }
+    .who-prereq {
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--ae-disclaimer);
+      margin-top: 24px;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* testimonials — placeholder until G1-approved quotes */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .testimonial-card {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      text-align: left;
+      position: relative;
+    }
+    .testimonial-card:hover { border-color: var(--ae-border-gold); }
+    .testimonial-placeholder {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ae-gold-muted);
+      border: 1px dashed rgba(197, 160, 89, 0.4);
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+    .testimonial-quote {
+      font-size: 0.95rem;
+      color: var(--ae-text);
+      line-height: 1.65;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .testimonial-quote::before {
+      content: '"';
+      color: var(--ae-gold-muted);
+      font-size: 1.5rem;
+      line-height: 0;
+      vertical-align: -0.2em;
+      margin-right: 2px;
+    }
+    .testimonial-author {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ae-gold-muted);
+    }
+    .testimonial-role {
+      font-size: 0.78rem;
+      color: var(--ae-disclaimer);
+      margin-top: 4px;
+    }
+    .testimonials-note {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--ae-disclaimer);
+      margin-top: 28px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* VSL video frame — click-to-load facade */
+    .vsl-section { padding-top: 64px; padding-bottom: 64px; }
+    .vsl-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 3px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #8b6914 0%, #ffd700 35%, #c5a059 65%, #b8860b 100%);
+      box-shadow:
+        0 0 0 1px rgba(255, 215, 0, 0.15),
+        0 24px 80px rgba(0, 0, 0, 0.55),
+        0 0 48px rgba(245, 158, 11, 0.12);
+    }
+    .vsl-inner {
+      border-radius: 13px;
+      overflow: hidden;
+      background: #050505;
+      aspect-ratio: 16 / 9;
+      position: relative;
+    }
+    .vsl-facade {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      cursor: pointer;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255, 215, 0, 0.06) 0%, transparent 70%),
+        linear-gradient(160deg, #141414 0%, #080808 100%);
+      border: none;
+      width: 100%;
+      height: 100%;
+      padding: 24px;
+      color: inherit;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .vsl-facade:hover {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 70%),
+        linear-gradient(160deg, #1a1a1a 0%, #0a0a0a 100%);
+    }
+    .vsl-facade.is-hidden { display: none; }
+    .vsl-play-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 215, 0, 0.12);
+      border: 2px solid rgba(255, 215, 0, 0.55);
+      box-shadow: 0 0 32px rgba(245, 158, 11, 0.25);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .vsl-facade:hover .vsl-play-ring {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(245, 158, 11, 0.35);
+    }
+    .vsl-play-ring svg {
+      width: 28px;
+      height: 28px;
+      margin-left: 4px;
+      fill: var(--ae-gold);
+    }
+    .vsl-facade-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ae-gold-muted);
+    }
+    .vsl-facade-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ae-text);
+      text-align: center;
+      max-width: 360px;
+      line-height: 1.45;
+    }
+    .vsl-facade-duration {
+      font-size: 0.75rem;
+      color: var(--ae-disclaimer);
+    }
+    .vsl-embed {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none;
+    }
+    .vsl-embed.is-active { display: block; }
+    .vsl-placeholder-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ae-gold-muted);
+      border: 1px dashed rgba(197, 160, 89, 0.45);
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+    }
+    .vsl-note {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--ae-disclaimer);
+      margin-top: 20px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .vsl-cta-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .final-cta {
+      background: linear-gradient(160deg, #141414 0%, #080808 50%, #0a0a0a 100%);
+      border-top: 1px solid var(--ae-border-gold);
+      border-bottom: 1px solid var(--ae-border-gold);
+      text-align: center;
+    }
+    .final-cta-inner { max-width: 560px; margin: 0 auto; }
+    .final-cta h2 {
+      font-family: var(--ae-font-display); text-transform: uppercase;
+      font-size: clamp(1.5rem, 3vw, 2.25rem); margin-bottom: 14px;
+      background: linear-gradient(180deg, #ffd700, #b8860b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .final-cta p { color: var(--ae-muted); margin-bottom: 24px; line-height: 1.6; }
+    .final-cta .ae-btn-gold { min-width: 260px; }
+
+    .footer-grid {
+      max-width: var(--ae-max); margin: 0 auto 32px;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; text-align: left;
+    }
+    .footer-grid h4 {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ae-gold-muted); margin-bottom: 14px;
+    }
+    .footer-grid p, .footer-grid li { font-size: 13px; color: #888; line-height: 1.6; }
+    .footer-grid ul { list-style: none; }
+    .footer-grid li { margin-bottom: 8px; }
+    .footer-grid a { color: #aaa; text-decoration: none; }
+    .footer-grid a:hover { color: var(--ae-gold); }
+    .footer-tagline { font-size: 11px; color: var(--ae-gold-muted); letter-spacing: 0.12em; margin-top: 8px; }
+    .footer-bottom {
+      border-top: 1px solid var(--ae-border); padding-top: 24px;
+      font-size: 12px; color: #666; line-height: 1.6; max-width: var(--ae-max); margin: 0 auto; text-align: center;
+    }
+
+    @media (max-width: 767px) {
+      .nav { display: none; }
+      .header-badge { display: none; }
+      .features { grid-template-columns: 1fr; }
+      .contrast-grid { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: 1fr; }
+      .timeline::before { display: none; }
+      .offers-grid { grid-template-columns: 1fr; }
+      .offer-card--featured { transform: none; }
+      .ae-section { padding: 56px 0; }
+      .library-grid { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .module-meta { display: none; }
+    }
+  </style>
+</head>
+<body class="ae-theme-gold">
+
+  <header class="ae-header-gold">
+    <div class="header-inner">
+      <a href="#" class="ae-logo-gold">Alpha <span>Elite</span></a>
+      <span class="ae-badge-seal header-badge">Free Gameplan</span>
+      <nav class="nav">
+        <a href="#what-you-learn">System</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#offers">Offers</a>
+        <a href="#faq">FAQ</a>
+        <a href="#get-gameplan" class="ae-btn-gold">Get The 2% Rule Gameplan</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="ae-container">
+  <section class="ae-hero-grid" id="hero-main">
+    <div class="ae-hero-content">
+      <span class="ae-eyebrow-gold">Private XAUUSD operating system</span>
+
+      <h1 class="ae-hero-title">
+        You Don't Need Another Signal.<br>
+        You Need A System That Stops You From Trading Emotionally.
+      </h1>
+
+      <p class="ae-body-text">
+        Education, structured trade ideas, automation support, SOPs, and community accountability —
+        on a 2% risk framework. No guessing. No signal chasing.
+      </p>
+
+      <div class="ae-cta-row">
+        <a href="#get-gameplan" class="ae-btn-gold">Get The 2% Rule Gameplan</a>
+        <a href="#alpha-elite-system" class="ae-btn-outline">View Alpha Elite System</a>
+      </div>
+
+      <p class="ae-disclaimer-micro">
+        No profit guarantees. Trading involves risk. Built for education, structure, community accountability, and risk-aware habits. Not investment advice.
+      </p>
+
+      <div class="tier-row" id="alpha-elite-system">
+        <div class="ae-tier-bubble">
+          <span class="label">Free</span>
+          <span class="value">PDF</span>
+        </div>
+        <p class="tier-note">
+          <strong>2% Rule Gameplan</strong> — risk management framework, daily SOP checklist, 7-day operating sprint.<br>
+          Free · education only · no alert chasing.
+        </p>
+      </div>
+
+      <div class="ae-trust-row" style="margin-top:20px">
+        <span class="ae-trust-pill">2% Risk Framework</span>
+        <span class="ae-trust-pill">Daily SOP</span>
+        <span class="ae-trust-pill">Private Desk</span>
+      </div>
+    </div>
+
+    <div class="ae-hero-visual">
+      <div class="ae-desk-card-gold" role="img" aria-label="Operating desk preview">
+        <div style="display:flex;justify-content:space-between;margin-bottom:16px">
+          <span class="desk-label-sm">Operating desk</span>
+          <span style="font-size:12px;color:#34d399;display:flex;align-items:center;gap:6px">
+            <span style="width:6px;height:6px;border-radius:50%;background:#34d399"></span>
+            Review mode
+          </span>
+        </div>
+        <div class="desk-panel">
+          <div class="desk-label-sm" style="margin-bottom:10px">Pre-trade checklist</div>
+          <div style="font-size:14px;color:#fff;margin-bottom:8px">☐ Sized to 2% risk framework</div>
+          <div style="font-size:14px;color:#888;margin-bottom:8px">☐ Journal SOP</div>
+          <div style="font-size:14px;color:#888">☐ Weekly review</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-inner">
+            <div class="desk-label-sm">Risk framework (edu)</div>
+            <div class="stat-gold">2%</div>
+          </div>
+          <div class="stat-inner">
+            <div class="desk-label-sm">State</div>
+            <div style="font-weight:600;color:#fff;font-size:14px">Structured</div>
+          </div>
+        </div>
+        <p class="desk-foot">UI illustration only · Not real account data · Trading involves risk.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- S03: Not a signal group -->
+  <section class="ae-section" id="not-signal-group">
+    <div class="ae-section-head">
+      <span class="ae-eyebrow-gold">Differentiation</span>
+      <h2>Not A Signal Group.<br>An Operating System.</h2>
+      <p>Alpha Elite is built for structure and accountability — not alert chasing or guaranteed outcomes.</p>
+    </div>
+    <div class="contrast-grid">
+      <div class="contrast-card contrast-card--muted">
+        <div class="contrast-label contrast-label--bad">Signal-group habits</div>
+        <ul class="contrast-list">
+          <li>Chasing entries from alerts</li>
+          <li>Random position sizing</li>
+          <li>No journal or weekly review</li>
+          <li>Isolated guessing</li>
+        </ul>
+      </div>
+      <div class="contrast-card contrast-card--gold">
+        <div class="contrast-label contrast-label--good">Operating-system habits</div>
+        <ul class="contrast-list">
+          <li>Structured trade ideas inside SOPs (education)</li>
+          <li>2% risk management framework</li>
+          <li>Daily SOP + weekly accountability</li>
+          <li>Community accountability</li>
+        </ul>
+      </div>
+    </div>
+    <p class="contrast-note">
+      Applying a framework gives you structure to operate — trading outcomes still depend on you and involve risk. No profit guarantees.
+    </p>
+  </section>
+
+  <!-- S11: VSL / video demo — replace YOUTUBE_ID before launch -->
+  <section class="ae-section vsl-section" id="video-demo">
+    <div class="ae-section-head">
+      <span class="ae-eyebrow-gold">Watch first</span>
+      <h2>Inside The Operating System</h2>
+      <p>~90 seconds — how education, SOPs, and accountability fit together. Not a signal pitch.</p>
+    </div>
+    <div class="vsl-wrap">
+      <div class="vsl-inner" id="vsl-player">
+        <span class="vsl-placeholder-badge">VSL · YouTube unlisted</span>
+        <button type="button" class="vsl-facade" id="vsl-facade" aria-label="Play video: Inside the Alpha Elite operating system">
+          <div class="vsl-play-ring" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <span class="vsl-facade-label">Play walkthrough</span>
+          <span class="vsl-facade-title">Inside the Alpha Elite operating system</span>
+          <span class="vsl-facade-duration">~90 sec · click to load</span>
+        </button>
+        <iframe
+          class="vsl-embed"
+          id="vsl-embed"
+          title="Alpha Elite operating system walkthrough"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+    <p class="vsl-note">
+      Education only · trading involves risk · not investment advice.
+      Video must open with spoken risk disclaimer before publish (G1).
+    </p>
+    <div class="vsl-cta-row">
+      <a href="#get-gameplan" class="ae-btn-gold">Get The 2% Rule Gameplan</a>
+    </div>
+  </section>
+
+  <!-- S04: What you learn (curriculum pillars) -->
+  <section class="ae-section" id="what-you-learn">
+    <div class="ae-section-head">
+      <span class="ae-eyebrow-gold">What you learn</span>
+      <h2>Install Operating Skills — Not More Alerts</h2>
+      <p>A three-phase education path: foundations, core protocol, and review discipline. Every lesson includes definition, application, and worksheets.</p>
+    </div>
+    <div class="library-flow">
+      <p><strong>Foundations → Core protocol → Review discipline.</strong> Structured for serious XAUUSD operators who want education inside SOPs — not another signal feed.</p>
+    </div>
+    <div class="library-grid">
+      <div class="library-card">
+        <div class="library-icon">◈</div>
+        <h3>Market structure literacy</h3>
+        <p>How liquidity, imbalance zones, and structure breaks fit inside a documented analysis framework — for education, not alert chasing.</p>
+      </div>
+      <div class="library-card">
+        <div class="library-icon">⚖</div>
+        <h3>Risk &amp; SOP protocol</h3>
+        <p>Install the 2% risk management framework, pre-trade checklists, and a trading journal workflow you repeat every session.</p>
+      </div>
+      <div class="library-card">
+        <div class="library-icon">☑</div>
+        <h3>Desk review discipline</h3>
+        <p>Weekly review cadence, setup grading inside SOPs, and community accountability — so execution stays structured, not emotional.</p>
+      </div>
+    </div>
+    <p class="library-cta"><a href="#curriculum">See full curriculum ↓</a></p>
+    <p class="contrast-note" style="margin-top:16px">Trading involves risk. Examples are illustrative. Not investment advice.</p>
+  </section>
+
+  <!-- S07: How it works -->
+  <section class="ae-section" id="how-it-works">
+    <div class="ae-section-head">
+      <span class="ae-eyebrow-gold">Your path</span>
+      <h2>How It Works</h2>
+      <p>Start free with the Gameplan. Upgrade when you're ready to install the full operating desk.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Gameplan</div>
+        <p class="step-desc">Free PDF · 2% rule framework · 7-day operating sprint</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Apprentice</div>
+        <p class="step-desc">LearnHouse modules · daily SOP install · risk protocol</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">03</div>
+        <div class="step-title">VIP Desk</div>
+        <p class="step-desc">Private channel · SOP library · structured ideas (edu)</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Quant</div>
+        <p class="step-desc">By application · desk workflows · education only</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curriculum: Apprentice modules -->
+  <section class="ae-section" id="curriculum">
+    <div class="ae-section-head">
+      <span class="ae-eyebrow-gold">Curriculum</span>
+      <h2>Apprentice Operating Course</h2>
+      <p>~14 lessons · 5 modules · worksheets · LearnHouse access. Education only — no profit promises.</p>
+    </div>
+    <div class="curriculum-list">
+      <details class="module-card">
+        <summary>
+          <span class="module-badge">M1</span>
+          <span class="module-title">Operating Mindset</span>
+          <span class="module-meta">3 lessons</span>
+        </summary>
+        <div class="module-body">
+          <p class="module-outcome">Outcome: Separate emotional execution from structured habits</p>
+          <ul class="module-includes">
+            <li>Emotional-trading self-audit</li>
+            <li>Why systems beat alert chasing</li>
+            <li>Desk readiness checklist</li>
+          </ul>
+        </div>
+      </details>
+      <details class="module-card">
+        <summary>
+          <span class="module-badge">M2</span>
+          <span class="module-title">The 2% Rule In Practice</span>
+          <span class="module-meta">4 lessons</span>
+        </summary>
+        <div class="module-body">
+          <p class="module-outcome">Outcome: Size positions using the risk framework — every trade</p>
+          <ul class="module-includes">
+            <li>2% sizing worksheet</li>
+            <li>Pre-trade risk gate</li>
+            <li>When not to trade</li>
+            <li>Journal risk fields</li>
+          </ul>
+        </div>
+      </details>
+      <details class="module-card" open>
+        <summary>
+          <span class="module-badge">M3</span>
+          <span class="module-title">Daily &amp; Weekly SOPs</span>
+          <span class="module-meta">3 lessons</span>
+        </summary>
+        <div class="module-body">
+          <p class="module-outcome">Outcome: Run the same before/after session process every week</p>
+          <ul class="module-includes">
+            <li>Daily SOP checklist</li>
+            <li>Weekly review template</li>
+            <li>Setup documentation format</li>
+            <li>Trading journal workflow (learning — not P&amp;L marketing)</li>
+          </ul>
+        </div>
+      </details>
+      <details class="module-card">
+        <summary>
+          <span class="module-badge">M4</span>
+          <span class="module-title">Automation Support Literacy</span>
+          <span class="module-meta">2 lessons</span>
+        </summary>
+        <div class="module-body">
+          <p class="module-outcome">Outcome: Understand automation as support — not passive income</p>
+          <ul class="module-includes">
+            <li>Automation overview (education)</li>
+            <li>Tool checklist — what you still decide manually</li>
+          </ul>
+        </div>
+      </details>
+      <details class="module-card">
+        <summary>
+          <span class="module-badge">M5</span>
+          <span class="module-title">Path To VIP</span>
+          <span class="module-meta">2 lessons</span>
+        </summary>
+        <div class="module-body">
+          <p class="module-outcome">Outcome: Know when operating habits are ready for the private desk</p>
+          <ul class="module-includes">
+            <li>VIP desk overview &amp; accountability rules</li>
+            <li>Upgrade checklist — structure first</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Who it's for -->
+  <section class="ae-section" id="who-its-for">
+    <div class="ae-section-head">
+      <span class="ae-eyebrow-gold">Fit check</span>
+      <h2>Built For Operators — Not Signal Chasers</h2>
+    </div>
+    <div class="who-grid">
+      <div class="who-card who-card--for">
+        <h3>For you if</h3>
+        <ul class="who-list">
+          <li>You want structure, SOPs, and accountability on XAUUSD</li>
+          <li>You'll paper-trade or backtest before sizing real risk</li>
+          <li>You know basic market structure and want an operating system around it</li>
+        </ul>
+      </div>
+      <div class="who-card who-card--not">
+        <h3>Not for you if</h3>
+        <ul class="who-list">
+          <li>You want guaranteed profits, win-rate hype, or passive bot income</li>
+          <li>You chase alerts and won't run a journal or weekly review</li>
+          <li>You want financial advice — this is education only</li>
+        </ul>
+      </div>
+    </div>
+    <p class="who-prereq">We recommend 1–3 months of practice on the framework before increasing size. Outcomes vary; trading involves risk.</p>
+  </section>
+
+  <!-- S06: Testimonials (placeholder — replace with G1-approved quotes) -->
+  <section class="ae-section" id="testimonials">
+    <div class="ae-section-head">
+      <span class="ae-eyebrow-gold">Operator voices</span>
+      <h2>Structure Over Chaos</h2>
+      <p>Members describe habits and discipline — not profits. Replace placeholders before launch traffic.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <span class="testimonial-placeholder">Placeholder · G1</span>
+        <p class="testimonial-quote">I finally run a pre-trade checklist every session — even when I'm tempted to skip it.</p>
+        <div class="testimonial-author">Marcus</div>
+        <div class="testimonial-role">Apprentice member · XAUUSD operator</div>
+      </div>
+      <div class="testimonial-card">
+        <span class="testimonial-placeholder">Placeholder · G1</span>
+        <p class="testimonial-quote">The weekly review stopped me from revenge trading. I document setups in SOPs now, not screenshots in a chat.</p>
+        <div class="testimonial-author">Sarah</div>
+        <div class="testimonial-role">VIP desk member · Part-time trader</div>
+      </div>
+      <div class="testimonial-card">
+        <span class="testimonial-placeholder">Placeholder · G1</span>
+        <p class="testimonial-quote">VIP desk format helped me grade setups against rules — education inside structure, not copying alerts.</p>
+        <div class="testimonial-author">James</div>
+        <div class="testimonial-role">VIP desk member · Full-time operator</div>
+      </div>
+    </div>
+    <p class="testimonials-note">
+      Education and community support — individual results vary. Trading involves risk. No profit guarantees.
+      Quotes are illustrative placeholders pending member approval.
+    </p>
+  </section>
+
+  <!-- S11: Offers -->
+  <section class="ae-section" id="offers">
+    <div class="ae-section-head">
+      <span class="ae-eyebrow-gold">Offer ladder</span>
+      <h2>Choose Your Level</h2>
+      <p>Education and operating support at every tier. One-time and membership pricing — no ROI promises.</p>
+    </div>
+    <div class="offers-grid">
+      <div class="offer-card">
+        <div class="offer-tier">Tier 1</div>
+        <h3>2% Rule Gameplan</h3>
+        <div class="offer-price">Free</div>
+        <ul class="offer-features">
+          <li>2% risk management framework PDF</li>
+          <li>Daily SOP checklist</li>
+          <li>7-day operating sprint</li>
+          <li>Educational email sequence</li>
+        </ul>
+        <a href="#get-gameplan" class="ae-btn-outline">Get The 2% Rule Gameplan</a>
+      </div>
+      <div class="offer-card offer-card--featured">
+        <span class="offer-badge">Start here</span>
+        <div class="offer-tier">Tier 2</div>
+        <h3>Apprentice Course</h3>
+        <div class="offer-price">$297 <span>one-time</span></div>
+        <ul class="offer-features">
+          <li>5 modules · ~14 lessons · LearnHouse</li>
+          <li>Operating Toolkit — 6 worksheets &amp; SOP templates</li>
+          <li>Market structure literacy + 2% risk protocol</li>
+          <li>Automation support literacy (education)</li>
+        </ul>
+        <a href="/checkout-apprentice/" class="ae-btn-gold">Start Apprentice Course</a>
+      </div>
+      <div class="offer-card">
+        <div class="offer-tier">Tier 3</div>
+        <h3>VIP Private Desk</h3>
+        <div class="offer-price">$149 <span>mo · $1,290/yr</span></div>
+        <ul class="offer-features">
+          <li>Everything in Apprentice</li>
+          <li>Telegram VIP accountability (rules-first)</li>
+          <li>SOP library + structured idea format (edu)</li>
+          <li>Annotated walkthroughs — not an alert feed</li>
+        </ul>
+        <a href="/checkout-vip-monthly/" class="ae-btn-outline">Start VIP Private Desk</a>
+      </div>
+    </div>
+    <p class="offers-foot">
+      Quant Desk &amp; Inner Circle available by application.
+      <a href="#faq">See FAQ →</a>
+    </p>
+  </section>
+
+  <section class="optin-section" id="get-gameplan">
+    <h2>Get The 2% Rule Gameplan — Free</h2>
+    <p class="optin-intro">One PDF — an educational operating framework, not a trade alert list.</p>
+
+    <div class="features">
+      <div class="feat"><h4>2% Rule</h4><p>Risk management framework</p></div>
+      <div class="feat"><h4>Daily SOP</h4><p>Checklist</p></div>
+      <div class="feat"><h4>7-Day Sprint</h4><p>Operating habits</p></div>
+    </div>
+
+    <div class="form-wrap">
+      <div class="ae-form-card-gold">
+        <form action="gameplan-thank-you.html" method="get">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          <label for="name">First name</label>
+          <input type="text" id="name" name="name" placeholder="Your first name" required />
+          <label for="exp">Trading experience</label>
+          <select id="exp" name="exp">
+            <option value="">— Select —</option>
+            <option>Just starting</option>
+            <option>6–24 months</option>
+            <option>2+ years</option>
+          </select>
+          <button type="submit" class="ae-btn-gold">Send Me The Gameplan</button>
+        </form>
+      </div>
+      <p class="form-legal">
+        Educational emails from Alpha Elite. <a href="#">Privacy Policy</a>.<br>
+        Trading involves risk. No profit guarantees. Not investment advice.
+      </p>
+    </div>
+  </section>
+
+  <!-- S12: FAQ -->
+  <section class="ae-section" id="faq">
+    <div class="ae-section-head">
+      <span class="ae-eyebrow-gold">Questions</span>
+      <h2>Frequently Asked</h2>
+      <p>Clear answers on positioning, risk, and what you actually get.</p>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>Is Alpha Elite a signal group?</summary>
+        <p><strong>No.</strong> Alpha Elite is an education and operating-system community — structured trade ideas within SOPs and community accountability, not alert chasing.</p>
+      </details>
+      <details>
+        <summary>Does the Gameplan or any tier guarantee profits?</summary>
+        <p><strong>No.</strong> All content is educational. Trading involves substantial risk of loss. Past results do not guarantee future outcomes. Not investment advice.</p>
+      </details>
+      <details>
+        <summary>What's inside the free Gameplan?</summary>
+        <p>The 2% risk management framework, a daily SOP checklist, and a 7-day operating sprint — one PDF designed to replace emotional execution with structure.</p>
+      </details>
+      <details>
+        <summary>Does automation support mean a bot makes money for me?</summary>
+        <p><strong>No.</strong> Automation support means documentation and tools to help you run your own process. You own every trade decision. No passive income promises.</p>
+      </details>
+      <details>
+        <summary>How do I access the Apprentice course?</summary>
+        <p>After enrolling, you'll receive LearnHouse login details manually (within 24h SLA at MVP). Modules cover SOPs, risk protocol, and automation support literacy.</p>
+      </details>
+      <details>
+        <summary>What markets does Alpha Elite focus on?</summary>
+        <p>Education is framed around XAUUSD and structured desk workflows. Applicable risk and SOP principles are general — your broker and instrument choices are yours.</p>
+      </details>
+      <details>
+        <summary>Do I need prior trading experience?</summary>
+        <p>Basic chart and market structure familiarity helps. The Gameplan covers foundations; Apprentice installs the operating protocol. Not ideal for skipping risk education entirely.</p>
+      </details>
+      <details>
+        <summary>Will you tell me exactly when to buy or sell?</summary>
+        <p><strong>No.</strong> You receive structured trade ideas and frameworks for education inside SOPs — not a signal service. You own every execution decision.</p>
+      </details>
+      <details>
+        <summary>Are live walkthroughs proof of future results?</summary>
+        <p><strong>No.</strong> Case walkthroughs show how structure, SOPs, and review discipline are applied — education only. Past examples do not guarantee future outcomes.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="ae-section final-cta" id="final-cta">
+    <div class="final-cta-inner">
+      <span class="ae-eyebrow-gold">Start here</span>
+      <h2>Get The 2% Rule Gameplan</h2>
+      <p>Free PDF — risk framework, daily SOP, and 7-day operating sprint. Education only, not alerts.</p>
+      <a href="#get-gameplan" class="ae-btn-gold">Send Me The Gameplan</a>
+      <p class="ae-disclaimer-micro" style="margin-top:20px;text-align:center">
+        No profit guarantees. Trading involves risk. Not investment advice.
+      </p>
+    </div>
+  </section>
+  </main>
+
+  <footer class="footer" id="risk">
+    <div class="footer-grid">
+      <div>
+        <a href="homepage-dark-gold.html" class="ae-logo-gold" style="display:inline-block;margin-bottom:12px">Alpha <span>Elite</span></a>
+        <p>Private XAUUSD operating system — education, structured trade ideas, automation support, SOPs, and community accountability.</p>
+        <p class="footer-tagline">Education · Structure · Accountability</p>
+      </div>
+      <div>
+        <h4>System</h4>
+        <ul>
+          <li><a href="gameplan-preview.html">Free Gameplan</a></li>
+          <li><a href="apprentice-preview.html">Apprentice</a></li>
+          <li><a href="vip-preview.html">VIP Desk</a></li>
+          <li><a href="quant-desk-preview.html">Quant Desk</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Risk Disclaimer</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <strong>RISK WARNING:</strong> Trading forex, crypto, and XAUUSD involves substantial risk of loss.
+      You may lose part or all of your capital. Not investment advice or guaranteed returns.
+      Past results do not guarantee future outcomes. All trading decisions are yours.
+      <p style="margin-top:12px">
+        <a href="homepage.html">Cyan preview (legacy)</a> ·
+        <a href="../compliance-copy-audit.md">Compliance audit</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var YOUTUBE_ID = '';
+      var facade = document.getElementById('vsl-facade');
+      var embed = document.getElementById('vsl-embed');
+      if (!facade || !embed) return;
+      facade.addEventListener('click', function () {
+        if (!YOUTUBE_ID) {
+          alert('VSL placeholder — paste YouTube unlisted ID in homepage-dark-gold.html before launch.');
+          return;
+        }
+        embed.src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_ID + '?autoplay=1&rel=0&modestbranding=1';
+        embed.classList.add('is-active');
+        facade.classList.add('is-hidden');
+        document.querySelector('.vsl-placeholder-badge').style.display = 'none';
+      });
+    })();
+  </script>
+</body>
+</html>

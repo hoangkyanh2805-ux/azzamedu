@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quant Desk — By Application | Alpha Elite</title>
+  <link rel="stylesheet" href="alpha-elite-tokens.css" />
+  <style>
+    .header-inner {
+      max-width: var(--ae-max); margin: 0 auto; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav a { color: var(--ae-muted); font-size: 0.875rem; text-decoration: none; font-weight: 500; }
+    .nav a:hover { color: var(--ae-gold); }
+
+    .page-narrow { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+    .ae-section { padding: 72px 0; border-top: 1px solid var(--ae-border); }
+    .ae-section-head { text-align: center; margin-bottom: 40px; }
+    .ae-section-head h2 {
+      font-family: var(--ae-font-display); text-transform: uppercase;
+      font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: 0.02em;
+      background: linear-gradient(180deg, #ffd700, #b8860b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 12px;
+    }
+    .ae-section-head p { color: var(--ae-muted); line-height: 1.65; }
+
+    .quant-hero { text-align: center; padding-top: 56px; border-top: none; }
+    .quant-hero h1 {
+      font-family: var(--ae-font-display);
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      text-transform: uppercase; line-height: 1; margin-bottom: 18px;
+      background: linear-gradient(180deg, #ffd700, #b8860b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .req-list {
+      background: linear-gradient(145deg, #141414, #0a0a0a);
+      border: 1px solid var(--ae-border-gold); border-radius: 12px; padding: 24px 28px;
+      list-style: none;
+    }
+    .req-list li {
+      font-size: 0.95rem; color: var(--ae-text); padding: 10px 0 10px 24px;
+      position: relative; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .req-list li:last-child { border-bottom: none; }
+    .req-list li::before { content: '✓'; position: absolute; left: 0; color: var(--ae-gold); font-weight: 700; }
+    .req-list li.optional { color: var(--ae-muted); }
+    .req-list li.optional::before { content: '○'; color: var(--ae-disclaimer); }
+
+    .get-dont-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .get-card, .dont-card {
+      border-radius: 12px; padding: 24px;
+    }
+    .get-card {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border-gold);
+    }
+    .dont-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--ae-border);
+    }
+    .get-card h3 { color: var(--ae-gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .dont-card h3 { color: #888; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .get-card ul, .dont-card ul { list-style: none; }
+    .get-card li, .dont-card li {
+      font-size: 0.9rem; line-height: 1.5; padding: 8px 0 8px 20px; position: relative;
+    }
+    .get-card li { color: var(--ae-text); }
+    .get-card li::before { content: '✓'; position: absolute; left: 0; color: var(--ae-gold); }
+    .dont-card li { color: var(--ae-muted); }
+    .dont-card li::before { content: '✕'; position: absolute; left: 0; color: #666; }
+
+  .ae-form-card-gold label { display: block; }
+    .ae-form-card-gold input,
+    .ae-form-card-gold select,
+    .ae-form-card-gold textarea {
+      width: 100%; padding: 12px 14px; border-radius: 8px;
+      background: #1a1a1a; border: 1px solid var(--ae-border);
+      color: var(--ae-text); font-family: var(--ae-font-body); margin-bottom: 14px;
+    }
+    .ae-form-card-gold textarea { min-height: 120px; resize: vertical; }
+    .checkbox-row {
+      display: flex; gap: 12px; align-items: flex-start; margin: 16px 0 20px;
+      font-size: 0.85rem; color: var(--ae-muted); line-height: 1.5; text-align: left;
+    }
+    .checkbox-row input { width: auto; margin: 4px 0 0; }
+
+    .alt-cta {
+      text-align: center; padding: 32px;
+      border: 1px dashed var(--ae-border); border-radius: 10px;
+      font-size: 0.95rem; color: var(--ae-muted); margin-top: 32px;
+    }
+    .alt-cta a { color: var(--ae-gold); font-weight: 600; }
+
+    .waitlist-line {
+      text-align: center; font-size: 0.9rem; color: var(--ae-disclaimer); margin-top: 24px;
+    }
+    .waitlist-line a { color: var(--ae-gold-muted); }
+
+    .faq-list details {
+      background: linear-gradient(160deg, #121212, #080808);
+      border: 1px solid var(--ae-border); border-radius: 8px;
+      padding: 16px 20px; margin-bottom: 8px;
+    }
+    .faq-list details[open] { border-color: var(--ae-border-gold); }
+    .faq-list summary { font-weight: 600; cursor: pointer; color: var(--ae-text); list-style: none; }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list p { margin-top: 12px; font-size: 0.9rem; color: var(--ae-muted); line-height: 1.55; }
+
+    .footer {
+      border-top: 1px solid var(--ae-border); padding: 32px 24px;
+      font-size: 12px; color: #666; line-height: 1.6; text-align: center;
+    }
+    .footer a { color: var(--ae-gold-muted); }
+
+    @media (max-width: 767px) {
+      .get-dont-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="ae-theme-gold">
+
+  <header class="ae-header-gold">
+    <div class="header-inner">
+      <a href="homepage-dark-gold.html" class="ae-logo-gold">Alpha <span>Elite</span></a>
+      <nav class="nav">
+        <a href="vip-preview.html">VIP</a>
+        <a href="#apply">Apply</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="ae-section quant-hero page-narrow">
+      <span class="ae-eyebrow-gold">Quant desk · by application</span>
+      <h1>Quantitative Desk Education For VIP Operators</h1>
+      <p class="ae-body-text" style="text-align:center;max-width:560px;margin:0 auto">
+        Research workflows, desk SOPs, and priority education channel — for members already running the VIP private desk.
+        Not fixed returns. Not a managed account.
+      </p>
+      <p class="ae-disclaimer-micro" style="text-align:center;margin-top:16px">
+        Application review · Education only · Trading involves risk.
+      </p>
+    </section>
+
+    <section class="ae-section page-narrow" id="requirements">
+      <div class="ae-section-head">
+        <h2>Requirements</h2>
+        <p>You must qualify before Quant Desk access is granted.</p>
+      </div>
+      <ul class="req-list">
+        <li>Active VIP membership (AE-VIP-MON or AE-VIP-YR)</li>
+        <li>Completed Apprentice Operating Course (or equivalent SOP install)</li>
+        <li class="optional">Preferred: Apprentice Module 3+ complete (daily SOP habits)</li>
+        <li class="optional">Operating journal active for 30+ days</li>
+      </ul>
+    </section>
+
+    <section class="ae-section page-narrow" id="what-you-get">
+      <div class="get-dont-grid">
+        <div class="get-card">
+          <h3>What you get</h3>
+          <ul>
+            <li>Quant desk education &amp; research workflows</li>
+            <li>Priority channel access (education)</li>
+            <li>Advanced desk SOP library</li>
+            <li>Structured review cadence with ops team</li>
+          </ul>
+        </div>
+        <div class="dont-card">
+          <h3>What you don't get</h3>
+          <ul>
+            <li>Managed account or copy-trading</li>
+            <li>Profit promises or fixed returns</li>
+            <li>Signal feed or alert channel</li>
+            <li>Financial advice</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="ae-section page-narrow" id="apply">
+      <div class="ae-section-head">
+        <h2>Application</h2>
+        <p>Tell us about your VIP membership and operating experience. Manual review within 5 business days.</p>
+      </div>
+      <div class="ae-form-card-gold">
+        <form action="#" method="post" onsubmit="event.preventDefault(); alert('Preview only — wire to Brevo list quant-applications or admin email.');">
+          <label for="fullname">Full name</label>
+          <input type="text" id="fullname" name="fullname" required placeholder="Your name" />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com" />
+
+          <label for="vip_order">VIP order ID</label>
+          <input type="text" id="vip_order" name="vip_order_id" required placeholder="WooCommerce order # or AE-VIP reference" />
+
+          <label for="experience">Trading experience</label>
+          <select id="experience" name="experience" required>
+            <option value="">— Select —</option>
+            <option>6–24 months</option>
+            <option>2–5 years</option>
+            <option>5+ years</option>
+          </select>
+
+          <label for="why">Why do you want Quant Desk access?</label>
+          <textarea id="why" name="why_quant" required placeholder="Describe your operating habits, VIP tenure, and what you want from quant desk education (not profit goals)."></textarea>
+
+          <label class="checkbox-row">
+            <input type="checkbox" name="risk_ack" required />
+            <span>I understand trading involves substantial risk of loss. Quant Desk is education only — not investment advice or guaranteed returns.</span>
+          </label>
+
+          <button type="submit" class="ae-btn-gold" style="width:100%">Submit Quant Desk Application</button>
+        </form>
+      </div>
+      <p style="font-size:12px;color:var(--ae-disclaimer);margin-top:16px;text-align:center">
+        Submit → admin email or Brevo list <code>quant-applications</code> · Manual review
+      </p>
+
+      <div class="alt-cta">
+        Not on VIP yet?
+        <a href="vip-preview.html">Join VIP Private Desk</a>
+        or
+        <a href="/checkout/?add-to-cart=AE-QNT-001">self-serve upgrade (AE-QNT-001)</a> if enabled.
+      </div>
+      <p class="waitlist-line">
+        Inner Circle (high-touch cohort) — <a href="#">join waitlist</a> · Phase 2
+      </p>
+    </section>
+
+    <section class="ae-section page-narrow" id="faq">
+      <div class="ae-section-head"><h2>FAQ</h2></div>
+      <div class="faq-list">
+        <details>
+          <summary>How long does review take?</summary>
+          <p>Typically 3–5 business days. You'll receive email with approve/deny and next steps.</p>
+        </details>
+        <details>
+          <summary>Does Quant Desk guarantee returns?</summary>
+          <p><strong>No.</strong> Quant Desk is advanced education and desk workflows — not performance marketing or managed trading.</p>
+        </details>
+        <details>
+          <summary>Can I apply without VIP?</summary>
+          <p>Applications without active VIP are declined. Start with <a href="vip-preview.html" style="color:var(--ae-gold)">VIP membership</a> and Apprentice completion.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="risk">
+    <strong>RISK WARNING:</strong> Trading involves substantial risk. Alpha Elite provides education only — not investment advice.
+    <p style="margin-top:12px">
+      <a href="homepage-dark-gold.html">Homepage</a> ·
+      <a href="vip-preview.html">VIP</a> ·
+      <a href="apprentice-preview.html">Apprentice</a>
+    </p>
+  </footer>
+</body>
+</html>
