@@ -1,4 +1,12 @@
-# Skill index — external references
+# Skill index
+
+## In-repo skills (`.ai/skills/`)
+
+| Skill | Purpose |
+|-------|---------|
+| `learnhouse-production-sync` | Deploy LearnHouse to iNET VPS + sync local→prod (see `PRODUCTION-DEPLOY-RUNBOOK.md`) |
+
+## External references
 
 Install into `.codex/skills/`:
 

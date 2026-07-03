@@ -14,25 +14,51 @@ Self-hosted course delivery for **Apprentice Operating Course** and **VIP Resour
 
 ---
 
+## Key docs (start here)
+
+| Doc | When to read |
+|-----|--------------|
+| `PRODUCTION-DEPLOY-RUNBOOK.md` | Cold VPS install → live site (this is the current source of truth) |
+| `SCRIPTS-REFERENCE.md` | What each script in `scripts/` does |
+| `docs/EDITING-GUIDE.md` | Day-to-day content edits, sync workflow |
+| `local-test-guide.md` | Set up local instance on Windows + Docker Desktop |
+| `admin-setup-checklist.md` | Org / groups / permissions in LearnHouse UI |
+| `deploy-guide.md` | Original generic deploy notes (superseded by RUNBOOK) |
+
 ## Repo layout
 
 ```text
 web/learnhouse/
-├── README.md                    # This file
-├── deploy-guide.md              # VPS + CLI setup
-├── admin-setup-checklist.md     # Org, groups, courses in LH UI
-├── qg-lms-checklist.md          # Pre-launch quality gate
-└── content/
-    ├── course-manifest.md       # Full course index
-    ├── apprentice-operating-course/
-    │   ├── m01-operating-mindset.md
-    │   ├── m02-2pct-rule.md
-    │   ├── m03-daily-weekly-sops.md
-    │   ├── m04-automation-support.md
-    │   └── m05-path-to-vip.md
-    ├── worksheets/              # Downloadable SOP templates
-    └── vip-resource-library/    # VIP-only section structure
+├── PRODUCTION-DEPLOY-RUNBOOK.md  # ← START HERE for prod deploy
+├── SCRIPTS-REFERENCE.md
+├── docs/EDITING-GUIDE.md
+├── deploy-guide.md               # legacy generic notes
+├── local-test-guide.md
+├── admin-setup-checklist.md
+├── qg-lms-checklist.md
+├── content/
+│   ├── udemy-clone-curriculum.json    # 20 chapters × 71 lessons (seed source)
+│   ├── udemy-original/                # sNN-*.md lesson bodies
+│   ├── apprentice-operating-course/   # legacy 8-module content
+│   ├── worksheets/
+│   └── vip-resource-library/
+└── scripts/
+    ├── deploy-production.ps1          # cold VPS install + seed
+    ├── deploy-vps.py / vps-bootstrap.sh
+    ├── seed-udemy-clone.py            # destructive: recreate course
+    ├── sync-udemy-clone.py            # safe: update bodies from .md
+    ├── sync-local-to-prod.py          # copy local edits + videos to prod
+    ├── sync-ab-fixes.py               # targeted S16 + quiz repair
+    ├── audit-local-vs-prod.py         # diff report
+    └── course_api.py                  # shared helpers
 ```
+
+## Environments
+
+| Env | URL | Login |
+|-----|-----|-------|
+| Local | http://localhost:8080 | `admin@hoa-homes.com` / `AlphaElite-Local-2026!` |
+| Production | http://learn.hoa-homes.com | `admin@hoa-homes.com` / `AlphaElite-Prod-Learn-2026!` |
 
 ---
 
