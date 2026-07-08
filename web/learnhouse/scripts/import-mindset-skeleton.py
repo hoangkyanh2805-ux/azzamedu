@@ -36,11 +36,43 @@ TARGET_COURSE_UUID = os.environ.get(
 if not TARGET_COURSE_UUID.startswith("course_"):
     TARGET_COURSE_UUID = f"course_{TARGET_COURSE_UUID}"
 
-# Fill this only from logged-in Udemy curriculum or exported course package.
-# Do not guess section/lecture titles from public metadata.
-CURRICULUM: list[tuple[str, list[str]]] = []
-EXPECTED_SECTIONS = 0
-EXPECTED_LESSONS = 0
+# Captured from Udemy public curriculum after expanding all sections in Chrome.
+CURRICULUM: list[tuple[str, list[str]]] = [
+    (
+        "Introduction",
+        [
+            "Introduction and what will you learn in this course",
+            "Three types of candles you must know on this career",
+            "Discord community - NCI Trading",
+            "Telegram community - NCI Trading",
+            "TOP 7 Trader on FTMO real account Leaderboard 06/2024",
+            "PLease becareful with spammers",
+        ],
+    ),
+    (
+        "Sharing the trading exprience",
+        [
+            "Review my trader to get 8k$ profit",
+            "Quick recap about NCI trading system from level 0 - 5 and BONUS",
+            "Trading mindset - Core knowledge to achieve top 1% trader",
+            "The reasonable expectation before set up a\u00a0 trading system",
+            "Control the trade, please donnot control the PROFIT to get emotion",
+            "Which strategy is the best for you ? NCI, ICT, Price action diffirences",
+            "How to learn and practice one trading strategy effectively",
+            "My performance on May - 2023",
+        ],
+    ),
+    (
+        "Write down what did you learn",
+        [
+            "Share to you my Motivation when I just started this career",
+            "My long journey to trading career from 0",
+            "Write down what did you learn",
+        ],
+    ),
+]
+EXPECTED_SECTIONS = 3
+EXPECTED_LESSONS = 17
 
 
 def auth_headers(token: str) -> dict:
