@@ -151,3 +151,15 @@ Expected second run: created chapters `0`, created lessons `0`, skipped lessons 
 - Current chapter count at last check: `0`.
 - Current lesson count at last check: `0`.
 - Metadata has been synced from the public Udemy first pass.
+
+## Script status
+
+`web/learnhouse/scripts/import-mindset-skeleton.py` has been created for this course. It is wired to target API UUID `course_b2acf623-7983-4fe4-bb7f-5b2447faa998` and intentionally exits before any API write while `CURRICULUM` is empty.
+
+Verified behavior before curriculum capture:
+
+```text
+FAIL: Mindset CURRICULUM is empty. Fill it from logged-in Udemy/export before running.
+```
+
+After logged-in curriculum is captured, fill `CURRICULUM`, set `EXPECTED_SECTIONS` and `EXPECTED_LESSONS`, then run the script twice to verify no duplicates.
