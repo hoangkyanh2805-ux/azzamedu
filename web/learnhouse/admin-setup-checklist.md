@@ -1,139 +1,138 @@
 # LearnHouse Admin Setup Checklist
 
-Run once after `deploy-guide.md` completes. Owner: **Admin Ops**.
+Run once after production deploy. Owner: **Admin Ops**.
 
-**Fast path (local):** run `scripts/seed-course.ps1` — uploads 8 modules / 35 lessons via API.
+Production LMS: `https://learn.azzamedu.com`
 
 ---
 
 ## 1. Organization
 
-- [ ] Log in at `https://learn.[domain].com` as admin
-- [ ] Organization name: **Alpha Elite**
-- [ ] Logo uploaded (dark/gold mark if available)
-- [ ] Default language: **English**
-- [ ] Footer / about: link to `hoa-homes.com` risk disclaimer
+- [ ] Log in as admin: `admin@hoa-homes.com`
+- [ ] Organization name: **Azzam Gold** or **Alpha Elite** (match current dashboard branding)
+- [ ] Logo uploaded
+- [ ] Default language reviewed
+- [ ] Footer/about links to the risk disclaimer
 
 ---
 
-## 2. User groups
+## 2. UserGroups
 
-Create groups (Settings → Users / Groups — exact menu may vary by LH version):
+Create/manage groups from:
 
-| Group slug | Display name | Purpose |
-|------------|--------------|---------|
-| `apprentice-students` | Apprentice Students | AE-APP-001 |
-| `vip-members` | VIP Members | AE-VIP-MON / AE-VIP-YR |
-| `quant-desk` | Quant Desk | AE-QNT-001 (phase 2) |
+```text
+Users -> UserGroups -> Create a UserGroup
+```
 
-- [ ] All three groups created
-- [ ] Test user can be assigned to one group
+Current access groups:
 
----
+| Dashboard name | Slug | Purpose |
+|---|---|---|
+| SMC course | `smc-cours` | Base course / Course 1 access |
+| VIP $1000 | `vip-1000` | VIP entry package + 1-2 bonus courses |
+| Deposit $3k-$5k | `deposit-3k-5k` | Mid-tier deposit bundle |
+| Deposit >$5k-$10k | `full-access` | Full course library |
 
-## 3. Course — Apprentice Operating Course
+- [ ] All four groups exist in dashboard
+- [ ] Each group has a clear description
+- [ ] Test user can be added through **Manage Users**
+- [ ] Member count updates after adding a user
 
-| Field | Value |
-|-------|-------|
-| Title | Apprentice Operating Course |
-| Slug | `apprentice-operating-course` |
-| Visibility | Private / enrolled only |
-| Language | English |
-
-### Modules (create in order)
-
-| # | Module title | Lessons |
-|---|--------------|---------|
-| M1 | Operating Mindset | 3 |
-| M2 | The 2% Rule in Practice | 4 |
-| M3 | Daily & Weekly SOPs | 3 |
-| M4 | Automation Support Literacy | 2 |
-| M5 | Path to VIP | 2 |
-
-- [ ] Course shell created
-- [ ] 5 modules created
-- [ ] 14 lesson placeholders created (titles from `content/course-manifest.md`)
-
-### Per-lesson paste workflow
-
-For each lesson in `content/apprentice-operating-course/m0X-*.md`:
-
-1. Copy **Objective** → lesson description
-2. Paste **Key points** → lesson body (markdown)
-3. Add **Compliance note** at bottom of body
-4. Embed **YouTube unlisted** URL (when video ready)
-5. Attach worksheet PDF from `content/worksheets/` (when exported)
-
-- [ ] M1–M3 lessons fully pasted (MVP minimum)
-- [ ] M4–M5 pasted or scheduled for week 2
+Naming note: the current dashboard slug is `smc-cours`. Keep it as-is until you intentionally rename it, then update all SOP docs and logs.
 
 ---
 
-## 4. Course — VIP Resource Library
+## 3. Courses
 
-| Field | Value |
-|-------|-------|
-| Title | VIP Resource Library |
-| Slug | `vip-resource-library` |
-| Access | vip-members group only |
+Current live course:
 
-Sections (from `content/vip-resource-library/README.md`):
+| Course | Access group |
+|---|---|
+| Advanced trading course : The complete Smart Money Concepts | `smc-cours` |
 
-- [ ] SOP Archive
-- [ ] Structured Trade Idea Format
-- [ ] Automation Support Docs
-- [ ] Office Hours / Recordings (optional at launch)
+Planned/package courses:
 
----
+| Course / library | Access groups |
+|---|---|
+| VIP resources / bonus courses | `vip-1000`, `deposit-3k-5k`, `full-access` |
+| Mid-tier bundle courses | `deposit-3k-5k`, `full-access` |
+| Full course library | `full-access` |
 
-## 5. Enrollment rules (MVP — manual)
-
-LearnHouse MVP uses **manual enroll** per `playbook/ops/learnhouse-provision-sop.md`:
-
-| SKU | Enroll in |
-|-----|-----------|
-| AE-APP-001 | Apprentice only |
-| AE-VIP-MON/YR | Apprentice + VIP Library |
-| AE-QNT-001 | All (when Quant live) |
-
-- [ ] Admin can: Users → Add → assign group → enroll courses
-- [ ] Spot-check: apprentice test user sees M1 only
-- [ ] Spot-check: VIP test user sees both courses
+- [ ] Course is published
+- [ ] Course visibility is private/enrolled-only if available
+- [ ] Correct users/groups are enrolled
+- [ ] A test learner can click **Start Learning**
 
 ---
 
-## 6. YouTube video naming
+## 4. Manual User Provision Test
 
-| Rule | Example |
-|------|---------|
-| Unlisted only | — |
-| Neutral title | `AE Apprentice M2L1` |
-| No money thumbnails | Text or chart only |
-| Description | LearnHouse link + education disclaimer |
+Use test or real approved email:
 
-- [ ] Video naming SOP shared with editor
-- [ ] At least M1L1–M1L3 videos uploaded (or placeholders noted)
+```text
+Email: hoangvu.linhan2805@gmail.com
+Username: hoangvulinhan2805
+Group: smc-cours
+Course: Advanced SMC Course
+```
+
+Provision steps:
+
+1. Create account via `https://learn.azzamedu.com/signup` in incognito.
+2. Test login at `https://learn.azzamedu.com/login`.
+3. Go to **Users -> UserGroups**.
+4. Click **Manage Users** on the target group.
+5. Add user.
+6. Go to **Courses** and enroll the user/course if group-level access is not automatic.
+7. Login as the user and confirm course visibility.
+8. Send login details by Brevo/Gmail/Zalo.
+9. Record the provision log.
+
+- [ ] Login tested
+- [ ] Correct group assigned
+- [ ] Correct course visible
+- [ ] Non-included courses hidden
+- [ ] Ops log recorded
 
 ---
 
-## 7. Test accounts
+## 5. SMTP / Invite Members
 
-| Account | Group | Verify |
-|---------|-------|--------|
-| `test-apprentice@...` | apprentice-students | M1–M5 visible, VIP lib hidden |
-| `test-vip@...` | vip-members | Both courses visible |
+Manual signup is the fallback. Configure SMTP only when you want LearnHouse to send invites.
 
-- [ ] Mobile: complete M1L1 on phone
-- [ ] Worksheet download works
-- [ ] Progress bar updates
+Preferred SMTP provider: Brevo.
+
+```text
+Host: smtp-relay.brevo.com
+Port: 587
+Encryption: STARTTLS / TLS
+Username: Brevo SMTP login
+Password: Brevo SMTP key
+From email: verified sender email
+From name: Azzam Gold
+```
+
+Check dashboard first:
+
+```text
+Organization / Settings / Email / SMTP
+```
+
+If no SMTP form exists, inspect VPS config under `/opt/learnhouse` and set matching SMTP variables if LearnHouse exposes them.
+
+- [ ] Sender email verified in Brevo
+- [ ] SMTP key generated and saved in vault
+- [ ] Test invite sent to internal inbox
+- [ ] Invite link opens signup/login correctly
 
 ---
 
-## 8. Go-live sign-off
+## 6. Go-live Sign-off
 
 - [ ] `qg-lms-checklist.md` completed
-- [ ] Provision SOP dry-run with test WooCommerce order
-- [ ] Brevo `access_ready` template includes LH URL
+- [ ] Provision SOP dry-run completed
+- [ ] Brevo `access_ready` template includes `https://learn.azzamedu.com/login`
 - [ ] Bot `LEARNHOUSE_URL` updated
+- [ ] Refund/revoke path tested once with a test user
 
 **Signed:** _______________ **Date:** _______________
