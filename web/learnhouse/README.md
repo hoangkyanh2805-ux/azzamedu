@@ -126,3 +126,27 @@ web/learnhouse/
 - [ ] Manual provision dry-run completed under 24h SLA
 - [ ] SMTP invite tested, or manual signup fallback documented
 - [ ] `qg-lms-checklist.md` signed off
+
+---
+
+## Direct Udemy Import
+
+For a new Udemy course that should go straight into an existing production LearnHouse course, use the direct import SOP:
+
+`docs/DIRECT-UDEMY-IMPORT-GUIDE.md`
+
+Standard naming:
+
+```text
+Skill: learnhouse-production-sync
+Workflow: Direct Udemy -> Existing Course Import
+Operator/agent: Course Import Operator
+```
+
+Use this when the user provides both a Udemy source URL and a target `https://learn.azzamedu.com/course/<uuid>` URL. Confirm the API UUID first, create only missing chapters/lessons, copy metadata as-is, then attach videos/resources to the matching lessons. Do not use the old SMC seed script for this path.
+
+MTF case script:
+
+```text
+scripts/import-mtf-skeleton.py
+```

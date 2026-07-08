@@ -45,6 +45,8 @@ Every script in `web/learnhouse/scripts/`. Grouped by task.
 | `print-vps-paste.py` | Emit base64-encoded one-liner to paste into OneDash SSH terminal when SSH auto fails. |
 | `fix-and-bootstrap.py` | Recovery: kills hung apt/dpkg locks, runs `dpkg --configure -a`, retries bootstrap. |
 | `resume-vps.py` | Similar recovery for older stuck states. |
+| `migrate-domain.py` | SSH: switch the live production domain. `--inspect` shows where the domain is stored (read-only); no flag = backup config + replace old→new domain + restart + doctor. New domain from `LEARNHOUSE_DOMAIN`, old from `OLD_DOMAIN` (default `learn.hoa-homes.com`). |
+| `migrate-domain.sh` | Runs **on VPS** (called by `migrate-domain.py`): backup each config file referencing the old domain, `sed` replace, restart LearnHouse. |
 
 Typical run:
 
@@ -103,6 +105,7 @@ Each `sNN-*.md` file has one `## Lesson title` per lesson. Title must match `ude
 | **Video edit → prod** | UI on local → `sync-local-to-prod.py` |
 | **S16 or quiz repair after re-seed** | `sync-ab-fixes.py` |
 | **What's different?** | `audit-local-vs-prod.py` |
+| **Change production domain** | DNS A record → VPS, then `migrate-domain.py --inspect` → `migrate-domain.py` (see runbook Phase 10) |
 | **Emergency: VPS apt locked** | `fix-and-bootstrap.py` or paste unlock block from `PRODUCTION-DEPLOY-RUNBOOK.md` |
 
 ---
@@ -123,3 +126,37 @@ Each `sNN-*.md` file has one `## Lesson title` per lesson. Title must match `ude
 
 **Seed hangs 8+ minutes:**
 - Old `####` heading not handled — already fixed; run latest `course_api.py`
+
+---
+
+## Direct Udemy -> existing LearnHouse course
+
+Use this mode when the source is Udemy and the target is an existing course on `https://learn.azzamedu.com/course/<uuid>`.
+
+| Script | Purpose | Destructive? |
+|--------|---------|--------------|
+| `import-mtf-skeleton.py` | Creates the MTF Udemy course skeleton in the existing target course. Adds missing chapters/lessons only, skips existing lesson titles, and never creates/deletes the course. | No |
+
+This mode does not use local LearnHouse as staging and does not use the old SMC seed/sync scripts. See `docs/DIRECT-UDEMY-IMPORT-GUIDE.md` for the full SOP.
+
+Required env for production:
+
+- `LEARNHOUSE_API=https://learn.azzamedu.com/api/v1`
+- `LEARNHOUSE_ADMIN_EMAIL`
+- `LEARNHOUSE_ADMIN_PASSWORD` (local shell only, never commit)
+- `LEARNHOUSE_ORG_SLUG` (default `alpha-elite`)
+- `LEARNHOUSE_ORG_ID` (default `1`)
+- `TARGET_COURSE_UUID` (with or without `course_` prefix)
+
+Example:
+
+```powershell
+cd web\learnhouse\scripts
+$env:LEARNHOUSE_API='https://learn.azzamedu.com/api/v1'
+$env:LEARNHOUSE_ADMIN_EMAIL='admin@hoa-homes.com'
+$env:LEARNHOUSE_ADMIN_PASSWORD='<set locally, never commit>'
+$env:TARGET_COURSE_UUID='course_f0b9e0d8-240b-47b5-8c39-1a713dccdc0a'
+python .\import-mtf-skeleton.py
+```
+
+After skeleton import, update metadata (`description`, `about`, `learnings`) and attach logged-in Udemy videos/resources to matching lessons.

@@ -1,6 +1,6 @@
 ---
 name: learnhouse-production-sync
-description: Deploy LearnHouse to a fresh iNET VPS and keep the local dev instance in sync with production. Use when the user wants to (1) bootstrap a new LearnHouse server on Ubuntu via SSH, (2) push course content from local `:8080` to `learn.hoa-homes.com`, (3) audit differences between local and prod, or (4) recover from stuck apt/dpkg during VPS setup. Covers the Udemy SMC clone (20 sections, 71 lessons) but the pattern works for any LearnHouse course.
+description: Deploy LearnHouse to a fresh iNET VPS and keep the local dev instance in sync with production. Use when the user wants to (1) bootstrap a new LearnHouse server on Ubuntu via SSH, (2) push course content from local `:8080` to `learn.azzamedu.com`, (3) audit differences between local and prod, or (4) recover from stuck apt/dpkg during VPS setup. Covers the Udemy SMC clone (20 sections, 71 lessons) but the pattern works for any LearnHouse course.
 ---
 
 # LearnHouse — Local → Production Sync Skill
@@ -17,7 +17,7 @@ The user is working in `web/learnhouse/` and asks about:
 
 ## Ground rules
 
-1. **Two DBs, one source of truth.** Local `:8080` and prod `learn.hoa-homes.com` are independent LearnHouse instances. Content lives in the DB, not just in `.md` files. UI edits (videos, thumbnails) do **not** appear in `.md` — they must be synced via API.
+1. **Two DBs, one source of truth.** Local `:8080` and prod `learn.azzamedu.com` are independent LearnHouse instances. Content lives in the DB, not just in `.md` files. UI edits (videos, thumbnails) do **not** appear in `.md` — they must be synced via API.
 
 2. **Never commit `deploy-production.env`.** It contains VPS root password. `.gitignore` covers it.
 
@@ -75,7 +75,7 @@ Add video in UI       ──► LOCAL DB
 
 3. **OneDash SSH `Permission denied`.** User is `root`, not the Google email. Password from iNET activation email or OnePortal reset.
 
-4. **Prod on port 80 (no HTTPS by default).** Users hit `http://learn.hoa-homes.com`. To enable Let's Encrypt, rerun `learnhouse setup` with `--port 443`.
+4. **Prod on port 80 (no HTTPS by default).** Users hit `http://learn.azzamedu.com`. To enable Let's Encrypt, rerun `learnhouse setup` with `--port 443`.
 
 ## S16 duplicate quirk (project-specific)
 
@@ -126,3 +126,50 @@ Green result: `Sections fully matched: 19+`, `Video on BOTH: 34+`, `Empty conten
 - `web/learnhouse/PRODUCTION-DEPLOY-RUNBOOK.md` — full step-by-step with deploy log
 - `web/learnhouse/SCRIPTS-REFERENCE.md` — every script explained
 - `web/learnhouse/docs/EDITING-GUIDE.md` — content edit workflows
+
+## Direct Udemy -> existing LearnHouse course workflow
+
+Use this mode when the user gives:
+
+- a Udemy source URL, and
+- an existing LearnHouse target course URL on `https://learn.azzamedu.com/course/<uuid>`.
+
+This workflow is different from the old local -> prod SMC workflow. It goes directly to the production LearnHouse course and does not use local LearnHouse as a staging database.
+
+### Names
+
+| Layer | Name |
+|-------|------|
+| Skill | `learnhouse-production-sync` |
+| Workflow | Direct Udemy -> Existing Course Import |
+| Operator / agent | Course Import Operator |
+| Helper roles | Source Mapper, LearnHouse Course Operator, Video/Resource Import Operator, QA Reviewer |
+
+### Ground rules for direct import
+
+1. Convert the target URL UUID to API UUID by adding `course_` when needed.
+2. Confirm the target course by API before writing anything.
+3. Create missing chapters/lessons only; do not delete or recreate the course.
+4. Copy Udemy metadata as-is: title, subtitle/description, about, and learning bullets.
+5. Do not rewrite, translate, summarize, or customize lesson content unless requested.
+6. Do not run `seed-udemy-clone.py` for this mode. That script is for the Advanced SMC clone and can wipe/recreate content.
+7. Do not run `sync-local-to-prod.py` unless local LearnHouse is intentionally the source of truth.
+8. Public Udemy pages are enough for first-pass metadata/curriculum. Logged-in Udemy access or exports are required for videos/resources.
+9. If the target course already has value, export/backup first.
+
+### MTF case script
+
+For the course `Master Multiple timeframe theory in trading within 1 hour`, use:
+
+```powershell
+cd web\learnhouse\scripts
+$env:LEARNHOUSE_API='https://learn.azzamedu.com/api/v1'
+$env:LEARNHOUSE_ADMIN_EMAIL='admin@hoa-homes.com'
+$env:LEARNHOUSE_ADMIN_PASSWORD='<set locally, never commit>'
+$env:TARGET_COURSE_UUID='course_f0b9e0d8-240b-47b5-8c39-1a713dccdc0a'
+python .\import-mtf-skeleton.py
+```
+
+Expected skeleton: 9 sections, 26 lessons. The script is idempotent and skips existing lessons on rerun.
+
+Full SOP: `web/learnhouse/docs/DIRECT-UDEMY-IMPORT-GUIDE.md`.
