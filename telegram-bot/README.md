@@ -7,7 +7,7 @@ Member access, onboarding, and support layer for Alpha Elite trading education. 
 | Feature | Status |
 |---------|--------|
 | Telegram ID authentication | ✅ `/start` upserts member |
-| Offer menu (Gameplan, Apprentice, VIP, Quant, DWY) | ✅ `/offers` + keyboard |
+| Offer menu (category shop + khóa học) | ✅ `/menu` `/shop` + 🛒 Shop |
 | Access tiers (Free → Inner Circle) | ✅ `/status` |
 | Payment instructions (PayPal / crypto) | ✅ |
 | Payment proof → admin queue | ✅ |
@@ -16,6 +16,8 @@ Member access, onboarding, and support layer for Alpha Elite trading education. 
 | Support tickets | ✅ |
 | Supabase schema | ✅ `database/schema_supabase.sql` |
 | WooCommerce webhook scaffold | ✅ `bot/webhooks/woocommerce.py` |
+| **Woo → Supabase catalog sync** | ✅ `scripts/sync-woo-catalog.py` |
+| **Mini App shop (HTML + Supabase)** | ✅ `miniapp/` |
 
 ## MVP access rule
 
@@ -41,9 +43,13 @@ Default database is **in-memory** (`database.provider: memory`).
 
 For Supabase (detailed guide: `docs/supabase-setup.md`):
 1. Run `database/schema_supabase.sql` in Supabase SQL Editor
-2. Set in `.env`: `DATABASE_URL=https://<project>.supabase.co` and `SUPABASE_SERVICE_KEY=<service_role>`
-3. Test: `python scripts/test_supabase.py --cleanup`
-4. Set `database.provider: supabase` in `config.yaml` and restart bot
+2. Run `database/migrations/002_shop_catalog.sql`
+3. Run `database/migrations/003_miniapp_public_read.sql` (for Mini App anon read)
+4. Set in `.env`: `DATABASE_URL`, `SUPABASE_SERVICE_KEY`, Woo API keys
+5. `python scripts/sync-woo-catalog.py`
+6. Set `catalog.source: supabase` in `config.yaml` and restart bot
+
+**Mini App:** see `miniapp/README.md` — copy `js/config.js`, deploy HTTPS, set `site.miniapp_shop_url`.
 
 ## Project layout
 
@@ -52,8 +58,10 @@ telegram-bot/
 ├── README.md
 ├── config.example.yaml
 ├── database/schema_supabase.sql
-├── docs/                    # mission, flows, compliance
+├── docs/                    # mission, flows, shop-catalog.md
+├── miniapp/                 # Telegram WebApp shop (Supabase catalog)
 └── bot/
+    ├── catalog.py           # shop categories + offers
     ├── main.py
     ├── config.py
     ├── handlers/            # start, offers, pay, admin, …

@@ -24,7 +24,7 @@ async def pay_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         config = context.bot_data["config"]
         await update.message.reply_text(
             _payment_text(config),
-            reply_markup=pay_sku_keyboard(),
+            reply_markup=pay_sku_keyboard(config),
         )
 
 

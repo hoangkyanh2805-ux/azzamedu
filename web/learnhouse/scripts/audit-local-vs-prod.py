@@ -11,7 +11,7 @@ from dataclasses import dataclass, field
 import requests
 
 LOCAL = os.environ.get("LEARNHOUSE_LOCAL_API", "http://localhost:8080/api/v1")
-PROD = os.environ.get("LEARNHOUSE_API", "http://learn.hoa-homes.com/api/v1")
+PROD = os.environ.get("LEARNHOUSE_API", "http://learn.azzamedu.com/api/v1")
 EMAIL = os.environ.get("LEARNHOUSE_ADMIN_EMAIL", "admin@hoa-homes.com")
 LOCAL_PWD = os.environ.get("LEARNHOUSE_LOCAL_PASSWORD", "AlphaElite-Local-2026!")
 PROD_PWD = os.environ.get("LEARNHOUSE_ADMIN_PASSWORD", "AlphaElite-Prod-Learn-2026!")

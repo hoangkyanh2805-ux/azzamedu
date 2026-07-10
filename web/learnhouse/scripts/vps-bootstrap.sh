@@ -3,7 +3,7 @@
 # Usage: bash vps-bootstrap.sh
 set -euo pipefail
 
-DOMAIN="${LEARNHOUSE_DOMAIN:-learn.hoa-homes.com}"
+DOMAIN="${LEARNHOUSE_DOMAIN:-learn.azzamedu.com}"
 ADMIN_EMAIL="${LEARNHOUSE_ADMIN_EMAIL:-admin@hoa-homes.com}"
 ADMIN_PASSWORD="${LEARNHOUSE_ADMIN_PASSWORD:-AlphaElite-Prod-Learn-2026!}"
 ORG_NAME="${LEARNHOUSE_ORG_NAME:-Alpha Elite}"

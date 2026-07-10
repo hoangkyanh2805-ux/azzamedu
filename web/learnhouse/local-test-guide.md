@@ -98,7 +98,7 @@ In `telegram-bot/.env`:
 LEARNHOUSE_URL=http://localhost:8080
 ```
 
-Only for local bot testing — production uses `https://learn.hoa-homes.com`.
+Only for local bot testing — production uses `https://learn.azzamedu.com`.
 
 ---
 

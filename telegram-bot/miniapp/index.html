@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Alpha Elite Shop</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="css/shop.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1 id="header-title">Alpha Elite Shop</h1>
+        <p id="header-sub">Loading…</p>
+      </header>
+      <div id="error" hidden></div>
+      <div id="loading">Đang tải catalog…</div>
+      <main id="view" hidden></main>
+    </div>
+    <!-- config.js overrides config.example.js when present (gitignored) -->
+    <script src="js/config.example.js"></script>
+    <script src="js/config.js" onerror="void 0"></script>
+    <script src="js/catalog.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

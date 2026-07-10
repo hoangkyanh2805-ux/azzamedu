@@ -18,7 +18,7 @@ hoa-homes.com (iNET WP-H1 hosting)
   ├── /checkout      → WooCommerce + FunnelKit
   └── /quant-desk    → application form
 
-learn.hoa-homes.com  → LearnHouse (phase sau, subdomain riêng)
+learn.azzamedu.com  → LearnHouse (phase sau, subdomain riêng)
 
 Telegram bot (azzam_coursebot)
   └── Thank-you page deep link → t.me/azzam_coursebot?start=order_{id}

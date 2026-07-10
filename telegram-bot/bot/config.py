@@ -24,6 +24,7 @@ class SiteConfig:
     base_url: str = "https://yourdomain.com"
     learnhouse_url: str = "https://learn.yourdomain.com"
     gameplan_path: str = "/gameplan"
+    miniapp_shop_url: str = ""
 
 
 @dataclass
@@ -34,6 +35,8 @@ class Config:
     checkout: dict[str, str] = field(default_factory=dict)
     pricing_usd: dict[str, float] = field(default_factory=dict)
     payment: dict[str, Any] = field(default_factory=dict)
+    shop: dict[str, Any] = field(default_factory=dict)
+    catalog_source: str = "yaml"  # yaml | supabase
     database_provider: str = "memory"
     database_url: str = ""
     supabase_service_key: str = ""
@@ -82,6 +85,7 @@ def load_config(path: Path | None = None) -> Config:
         base_url=os.environ.get("SITE_BASE_URL") or site_raw.get("base_url", SiteConfig.base_url),
         learnhouse_url=os.environ.get("LEARNHOUSE_URL") or site_raw.get("learnhouse_url", SiteConfig.learnhouse_url),
         gameplan_path=site_raw.get("gameplan_url", "/gameplan"),
+        miniapp_shop_url=os.environ.get("MINIAPP_SHOP_URL") or site_raw.get("miniapp_shop_url", ""),
     )
 
     payment = {
@@ -103,6 +107,8 @@ def load_config(path: Path | None = None) -> Config:
         checkout=data.get("checkout", {}),
         pricing_usd={k: float(v) for k, v in data.get("pricing_usd", {}).items()},
         payment=payment,
+        shop=data.get("shop", {}) or {},
+        catalog_source=(data.get("catalog") or {}).get("source", "yaml"),
         database_provider=data.get("database", {}).get("provider", "memory"),
         database_url=os.environ.get("DATABASE_URL") or data.get("database", {}).get("url", ""),
         supabase_service_key=os.environ.get("SUPABASE_SERVICE_KEY", ""),

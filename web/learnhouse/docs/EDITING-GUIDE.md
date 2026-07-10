@@ -6,7 +6,7 @@
 | Environment | URL | Login |
 |-------------|-----|-------|
 | **Local** | http://localhost:8080 | `admin@hoa-homes.com` / `AlphaElite-Local-2026!` |
-| **Production** | http://learn.hoa-homes.com | `admin@hoa-homes.com` / `AlphaElite-Prod-Learn-2026!` |
+| **Production** | http://learn.azzamedu.com | `admin@hoa-homes.com` / `AlphaElite-Prod-Learn-2026!` |
 
 For **first-time deploy** or full re-provision, follow `PRODUCTION-DEPLOY-RUNBOOK.md`.
 
@@ -139,7 +139,7 @@ Env vars used by all scripts (see `course_api.py`):
 | `LEARNHOUSE_LOCAL_PASSWORD` | `AlphaElite-Local-2026!` |
 | `LEARNHOUSE_ORG_SLUG` | `alpha-elite` |
 
-For prod sync, set `LEARNHOUSE_API=http://learn.hoa-homes.com/api/v1` and `LEARNHOUSE_ADMIN_PASSWORD=<prod pw>` — or use `deploy-production.env`.
+For prod sync, set `LEARNHOUSE_API=http://learn.azzamedu.com/api/v1` and `LEARNHOUSE_ADMIN_PASSWORD=<prod pw>` — or use `deploy-production.env`.
 
 ---
 

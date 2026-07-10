@@ -1,6 +1,6 @@
 # LearnHouse Deploy Guide — Alpha Elite
 
-**Target:** `https://learn.hoa-homes.com` (subdomain separate from WordPress on `hoa-homes.com`)
+**Target:** `https://learn.azzamedu.com` (subdomain separate from WordPress on `hoa-homes.com`)
 
 **Local test first:** `local-test-guide.md` (Windows + Docker Desktop)
 
@@ -29,7 +29,7 @@ In domain panel (iNET / registrar):
 |------|------|-------|
 | A | `learn` | `<VPS_IP>` |
 
-Wait for propagation (5–60 min). Verify: `ping learn.hoa-homes.com`
+Wait for propagation (5–60 min). Verify: `ping learn.azzamedu.com`
 
 ---
 
@@ -66,7 +66,7 @@ npx learnhouse@latest setup
 | Prompt | Value |
 |--------|-------|
 | Install directory | `/opt/learnhouse` |
-| Domain | `learn.hoa-homes.com` |
+| Domain | `learn.azzamedu.com` |
 | HTTPS | **Yes** (Let's Encrypt) |
 | Database | Local Docker (PostgreSQL) |
 | Redis | Local Docker |
@@ -79,7 +79,7 @@ npx learnhouse start
 npx learnhouse doctor
 ```
 
-Open `https://learn.hoa-homes.com` → log in with admin credentials.
+Open `https://learn.azzamedu.com` → log in with admin credentials.
 
 ---
 
@@ -104,14 +104,14 @@ Open `https://learn.hoa-homes.com` → log in with admin credentials.
 |-------------|------------|
 | WooCommerce | Manual provision per order (no API) |
 | Brevo | `access_ready` email with LH login URL |
-| Telegram bot | Set `LEARNHOUSE_URL=https://learn.hoa-homes.com` in bot `.env` |
+| Telegram bot | Set `LEARNHOUSE_URL=https://learn.azzamedu.com` in bot `.env` |
 | YouTube | Unlisted embeds per lesson — no LH video upload |
 
 **Bot config** (`telegram-bot/config.yaml`):
 
 ```yaml
 site:
-  learnhouse_url: https://learn.hoa-homes.com
+  learnhouse_url: https://learn.azzamedu.com
 ```
 
 ---

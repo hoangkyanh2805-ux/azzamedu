@@ -1,0 +1,67 @@
+# SKU → Telegram shop metadata (not overwritten by Woo sync)
+# Price/name/checkout_path come from WooCommerce API when synced.
+
+categories:
+  - id: khoa_hoc
+    label: "📚 Khóa học"
+    sort_order: 1
+  - id: membership
+    label: "🏛 Membership"
+    sort_order: 2
+  - id: free
+    label: "🎁 Free"
+    sort_order: 3
+  - id: services
+    label: "🔧 Services"
+    sort_order: 4
+
+sku_rules:
+  AE-APP-001:
+    category: khoa_hoc
+    tier: apprentice
+    emoji: "📘"
+    kind: checkout
+    sort_order: 1
+  AE-VIP-MON:
+    category: membership
+    tier: vip
+    emoji: "🏛"
+    kind: checkout
+    sort_order: 2
+  AE-VIP-YR:
+    category: membership
+    tier: vip
+    emoji: "🏛"
+    kind: checkout
+    sort_order: 3
+  AE-QNT-001:
+    category: membership
+    tier: quant
+    emoji: "📊"
+    kind: apply
+    apply_path: /quant-desk
+    sort_order: 4
+  AE-DWY-001:
+    category: services
+    tier: vip
+    emoji: "🔧"
+    kind: callback
+    callback_data: offer:dwy
+    sort_order: 5
+
+# Not on Woo — bot-only / static offers
+static_offers:
+  - sku: AE-GP-000
+    name: 2% Rule Gameplan
+    category: free
+    tier: free
+    emoji: "🎁"
+    kind: gameplan
+    checkout_path: /gameplan
+    price_usd: null
+    sort_order: 1
+    active: true
+
+woo:
+  sku_prefix: "AE-"
+  cart_path_template: "/checkout/?add-to-cart={sku}"

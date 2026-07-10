@@ -23,7 +23,7 @@ def compare(base, pwd, label):
     print(f"  block types: {sorted({b.get('type') for b in blocks})}")
 
 compare("http://localhost:8080/api/v1", "AlphaElite-Local-2026!", "LOCAL :8080")
-compare("http://learn.hoa-homes.com/api/v1", "AlphaElite-Prod-Learn-2026!", "PROD")
+compare("http://learn.azzamedu.com/api/v1", "AlphaElite-Prod-Learn-2026!", "PROD")
 
 def count_videos(base, pwd, label):
     s = requests.Session()
@@ -42,4 +42,4 @@ def count_videos(base, pwd, label):
     print(f"{label}: {vid}/{total} lessons with video | thumbnail={bool(course.get('thumbnail_image'))}")
 
 count_videos("http://localhost:8080/api/v1", "AlphaElite-Local-2026!", "LOCAL")
-count_videos("http://learn.hoa-homes.com/api/v1", "AlphaElite-Prod-Learn-2026!", "PROD")
+count_videos("http://learn.azzamedu.com/api/v1", "AlphaElite-Prod-Learn-2026!", "PROD")

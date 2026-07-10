@@ -102,23 +102,24 @@ CREATE TABLE audit_log (
   created_at    TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- Offer catalog (optional — can use config.yaml instead)
+-- Offer catalog (optional — can use config.yaml shop section instead)
 CREATE TABLE offers (
   sku           TEXT PRIMARY KEY,
   name          TEXT NOT NULL,
   tier          access_tier NOT NULL,
+  category      TEXT DEFAULT 'general',
   price_usd     NUMERIC(10,2),
   checkout_path TEXT NOT NULL,
   active        BOOLEAN DEFAULT true
 );
 
 -- Seed offers (G0 draft prices — update after owner sign-off)
-INSERT INTO offers (sku, name, tier, price_usd, checkout_path) VALUES
-  ('AE-APP-001', 'Apprentice Operating Course', 'apprentice', 297, '/checkout/?add-to-cart=AE-APP-001'),
-  ('AE-VIP-MON', 'VIP Private Desk — Monthly', 'vip', 149, '/checkout/?add-to-cart=AE-VIP-MON'),
-  ('AE-VIP-YR', 'VIP Private Desk — Annual', 'vip', 1290, '/checkout/?add-to-cart=AE-VIP-YR'),
-  ('AE-QNT-001', 'Quant Desk', 'quant', NULL, '/quant-desk'),
-  ('AE-DWY-001', 'DWY Bot & Broker Setup', 'vip', 497, '/checkout/?add-to-cart=AE-DWY-001')
+INSERT INTO offers (sku, name, tier, category, price_usd, checkout_path) VALUES
+  ('AE-APP-001', 'Apprentice Operating Course', 'apprentice', 'khoa_hoc', 297, '/checkout/?add-to-cart=AE-APP-001'),
+  ('AE-VIP-MON', 'VIP Private Desk — Monthly', 'vip', 'membership', 149, '/checkout/?add-to-cart=AE-VIP-MON'),
+  ('AE-VIP-YR', 'VIP Private Desk — Annual', 'vip', 'membership', 1290, '/checkout/?add-to-cart=AE-VIP-YR'),
+  ('AE-QNT-001', 'Quant Desk', 'quant', 'membership', NULL, '/quant-desk'),
+  ('AE-DWY-001', 'DWY Bot & Broker Setup', 'vip', 'services', 497, '/checkout/?add-to-cart=AE-DWY-001')
 ON CONFLICT (sku) DO NOTHING;
 
 -- updated_at trigger

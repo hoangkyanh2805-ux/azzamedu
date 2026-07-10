@@ -22,6 +22,7 @@ async def menu_router(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
 
     text = update.message.text.strip()
     routes = {
+        "🛒 Shop": "offers",
         "📋 Offers": "offers",
         "🔑 My Access": "status",
         "💳 Payment": "pay",

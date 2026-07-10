@@ -42,6 +42,14 @@ WordPress/Elementor · WooCommerce · FunnelKit · LearnHouse · Brevo · YouTub
 
 [10 agents](.ai/agents/README.md) · [pre-launch](.ai/commands/pre-launch.md)
 
+## Case studies & plans (API + agents)
+
+| Doc | Purpose |
+|-----|---------|
+| [hermes-brevo-api-automation.md](knowledge/case-studies/hermes-brevo-api-automation.md) | Case study: Orange Pi stack (WP+Woo+PayPal+Brevo+Hermes) → Alpha Elite |
+| [alpha-elite-ux-flow-hermes-p2.md](knowledge/plans/alpha-elite-ux-flow-hermes-p2.md) | **UX flow + sơ đồ mermaid** — mở Preview `Ctrl+Shift+V` |
+| [alpha-elite-ux-flow-diagrams.html](knowledge/plans/alpha-elite-ux-flow-diagrams.html) | Cùng sơ đồ — double-click mở trình duyệt |
+
 ## Landing page design (Elementor)
 
 [landing-page-cro-design.md](web/wordpress/landing-page-cro-design.md) · Wireframes `web/wordpress/wireframes/01–06`  

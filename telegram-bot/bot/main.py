@@ -40,7 +40,11 @@ def main() -> None:
     app.bot_data["config"] = config
     register_handlers(app)
 
-    logger.info("Alpha Elite Access Bot starting (%s)", config.bot.mode)
+    logger.info(
+        "Alpha Elite Access Bot starting (%s) — shop catalog v2, source=%s",
+        config.bot.mode,
+        config.catalog_source,
+    )
     app.run_polling(allowed_updates=["message", "callback_query"])
 
 

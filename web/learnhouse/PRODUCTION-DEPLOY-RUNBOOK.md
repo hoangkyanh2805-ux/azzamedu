@@ -2,6 +2,10 @@
 
 > **Real deploy log** from 2026-07-03. Followed by anyone repeating this stack.
 > Course: `Advanced trading course : The complete Smart Money Concepts` (20 sections, 71 lessons).
+>
+> **Domain migration 2026-07-04:** production domain switched from the original `learn.hoa-homes.com`
+> to **`learn.azzamedu.com`**. All operational steps below use the new domain. The dated deploy log
+> at the bottom keeps the original hostname for history. See `scripts/migrate-domain.py` for the switch.
 
 ---
 
@@ -9,7 +13,7 @@
 
 | Layer | Value |
 |-------|-------|
-| Domain | `learn.hoa-homes.com` |
+| Domain | `learn.azzamedu.com` |
 | VPS | iNET Cloud (Ubuntu 22.04) · `162.4.176.43:24700` |
 | Panel | OneDash — https://one.inet.vn |
 | LMS | LearnHouse (Docker: nginx + app + redis + postgres) |
@@ -40,7 +44,7 @@ WordPress stays on hosting **WP-H1** at `hoa-homes.com` — LMS is a **separate 
 Verify from Windows:
 
 ```powershell
-ping learn.hoa-homes.com
+ping learn.azzamedu.com
 ```
 
 Must return the VPS IP. Wait 5–30 min after saving.
@@ -65,7 +69,7 @@ VPS_PORT=24700
 VPS_USER=root
 VPS_PASSWORD=<from iNET email or OneDash reset>
 
-LEARNHOUSE_DOMAIN=learn.hoa-homes.com
+LEARNHOUSE_DOMAIN=learn.azzamedu.com
 LEARNHOUSE_ADMIN_EMAIL=admin@hoa-homes.com
 LEARNHOUSE_ADMIN_PASSWORD=<strong password — save in vault>
 LEARNHOUSE_ORG_SLUG=alpha-elite
@@ -89,7 +93,7 @@ Script does (over SSH from Windows):
 3. Open ports 22, 80, 443
 4. `npx learnhouse@latest setup --ci` → domain, admin, org
 5. `npx learnhouse start && npx learnhouse doctor`
-6. Wait for `https://learn.hoa-homes.com` to answer
+6. Wait for `https://learn.azzamedu.com` to answer
 7. Auto-run seed script if site is up
 
 Total time: **10–15 min**.
@@ -134,7 +138,7 @@ ufw allow 80,443/tcp 2>/dev/null; ufw --force enable 2>/dev/null
 mkdir -p /opt/learnhouse && cd /opt/learnhouse
 npx learnhouse@latest setup --ci \
   --install-dir /opt/learnhouse \
-  --domain learn.hoa-homes.com --port 80 \
+  --domain learn.azzamedu.com --port 80 \
   --admin-email admin@hoa-homes.com \
   --admin-password 'CHANGE-ME' \
   --org-name "Alpha Elite" --org-slug alpha-elite
@@ -208,7 +212,7 @@ Prints per-section table (blocks, video flag, text length) and writes `audit-loc
 |------|-------|
 | Upload course thumbnail (banner SMC) | LearnHouse UI → Course settings |
 | Enable HTTPS via Let's Encrypt | Re-run `npx learnhouse setup` with `--port 443` or configure nginx |
-| WordPress thank-you page → link `http://learn.hoa-homes.com` | Elementor edit `/gameplan-thank-you` |
+| WordPress thank-you page → link `http://learn.azzamedu.com` | Elementor edit `/gameplan-thank-you` |
 | Brevo `access_ready` template → same URL | Brevo dashboard |
 | Rotate VPS root password (was shared for setup) | OnePortal → VPS → Reset password |
 | Set weekly backup cron on VPS | `crontab -e` → `0 3 * * 0 cd /opt/learnhouse && npx learnhouse backup` |
@@ -227,7 +231,7 @@ python -u sync-local-to-prod.py  # push to VPS
 
 **Add video to a lesson (fastest via UI):**
 
-1. Open `http://learn.hoa-homes.com` → lesson → Edit
+1. Open `http://learn.azzamedu.com` → lesson → Edit
 2. Paste YouTube URL → embed block
 3. Save
 
@@ -243,12 +247,57 @@ Edit `content/udemy-clone-curriculum.json` → run `seed-udemy-clone.py` (**wipe
 
 ---
 
+## Phase 10 — Change production domain (migration)
+
+Switch the live LMS to a new subdomain (e.g. `learn.hoa-homes.com` → `learn.azzamedu.com`)
+without losing content. Order matters — **DNS first**, then config.
+
+1. **DNS (iNET OnePortal → Tên miền → azzamedu.com → Bản ghi DNS):**
+
+   | Type | Host | Value | TTL |
+   |------|------|-------|-----|
+   | A | `learn` | `162.4.176.43` | 5 min |
+
+   Remove/override any existing `learn` record (and any wildcard `*`) that points elsewhere.
+   Verify from Windows: `ping learn.azzamedu.com` must return `162.4.176.43`.
+
+2. **Inspect the VPS first (read-only):**
+
+   ```powershell
+   cd "web\learnhouse\scripts"
+   Copy-Item deploy-production.env.example deploy-production.env   # if not present
+   notepad deploy-production.env                                   # set VPS_PASSWORD
+   python -u migrate-domain.py --inspect
+   ```
+
+   Shows `learnhouse.config.json`, `.env`, compose files, and which files hold the old domain.
+
+3. **Apply the switch:**
+
+   ```powershell
+   python -u migrate-domain.py
+   ```
+
+   Backs up each config file, replaces old→new domain, restarts LearnHouse, runs doctor.
+   If the browser still calls the old domain, the frontend image was built with a baked-in
+   `NEXT_PUBLIC_LEARNHOUSE_DOMAIN` → re-run `npx learnhouse setup --ci --domain <new> ...` on the VPS.
+
+4. **Enable HTTPS** for the new domain (Phase 8) once DNS resolves + ports 80/443 open.
+
+5. **Update downstream:** WordPress thank-you link, Brevo `access_ready` template, Telegram bot
+   `LEARNHOUSE_URL`. (Repo defaults already point to the new domain.)
+
+> Admin login email stays `admin@hoa-homes.com` (it is a DB user, independent of the domain).
+> Change it separately in the LearnHouse UI only if you want to rebrand the account.
+
+---
+
 ## Troubleshooting
 
 | Symptom | Fix |
 |---------|-----|
-| `ping learn.hoa-homes.com` returns wrong IP | Wait 30 min; check OnePortal DNS record |
-| `learn.hoa-homes.com` refused connect | SSH into VPS → `cd /opt/learnhouse && npx learnhouse start && npx learnhouse doctor` |
+| `ping learn.azzamedu.com` returns wrong IP | Wait 30 min; check OnePortal DNS record |
+| `learn.azzamedu.com` refused connect | SSH into VPS → `cd /opt/learnhouse && npx learnhouse start && npx learnhouse doctor` |
 | SSH `Permission denied` | Reset VPS root password in OnePortal, update `deploy-production.env` |
 | `Kết nối thất bại` in OneDash | Wrong username (use `root`) or password |
 | `apt-get` hangs on conf prompt | See Phase 3 known-prompt fix or paste `N` in OneDash SSH |
@@ -270,6 +319,8 @@ web/learnhouse/scripts/
 ├── fix-and-bootstrap.py           # recovery: dpkg unlock + rerun bootstrap
 ├── resume-vps.py                  # after apt hang: kill locks + continue
 ├── print-vps-paste.py             # emit base64 one-liner for manual paste
+├── migrate-domain.py              # SSH: switch prod domain (inspect + apply)
+├── migrate-domain.sh              # runs on VPS: backup config + replace domain + restart
 ├── seed-udemy-clone.py            # create course + 20 sections + 71 lessons
 ├── sync-udemy-clone.py            # update bodies (no course wipe)
 ├── sync-local-to-prod.py          # copy local content → prod, incl. videos
@@ -300,4 +351,5 @@ web/learnhouse/content/
 - 19:25 — `sync-ab-fixes.py`: S16 (4 lessons) + quizzes (3 lessons) pushed
 - 20:55 — Initial git push to GitHub azzamedu
 
-Result: `http://learn.hoa-homes.com` live · 4 containers healthy · course fully populated.
+Result (2026-07-03): `http://learn.hoa-homes.com` live · 4 containers healthy · course fully populated.
+Migrated to `learn.azzamedu.com` on 2026-07-04 (see top note + `scripts/migrate-domain.py`).

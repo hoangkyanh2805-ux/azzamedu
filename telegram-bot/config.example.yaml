@@ -14,6 +14,7 @@ site:
   base_url: https://yourdomain.com
   learnhouse_url: https://learn.yourdomain.com
   gameplan_url: /gameplan
+  miniapp_shop_url: https://learn.yourdomain.com/miniapp/
 
 checkout:
   AE-APP-001: /checkout/?add-to-cart=AE-APP-001
@@ -26,6 +27,56 @@ pricing_usd:  # G0 — sync with pricing-draft-g0.md
   AE-VIP-MON: 149
   AE-VIP-YR: 1290
   AE-DWY-001: 497
+
+database:
+  provider: supabase  # supabase | memory
+
+# catalog.source: supabase → bot reads offers from Supabase (sync from Woo)
+# catalog.source: yaml    → fallback config.yaml shop section
+catalog:
+  source: supabase
+
+# Fallback shop (used when catalog.source=yaml or Supabase empty)
+shop:
+  categories:
+    - id: khoa_hoc
+      label: "📚 Khóa học"
+    - id: membership
+      label: "🏛 Membership"
+    - id: free
+      label: "🎁 Free"
+    - id: services
+      label: "🔧 Services"
+  offers:
+    - sku: AE-APP-001
+      category: khoa_hoc
+      name: Apprentice Operating Course
+      emoji: "📘"
+    - sku: AE-VIP-MON
+      category: membership
+      name: VIP Private Desk — Monthly
+      emoji: "🏛"
+    - sku: AE-VIP-YR
+      category: membership
+      name: VIP Private Desk — Annual
+      emoji: "🏛"
+    - sku: AE-QNT-001
+      category: membership
+      name: Quant Desk
+      emoji: "📊"
+      kind: apply
+      apply_path: /quant-desk
+    - sku: AE-GP-000
+      category: free
+      name: 2% Rule Gameplan
+      emoji: "🎁"
+      kind: gameplan
+    - sku: AE-DWY-001
+      category: services
+      name: DWY Bot & Broker Setup
+      emoji: "🔧"
+      kind: callback
+      callback_data: offer:dwy
 
 payment:
   paypal_email: hello@yourdomain.com

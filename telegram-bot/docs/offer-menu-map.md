@@ -7,7 +7,7 @@
 
 ```text
 /start
-├── 📋 View Offers
+├── 🛒 Shop (/menu)     ← category browse
 ├── 🔑 My Access
 ├── 💳 Payment Help
 ├── 🧭 Onboarding
@@ -15,7 +15,16 @@
 └── ⚠️ Risk Disclaimer
 ```
 
-## Offer catalog
+## Shop categories
+
+| Category | ID | Products |
+|----------|-----|----------|
+| 📚 Khóa học | `khoa_hoc` | Apprentice `AE-APP-001` |
+| 🏛 Membership | `membership` | VIP MON/YR, Quant apply |
+| 🎁 Free | `free` | Gameplan |
+| 🔧 Services | `services` | DWY bump |
+
+## Offer catalog (flat reference)
 
 | Menu label | SKU | Price (draft) | Checkout / action |
 |------------|-----|---------------|-------------------|

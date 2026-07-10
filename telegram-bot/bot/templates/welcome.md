@@ -1,7 +1,7 @@
 Welcome to **Alpha Elite** — trading education and member access.
 
 This bot helps you:
-• View offers and checkout links
+• Browse the shop by category (courses, membership)
 • Check your access status
 • Submit payment proof (PayPal / crypto)
 • Get LearnHouse and VIP onboarding after admin approval

@@ -21,7 +21,7 @@ def load_env() -> dict[str, str]:
         "VPS_PORT": "24700",
         "VPS_USER": "root",
         "VPS_PASSWORD": "",
-        "LEARNHOUSE_DOMAIN": "learn.hoa-homes.com",
+        "LEARNHOUSE_DOMAIN": "learn.azzamedu.com",
         "LEARNHOUSE_ADMIN_EMAIL": "admin@hoa-homes.com",
         "LEARNHOUSE_ADMIN_PASSWORD": "AlphaElite-Prod-Learn-2026!",
         "LEARNHOUSE_ORG_SLUG": "alpha-elite",

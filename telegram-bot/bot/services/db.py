@@ -133,6 +133,41 @@ class MemoryStore:
     def get_member(self, telegram_id: int) -> Optional[Member]:
         return self.members.get(telegram_id)
 
+    def list_shop_categories(self) -> list[dict]:
+        from bot.catalog import DEFAULT_CATEGORIES
+
+        return [{"id": c.id, "label": c.label, "sort_order": i} for i, c in enumerate(DEFAULT_CATEGORIES)]
+
+    def list_shop_offers(self, active_only: bool = True) -> list[dict]:
+        from bot.catalog import DEFAULT_OFFERS
+
+        rows = []
+        for o in DEFAULT_OFFERS:
+            rows.append(
+                {
+                    "sku": o.sku,
+                    "name": o.name,
+                    "display_name": None,
+                    "category": o.category_id,
+                    "emoji": o.emoji,
+                    "kind": o.kind,
+                    "callback_data": o.callback_data or None,
+                    "apply_path": o.apply_path or None,
+                    "checkout_path": None,
+                    "price_usd": None,
+                    "sort_order": 0,
+                    "active": True,
+                    "active_on_bot": True,
+                }
+            )
+        return rows
+
+    def upsert_shop_category(self, payload: dict) -> None:
+        pass
+
+    def upsert_offer(self, payload: dict) -> None:
+        pass
+
 
 class SupabaseStore:
     """Minimal PostgREST adapter for production persistence."""
@@ -309,6 +344,42 @@ class SupabaseStore:
             status=row.get("status", "lead"),
             sku_last=row.get("sku_last"),
             vip_username=row.get("vip_username"),
+        )
+
+    def list_shop_categories(self) -> list[dict]:
+        rows = self._request(
+            "GET",
+            "/shop_categories?select=id,label,sort_order&active=eq.true&order=sort_order.asc",
+        ).json()
+        return rows
+
+    def list_shop_offers(self, active_only: bool = True) -> list[dict]:
+        path = "/offers?select=*&order=sort_order.asc,category.asc,sku.asc"
+        if active_only:
+            path += "&active=eq.true&active_on_bot=eq.true"
+        return self._request("GET", path).json()
+
+    def upsert_shop_category(self, payload: dict) -> None:
+        body = {
+            "id": payload["id"],
+            "label": payload["label"],
+            "sort_order": payload.get("sort_order", 0),
+            "active": payload.get("active", True),
+        }
+        self._request(
+            "POST",
+            "/shop_categories?on_conflict=id",
+            extra_headers={"Prefer": "resolution=merge-duplicates"},
+            json=body,
+        )
+
+    def upsert_offer(self, payload: dict) -> None:
+        clean = {k: v for k, v in payload.items() if v is not None}
+        self._request(
+            "POST",
+            "/offers?on_conflict=sku",
+            extra_headers={"Prefer": "resolution=merge-duplicates,return=representation"},
+            json=clean,
         )
 
 

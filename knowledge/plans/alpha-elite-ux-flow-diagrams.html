@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alpha Elite — Sơ đồ UX Flow (vẽ)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --bg: #09090b; --panel: #18181b; --border: #3f3f46;
+      --text: #fafafa; --muted: #a1a1aa; --accent: #22d3ee;
+      --orange: #f97316; --green: #34d399; --purple: #a78bfa;
+      --paypal: #0070ba; --brevo: #0b996e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      background-image: radial-gradient(ellipse 70% 40% at 50% -10%, rgba(34,211,238,.1), transparent);
+    }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(9,9,11,.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+    }
+    header h1 { font-size: 1.25rem; font-weight: 700; }
+    header p { color: var(--muted); font-size: .875rem; margin-top: .25rem; }
+  .open-hint {
+      margin-top: .5rem; padding: .5rem .75rem;
+      background: rgba(34,211,238,.1); border: 1px solid rgba(34,211,238,.3);
+      border-radius: 8px; font-size: .8rem; color: var(--accent);
+    }
+    nav {
+      display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem;
+    }
+    nav a {
+      color: var(--text); text-decoration: none; font-size: .75rem;
+      padding: .35rem .65rem; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--panel);
+    }
+    nav a:hover { border-color: var(--accent); color: var(--accent); }
+    main { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+    section {
+      margin-bottom: 3rem; scroll-margin-top: 6rem;
+    }
+    section h2 {
+      font-size: 1.1rem; font-weight: 600; margin-bottom: .35rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    section h2 .num {
+      background: var(--accent); color: #000; font-size: .7rem;
+      padding: .15rem .45rem; border-radius: 4px; font-weight: 700;
+    }
+    .desc { color: var(--muted); font-size: .875rem; margin-bottom: 1rem; max-width: 72ch; line-height: 1.55; }
+    .card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; overflow-x: auto;
+    }
+    .mermaid { display: flex; justify-content: center; }
+    /* CSS diagram — sơ đồ một trang vẽ bằng box */
+    .flow-stack { display: flex; flex-direction: column; align-items: center; gap: 0; padding: 1rem 0; }
+    .flow-box {
+      border: 2px solid var(--border); border-radius: 10px;
+      padding: .75rem 1.25rem; text-align: center; min-width: 280px;
+      background: #27272a; font-size: .85rem; line-height: 1.4;
+    }
+    .flow-box strong { display: block; font-size: .95rem; margin-bottom: .2rem; }
+    .flow-box small { color: var(--muted); }
+    .flow-box.accent { border-color: var(--accent); box-shadow: 0 0 20px rgba(34,211,238,.15); }
+    .flow-box.paypal { border-color: var(--paypal); background: rgba(0,112,186,.12); }
+    .flow-box.brevo { border-color: var(--brevo); background: rgba(11,153,110,.1); }
+    .flow-box.hermes { border-color: var(--purple); background: rgba(167,139,250,.1); }
+    .flow-box.gate { border-color: #fbbf24; background: rgba(251,191,36,.08); }
+    .flow-arrow { color: var(--muted); font-size: 1.25rem; line-height: 1; padding: .15rem 0; }
+    .flow-split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      width: 100%; max-width: 700px; position: relative;
+    }
+    .flow-split::before {
+      content: ''; position: absolute; top: -12px; left: 50%; width: 2px; height: 12px;
+      background: var(--border); transform: translateX(-50%);
+    }
+    .flow-row3 {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem;
+      width: 100%; max-width: 720px;
+    }
+    .flow-legend {
+      display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem;
+      font-size: .75rem; color: var(--muted);
+    }
+    .flow-legend span { display: flex; align-items: center; gap: .35rem; }
+    .dot { width: 10px; height: 10px; border-radius: 2px; }
+    /* Compare columns */
+    .compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    }
+    @media (max-width: 768px) { .compare, .flow-split, .flow-row3 { grid-template-columns: 1fr; } }
+    .compare-col {
+      border-radius: 12px; padding: 1rem; border: 2px solid var(--border);
+    }
+    .compare-col.op { border-color: var(--orange); background: rgba(249,115,22,.06); }
+    .compare-col.ae { border-color: var(--accent); background: rgba(34,211,238,.06); }
+    .compare-col h3 { font-size: .95rem; margin-bottom: .75rem; }
+    .compare-col ol { padding-left: 1.2rem; font-size: .8rem; color: var(--muted); line-height: 1.7; }
+    .compare-col ol li strong { color: var(--text); }
+    .badge {
+      display: inline-block; font-size: .65rem; padding: .1rem .4rem;
+      border-radius: 4px; font-weight: 600; margin-left: .25rem;
+    }
+    .badge-pp { background: var(--paypal); color: #fff; }
+    .badge-hm { background: var(--purple); color: #fff; }
+    .badge-no { background: #52525b; color: #fff; }
+    @media print {
+      header { position: static; }
+      section { break-inside: avoid; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Alpha Elite — Sơ đồ UX Flow (đã vẽ)</h1>
+    <p>Orange Pi (WP+Woo+PayPal+Brevo+Hermes) → Alpha Elite · Mở file này bằng trình duyệt (double-click)</p>
+    <div class="open-hint">📂 File: <code>knowledge/plans/alpha-elite-ux-flow-diagrams.html</code> — không cần server, không cần đọc markdown code.</div>
+    <nav>
+      <a href="#overview">Tổng quan</a>
+      <a href="#compare">Orange Pi vs AE</a>
+      <a href="#onpage">Sơ đồ 1 trang</a>
+      <a href="#layers">4 lớp</a>
+      <a href="#journey">5 giai đoạn</a>
+      <a href="#path-a">Path A Lead</a>
+      <a href="#path-b">Path B PayPal</a>
+      <a href="#path-c">Path C VIP</a>
+      <a href="#paypal">PayPal map</a>
+      <a href="#hermes">Hermes P2</a>
+      <a href="#compliance">Compliance</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <h2><span class="num">★</span> Tóm tắt</h2>
+      <p class="desc">
+        <strong>Cùng stack Orange Pi</strong> (WordPress · WooCommerce · PayPal · Brevo · Hermes).
+        Khác: sau PayPal là <strong>LearnHouse + Telegram</strong> thay vì ship hàng.
+        Hermes P2 nằm <strong>sau PayPal</strong> và sau repo audit — không đụng nút thanh toán của user.
+      </p>
+    </section>
+
+    <!-- COMPARE -->
+    <section id="compare">
+      <h2><span class="num">1</span> Orange Pi ecom ↔ Alpha Elite</h2>
+      <p class="desc">Hai cột song song — cùng khung, khác fulfillment và loại email.</p>
+      <div class="compare">
+        <div class="compare-col op">
+          <h3>🟠 Orange Pi (orangepi.net)</h3>
+          <ol>
+            <li>Traffic → <strong>Product page</strong> (opizero3)</li>
+            <li>Chọn RAM → Cart / <strong>PayPal Mua ngay</strong> <span class="badge badge-pp">PayPal</span></li>
+            <li>WooCommerce order OK</li>
+            <li>Brevo email + live chat</li>
+            <li><strong>Hermes</strong> push campaign HTML <span class="badge badge-hm">Hermes</span></li>
+            <li><strong>Ship board</strong> (kho vận)</li>
+          </ol>
+        </div>
+        <div class="compare-col ae">
+          <h3>🔵 Alpha Elite (hoa-homes.com)</h3>
+          <ol>
+            <li>Traffic → <strong>Landing</strong> opt-in Gameplan</li>
+            <li>Brevo Email 0 + Day 1–7 nurture</li>
+            <li>CTA → <strong>/apprentice</strong> → FunnelKit</li>
+            <li><strong>PayPal</strong> checkout <span class="badge badge-pp">PayPal</span> <span class="badge badge-no">no Hermes</span></li>
+            <li>Woo tag → <strong>Hermes P2</strong> sync + nhắc G4 <span class="badge badge-hm">Hermes</span></li>
+            <li><strong>LearnHouse</strong> + Telegram VIP (digital)</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ON PAGE CSS DIAGRAM -->
+    <section id="onpage">
+      <h2><span class="num">2</span> Sơ đồ một trang — Alpha Elite (vẽ bằng box)</h2>
+      <p class="desc">Luồng chính từ traffic đến LMS — PayPal ở giữa checkout và fulfillment digital.</p>
+      <div class="card">
+        <div class="flow-stack">
+          <div class="flow-box"><strong>TRAFFIC</strong><small>ads · social · referral · UTM</small></div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box accent"><strong>WORDPRESS + ELEMENTOR</strong><small>hoa-homes.com · / · /apprentice · /vip</small><small class="gate" style="color:#fbbf24">← G1 publish</small></div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-split">
+            <div class="flow-box brevo"><strong>BREVO</strong><small>opt-in → gameplan-leads</small><small>nurture · onboarding</small><small style="color:#fbbf24">← G2 email</small></div>
+            <div class="flow-box accent"><strong>FUNNELKIT</strong><small>bump · upsell · thank-you</small><small style="color:#fbbf24">← G3 funnel</small></div>
+          </div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box paypal"><strong>PAYPAL</strong><small>WooCommerce gateway · AE-APP-001 $297</small><small style="color:#fbbf24">← G6 live</small><small style="color:#a78bfa">Hermes KHÔNG ở đây</small></div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-split">
+            <div class="flow-box hermes"><strong>HERMES P2</strong><small>tag sync · cron nhắc G4/G5</small><small>access_ready API</small></div>
+            <div class="flow-box brevo"><strong>BREVO tags</strong><small>purchased_* · stop nurture</small></div>
+          </div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-row3">
+            <div class="flow-box gate"><strong>LEARNHOUSE</strong><small>learn.hoa-homes.com</small><small style="color:#fbbf24">G4 ≤24h</small></div>
+            <div class="flow-box gate"><strong>TELEGRAM</strong><small>VIP desk</small><small style="color:#fbbf24">G5</small></div>
+            <div class="flow-box"><strong>YOUTUBE</strong><small>unlisted embed</small></div>
+          </div>
+          <div class="flow-legend">
+            <span><i class="dot" style="background:var(--accent)"></i> User-facing</span>
+            <span><i class="dot" style="background:var(--paypal)"></i> PayPal</span>
+            <span><i class="dot" style="background:var(--brevo)"></i> Brevo</span>
+            <span><i class="dot" style="background:var(--purple)"></i> Hermes P2</span>
+            <span><i class="dot" style="background:#fbbf24"></i> Human gate</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 LAYERS -->
+    <section id="layers">
+      <h2><span class="num">3</span> Bốn lớp hệ thống</h2>
+      <p class="desc">User chỉ thấy L1–L2. Hermes (L3) và repo/gates (L4) là lớp vận hành phía sau.</p>
+      <div class="card"><pre class="mermaid">
+flowchart TB
+    subgraph L1["Lớp 1 — User-facing"]
+        T[Traffic]
+        WP[WordPress + Elementor]
+        FK[FunnelKit]
+        PP[PayPal]
+        LH[LearnHouse]
+        TG[Telegram VIP]
+    end
+    subgraph L2["Lớp 2 — Brevo"]
+        BR[lists · tags · automations]
+    end
+    subgraph L3["Lớp 3 — Hermes P2"]
+        HM[Hermes Agent]
+        CRON[Cron tasks]
+    end
+    subgraph L4["Lớp 4 — Repo + Gates"]
+        REPO[azzamedu spec audit]
+        GATES[G0–G7]
+    end
+    T --> WP
+    WP -->|opt-in| BR
+    WP -->|buy| FK --> PP
+    PP --> BR
+    PP --> HM
+    HM --> BR
+    HM --> GATES
+    GATES --> LH
+    GATES --> TG
+    REPO -.-> HM
+    CRON --> HM
+      </pre></div>
+    </section>
+
+    <!-- JOURNEY -->
+    <section id="journey">
+      <h2><span class="num">4</span> User journey — 5 giai đoạn</h2>
+      <p class="desc">Awareness → Consideration → Conversion (PayPal) → Retention (LMS) → Ascension (Quant/IC).</p>
+      <div class="card"><pre class="mermaid">
+flowchart LR
+    subgraph S1["① AWARENESS"]
+        A1[Ads / referral] --> A2[Homepage]
+    end
+    subgraph S2["② CONSIDERATION"]
+        B1[Opt-in] --> B2[Email 0-7]
+    end
+    subgraph S3["③ CONVERSION"]
+        C1[/apprentice] --> C2[FunnelKit] --> C3[PayPal] --> C4[TY + upsell]
+    end
+    subgraph S4["④ RETENTION"]
+        D1[access_ready] --> D2[LearnHouse] --> D3[VIP TG]
+    end
+    subgraph S5["⑤ ASCENSION"]
+        E1[Quant / DWY / IC]
+    end
+    S1 --> S2 --> S3 --> S4 --> S5
+      </pre></div>
+    </section>
+
+    <!-- PATH A -->
+    <section id="path-a">
+      <h2><span class="num">5</span> Path A — Lead (opt-in → nurture)</h2>
+      <p class="desc">WordPress form → Brevo instant. Hermes setup templates trước khi có traffic (G2).</p>
+      <div class="card"><pre class="mermaid">
+sequenceDiagram
+    actor U as User
+    participant WP as WordPress
+    participant BR as Brevo
+    participant HM as Hermes P2
+    Note over HM,BR: Setup trước traffic
+    HM->>BR: Upload Email 0-7 templates
+  U->>WP: Opt-in Gameplan
+    WP->>BR: gameplan-leads
+    BR->>U: Email 0 PDF instant
+    loop Day 1-7
+        BR->>U: Nurture education
+    end
+      </pre></div>
+    </section>
+
+    <!-- PATH B -->
+    <section id="path-b">
+      <h2><span class="num">6</span> Path B — Apprentice + PayPal</h2>
+      <p class="desc">PayPal trên FunnelKit. Sau order: Brevo tag → Hermes nhắc G4 → LearnHouse access_ready.</p>
+      <div class="card"><pre class="mermaid">
+sequenceDiagram
+    actor U as User
+    participant FK as FunnelKit
+    participant PP as PayPal
+    participant WC as WooCommerce
+    participant BR as Brevo
+    participant HM as Hermes P2
+    participant LH as LearnHouse
+    U->>FK: Checkout AE-APP-001
+    U->>PP: PayPal pay
+    Note over PP: G6 - NO Hermes
+    PP->>WC: Order OK
+    WC->>BR: purchased_apprentice
+    WC-->>HM: webhook P2
+    HM->>BR: confirm tag
+    Note over LH: G4 human enroll
+    HM->>BR: access_ready email
+    BR->>U: Login LearnHouse
+    U->>LH: Module 1
+      </pre></div>
+    </section>
+
+    <!-- PATH C -->
+    <section id="path-c">
+      <h2><span class="num">7</span> Path C — VIP + Telegram</h2>
+      <p class="desc">PayPal VIP → form @telegram → admin G5 add group. Hermes cron nhắc nếu quá 24h.</p>
+      <div class="card"><pre class="mermaid">
+flowchart TD
+    A[VIP checkout] --> B[PayPal]
+    B --> C[Woo OK]
+    C --> D[purchased_vip]
+    C --> H[Hermes alert G5]
+    D --> E[/thank-you/vip]
+    E --> F[@telegram form]
+    F --> G[G5 add group]
+    G --> T[Telegram VIP]
+    G --> L[LearnHouse library]
+    H --> N[cron nhắc 24h]
+      </pre></div>
+    </section>
+
+    <!-- PAYPAL MAP -->
+    <section id="paypal">
+      <h2><span class="num">8</span> PayPal — vị trí trong flow (ecom vs education)</h2>
+      <p class="desc">Cùng Woo + PayPal gateway. Khác: product page vs FunnelKit; ship vs LMS.</p>
+      <div class="card"><pre class="mermaid">
+flowchart TB
+    subgraph OP["Orange Pi"]
+        OP1[Product page] --> OP2[PayPal Mua ngay]
+        OP2 --> OP3[Woo order]
+        OP3 --> OP4[Ship board]
+    end
+    subgraph AE["Alpha Elite"]
+        AE1[Nurture CTA] --> AE2[FunnelKit]
+        AE2 --> AE3[PayPal G6]
+        AE3 --> AE4[Woo order]
+        AE4 --> AE5[LearnHouse G4]
+    end
+    HM[Hermes P2 sau order]
+    OP3 -.-> HM
+    AE4 -.-> HM
+      </pre></div>
+    </section>
+
+    <!-- HERMES -->
+    <section id="hermes">
+      <h2><span class="num">9</span> Hermes P2 — chạm ở đâu</h2>
+      <p class="desc">Trước PayPal: setup email. Sau PayPal: tag, transactional, cron. Không thay checkout.</p>
+      <div class="card"><pre class="mermaid">
+flowchart LR
+    subgraph BEFORE["Trước PayPal"]
+        H1[Upload nurture templates]
+        H2[Promo campaign draft]
+    end
+    subgraph PAY["PayPal - KHÔNG Hermes"]
+        P1[FunnelKit]
+        P2[PayPal G6]
+    end
+    subgraph AFTER["Sau PayPal - Hermes P2"]
+        A1[Woo to Brevo tag]
+        A2[Cron nhắc G4 G5]
+        A3[access_ready API]
+        A4[Weekly stats]
+    end
+    BEFORE --> PAY --> AFTER
+      </pre></div>
+    </section>
+
+    <!-- COMPLIANCE -->
+    <section id="compliance">
+      <h2><span class="num">10</span> Compliance + Human gates</h2>
+      <p class="desc">Mọi email và checkout education phải audit. G2 Brevo · G6 PayPal · G4/G5 provision.</p>
+      <div class="card"><pre class="mermaid">
+flowchart TB
+    COPY[Landing · emails · checkout · PayPal name]
+    COPY --> COMP[Compliance Agent]
+    COMP --> AUD[audit file]
+    AUD --> G2[G2 Brevo live]
+    AUD --> G6[G6 PayPal live]
+    G4[G4 LearnHouse] --> ACCESS[access_ready]
+      </pre></div>
+    </section>
+  </main>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#27272a',
+        primaryTextColor: '#fafafa',
+        primaryBorderColor: '#22d3ee',
+        lineColor: '#71717a',
+        secondaryColor: '#18181b',
+        tertiaryColor: '#3f3f46',
+        fontFamily: 'Inter, system-ui, sans-serif'
+      },
+      flowchart: { curve: 'basis', padding: 16 },
+      sequence: { actorMargin: 40, messageMargin: 35 }
+    });
+  </script>
+</body>
+</html>

@@ -12,7 +12,12 @@ from telegram.ext import (
 from bot.handlers.admin import admin_confirm, admin_provisioned, admin_queue, admin_tgdone
 from bot.handlers.common import menu_router
 from bot.handlers.status import status_handler
-from bot.handlers.offers import offer_dwy_callback, offers_handler
+from bot.handlers.offers import (
+    offer_back_callback,
+    offer_category_callback,
+    offer_dwy_callback,
+    offers_handler,
+)
 from bot.handlers.pay import (
     ASK_EMAIL,
     ASK_PROOF,
@@ -49,7 +54,9 @@ def register_handlers(app: Application) -> None:
     )
 
     app.add_handler(CommandHandler("start", start_handler))
+    app.add_handler(CommandHandler("menu", offers_handler))
     app.add_handler(CommandHandler("offers", offers_handler))
+    app.add_handler(CommandHandler("shop", offers_handler))
     app.add_handler(CommandHandler("status", status_handler))
     app.add_handler(CommandHandler("queue", admin_queue))
     app.add_handler(CommandHandler("confirm", admin_confirm))
@@ -59,4 +66,6 @@ def register_handlers(app: Application) -> None:
     app.add_handler(pay_conv)
     app.add_handler(support_conv)
     app.add_handler(CallbackQueryHandler(offer_dwy_callback, pattern=r"^offer:dwy$"))
+    app.add_handler(CallbackQueryHandler(offer_back_callback, pattern=r"^offer:back$"))
+    app.add_handler(CallbackQueryHandler(offer_category_callback, pattern=r"^offer:cat:"))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, menu_router))
