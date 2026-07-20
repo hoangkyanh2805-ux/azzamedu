@@ -4,9 +4,22 @@
 
 | Channel | Role | Automation |
 |---------|------|------------|
-| WooCommerce / FunnelKit | Primary card checkout | P2 webhook |
+| WooCommerce / FunnelKit | Primary card checkout (Alpha Elite stack) | P2 webhook |
 | PayPal (manual) | Off-card / international | Bot instructions + proof |
 | Crypto USDT | Alternative | Bot instructions + proof |
+| **@Azzam_Storebot** | **Payment bot cho 4 khóa NCI/Azzam live trên LearnHouse** | Sale gửi deep-link → khách tự thanh toán |
+
+> **Brand split:** @Azzam_Storebot phục vụ 4 khóa NCI/Azzam (learn.azzamedu.com).
+> Các channel Woo/PayPal/USDT phục vụ stack Alpha Elite (Apprentice/VIP).
+> Hai brand tách biệt — KHÔNG trộn SKU giữa 2 hệ.
+
+### @Azzam_Storebot — handoff flow (sale-driven)
+1. Sale tư vấn xong → gửi deep-link Storebot theo khóa (tham khảo `sales/assets/nci-course-sales-support.md` §9).
+2. Khách thanh toán trong Storebot → nhận order ID / receipt.
+3. Xác nhận đơn → cấp access LearnHouse (manual ≤24h hoặc auto nếu Storebot có webhook).
+4. Chưa có webhook Storebot → sale/admin enroll thủ công theo `playbook/ops/learnhouse-provision-sop.md`.
+
+> TODO (khi bot live): bổ sung product ID thật vào deep-link, xác nhận có webhook callback hay không để automate provision.
 
 ## User flow (manual)
 

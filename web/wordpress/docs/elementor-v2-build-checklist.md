@@ -4,6 +4,34 @@ Use this checklist to rebuild homepage as true Elementor sections (not one HTML 
 
 ---
 
+## Fast path MVP (recommended)
+
+For the first launch, use the FunnelKit hero opt-in form as the primary conversion element in the hero section so you avoid extra form setup. Build the rest of the page quickly by following the reference blueprint and section map instead of custom coding each block.
+
+### Recommended approach
+- Reuse the hero form from the FunnelKit flow for the main opt-in in the hero section.
+- Keep the form fields lean: Email, First Name, Experience.
+- Route the form to the same thank-you page / Brevo list used by the funnel.
+- Build the remaining sections from the reference package in the same order:
+  - Hero
+  - Not Signal Group
+  - Video
+  - What You Learn
+  - How It Works
+  - Offers
+  - Gameplan Form
+  - FAQ
+  - Final CTA
+  - Risk Footer
+
+### Speed rules
+- Use native Elementor containers and sections.
+- Reuse the dark/gold visual system from the reference assets.
+- Copy the content from the existing landing copy docs rather than inventing new messaging.
+- Do not over-customize; ship a clean MVP first, then refine after data comes in.
+
+---
+
 ## 0) Pre-check (2 minutes)
 
 - Ensure theme is `Alpha Elite Child (Elementor)`.

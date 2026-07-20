@@ -1,6 +1,7 @@
 """Alpha Elite Telegram Access Bot — entry point."""
 
 import logging
+import os
 import sys
 from pathlib import Path
 
@@ -14,9 +15,10 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 from bot.handlers import register_handlers
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO,
+    level=logging.DEBUG,  # DEBUG to see all updates
 )
 logger = logging.getLogger(__name__)
+logging.getLogger("telegram.ext.Application").setLevel(logging.INFO)  # Less verbose Application logs
 
 
 def main() -> None:
@@ -45,7 +47,31 @@ def main() -> None:
         config.bot.mode,
         config.catalog_source,
     )
-    app.run_polling(allowed_updates=["message", "callback_query"])
+
+    if config.bot.mode == "webhook":
+        webhook_url = config.bot.webhook_url
+        if not webhook_url:
+            logger.error(
+                "Webhook mode requires BOT_WEBHOOK_URL or bot.webhook_url in config.yaml"
+            )
+            sys.exit(1)
+        port = int(os.environ.get("BOT_PORT", os.environ.get("PORT", "8443")))
+        listen = os.environ.get("BOT_LISTEN", "0.0.0.0")
+        logger.info(
+            "Starting webhook listener on %s:%s %s",
+            listen,
+            port,
+            config.bot.webhook_path,
+        )
+        app.run_webhook(
+            listen=listen,
+            port=port,
+            url_path=config.bot.webhook_path,
+            webhook_url=webhook_url,
+            allowed_updates=["message", "callback_query"],
+        )
+    else:
+        app.run_polling(allowed_updates=["message", "callback_query"])
 
 
 if __name__ == "__main__":

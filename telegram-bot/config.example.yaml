@@ -5,6 +5,7 @@ bot:
   token: ${TELEGRAM_BOT_TOKEN}
   mode: polling  # polling | webhook
   webhook_path: /webhook/secret-path-here
+  # webhook_url: https://bot.yourdomain.com/webhook/secret-path-here
 
 admin:
   telegram_ids:

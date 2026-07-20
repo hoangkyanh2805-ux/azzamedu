@@ -75,6 +75,22 @@
     .not-included {
       font-size: 12px; color: var(--ae-disclaimer); margin-top: 16px; line-height: 1.5;
     }
+    .payment-note {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border: 1px solid var(--ae-border);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      font-size: 12px;
+      color: var(--ae-muted);
+      line-height: 1.6;
+    }
+    .payment-note strong { color: var(--ae-text); }
+    .payment-note code {
+      color: var(--ae-gold);
+      word-break: break-all;
+      white-space: normal;
+    }
 
     /* Outcomes */
     .outcomes-grid {
@@ -356,6 +372,11 @@
             <li>Path to VIP private desk</li>
           </ul>
           <a href="/checkout/?add-to-cart=AE-APP-001" class="ae-btn-gold" style="width:100%">Start Apprentice Course</a>
+          <div class="payment-note">
+            <strong>Payment options:</strong> PayPal checkout or manual USDT TRC20.
+            For USDT, send only via TRON/TRC20 to
+            <code>TWmLE2ATNTPjKZxScuSuqb36z6C7uzLboe</code>, then submit your Order ID and TxID for manual confirmation.
+          </div>
           <p class="not-included">
             Not included: VIP Telegram · live desk · guaranteed outcomes
           </p>
@@ -685,6 +706,9 @@
         <div class="price">$297</div>
         <p style="color:var(--ae-muted);font-size:0.95rem;margin-top:8px">One-time · AE-APP-001 · includes Operating Toolkit</p>
         <a href="/checkout/?add-to-cart=AE-APP-001" class="ae-btn-gold">Start Apprentice Course</a>
+        <div class="payment-note">
+          <strong>Payment options:</strong> PayPal or manual USDT TRC20. USDT payments are verified manually from the TxID before LearnHouse access is provisioned.
+        </div>
         <p class="pricing-legal">
           Trading involves substantial risk of loss. No profit guarantees. Not investment advice.<br>
           <a href="homepage-dark-gold.html#get-gameplan" style="color:var(--ae-gold-muted)">Get the free Gameplan first →</a>
@@ -721,7 +745,11 @@
         </details>
         <details>
           <summary>How do I get access after payment?</summary>
-          <p>Manual provision at MVP: LearnHouse login emailed within 24h. See order confirmation for support contact.</p>
+          <p>PayPal orders are confirmed through WooCommerce. USDT TRC20 orders are confirmed manually after you submit your Order ID and TxID. LearnHouse login is emailed within 24h after payment confirmation.</p>
+        </details>
+        <details>
+          <summary>Can I pay with USDT TRC20?</summary>
+          <p>Yes. Send USDT only on the TRON/TRC20 network to <strong>TWmLE2ATNTPjKZxScuSuqb36z6C7uzLboe</strong>. Do not send ERC20, BEP20, Polygon, or other networks. Wrong-network payments may be lost.</p>
         </details>
         <details>
           <summary>What's not included?</summary>

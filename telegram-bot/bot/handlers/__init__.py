@@ -1,5 +1,6 @@
 """Register all bot handlers."""
 
+import logging
 from telegram.ext import (
     Application,
     CallbackQueryHandler,
@@ -8,6 +9,8 @@ from telegram.ext import (
     MessageHandler,
     filters,
 )
+
+logger = logging.getLogger(__name__)
 
 from bot.handlers.admin import admin_confirm, admin_provisioned, admin_queue, admin_tgdone
 from bot.handlers.common import menu_router

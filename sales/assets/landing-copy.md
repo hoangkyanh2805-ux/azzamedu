@@ -388,6 +388,12 @@ Complete your enrollment in [Product Name]
 **Checkout subhead**  
 Access instructions are sent after successful payment.
 
+**Payment options line**
+Pay with PayPal or manual USDT TRC20. For USDT, send only via TRON/TRC20 to `TWmLE2ATNTPjKZxScuSuqb36z6C7uzLboe`, then submit your Order ID and TxID for manual confirmation.
+
+**USDT warning line**
+Only send USDT via TRON/TRC20. Do not send ERC20, BEP20, Polygon, or other networks. Wrong-network payments may be lost.
+
 **Risk checkbox label (required)**  
 I understand trading involves risk of loss and this is educational content, not investment advice.
 
@@ -396,6 +402,9 @@ No guaranteed profit. Outcomes depend on execution and risk management.
 
 **Thank-you headline**  
 Payment received. Complete onboarding in Telegram.
+
+**Manual USDT status note**
+If you paid with USDT TRC20, access is released after admin verifies your TxID.
 
 **Thank-you CTA**  
 Open Telegram Onboarding

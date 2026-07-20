@@ -3,6 +3,11 @@
 .env.*
 !.env.example
 **/deploy-production.env
+**/deploy-alex-mentor.env
+**/deploy-*.env
+!**/deploy-production.env.example
+web/learnhouse/scripts/*-log.txt
+web/learnhouse/scripts/inspect-alex-mentor-out.txt
 telegram-bot/config.yaml
 
 # LearnHouse local instance

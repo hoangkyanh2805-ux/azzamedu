@@ -182,6 +182,7 @@ https://t.me/azzam_coursebot?start=order_{order_id}
 - [ ] Gameplan form → Brevo
 - [ ] SKU `AE-APP-001`, `AE-VIP-MON`, `AE-VIP-YR` tạo xong
 - [ ] PayPal test payment OK
+- [ ] USDT TRC20 manual order text + TxID review flow OK
 - [ ] Thank-you có nút Telegram bot
 - [ ] Bot `.env` `SITE_BASE_URL=https://hoa-homes.com`
 - [ ] Bot Offers → checkout không 404

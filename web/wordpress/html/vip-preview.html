@@ -135,6 +135,19 @@
       font-size: 0.9rem; color: var(--ae-muted);
     }
     .dwy-note a { color: var(--ae-gold); }
+    .payment-note {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border: 1px solid var(--ae-border);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      font-size: 12px;
+      color: var(--ae-muted);
+      line-height: 1.6;
+      text-align: left;
+    }
+    .payment-note strong { color: var(--ae-text); }
+    .payment-note code { color: var(--ae-gold); word-break: break-all; white-space: normal; }
 
     .faq-list { max-width: 720px; margin: 0 auto; }
     .faq-list details {
@@ -315,6 +328,10 @@
         </div>
       </div>
       <p class="bundle-note">Apprentice course bundled with VIP membership. Manual Telegram add within 24h (MVP).</p>
+      <div class="payment-note" style="max-width:720px;margin-left:auto;margin-right:auto">
+        <strong>Payment options:</strong> PayPal checkout or manual USDT TRC20. For USDT, send only via TRON/TRC20 to
+        <code>TWmLE2ATNTPjKZxScuSuqb36z6C7uzLboe</code>, then submit your Order ID and TxID for manual confirmation.
+      </div>
       <div class="dwy-note">
         Need hands-on setup? <strong>Done-With-You Bot &amp; Broker Setup</strong> — $497 at checkout (AE-DWY-001) — implementation support, not managed account.
       </div>
@@ -340,7 +357,11 @@
         </details>
         <details>
           <summary>What happens after I pay?</summary>
-          <p>LearnHouse access + VIP group add manually within 24h at MVP. You'll receive login and Telegram instructions by email.</p>
+          <p>PayPal orders are confirmed through WooCommerce. USDT TRC20 orders are confirmed manually after you submit your Order ID and TxID. LearnHouse access + VIP group add are completed within 24h after payment confirmation.</p>
+        </details>
+        <details>
+          <summary>Can I pay with USDT TRC20?</summary>
+          <p>Yes. Send USDT only on the TRON/TRC20 network to <strong>TWmLE2ATNTPjKZxScuSuqb36z6C7uzLboe</strong>. Do not send ERC20, BEP20, Polygon, or other networks. Wrong-network payments may be lost.</p>
         </details>
         <details>
           <summary>Can I cancel?</summary>

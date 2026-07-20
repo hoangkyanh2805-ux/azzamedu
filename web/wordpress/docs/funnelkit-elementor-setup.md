@@ -24,6 +24,27 @@ Telegram bot             → access status + manual PayPal/crypto
 
 ---
 
+## Fast path MVP cho landing page Elementor
+
+Nếu muốn triển khai nhanh, ưu tiên flow sau:
+
+1. Dùng form ở section hero của FunnelKit làm form chính ở hero landing page Elementor.
+2. Giữ form tối giản: Email, First Name, Experience.
+3. Dùng cùng thank-you page và Brevo list như funnel để tránh setup riêng.
+4. Build các section còn lại theo chuẩn reference:
+   - Not Signal Group
+   - Video
+   - What You Learn
+   - How It Works
+   - Offers
+   - FAQ
+   - Final CTA
+   - Risk Footer
+
+Cách này giúp ship landing page nhanh mà vẫn giữ được trải nghiệm conversion đúng với funnel, không cần setup form riêng từ đầu.
+
+---
+
 ## PHẦN A — Chuyển homepage sang Elementor (Cách B)
 
 ### A1. Upload child theme Elementor mode

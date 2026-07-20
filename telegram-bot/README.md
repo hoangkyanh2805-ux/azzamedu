@@ -1,4 +1,8 @@
-# Alpha Elite — Telegram Access Bot
+# Hermes Agent — Telegram Access Bot
+
+**Part of:** Alpha Elite 12-Agent Orchestration Model  
+**Agent role:** Telegram Access Agent + Admin Ops (member access, payment verification, delivery)  
+**Bot handle:** `@Course7979_bot`
 
 Member access, onboarding, and support layer for Alpha Elite trading education. **Not a signal bot.**
 
@@ -40,6 +44,21 @@ python -m bot.main
 ```
 
 Default database is **in-memory** (`database.provider: memory`).
+
+## Run the bot (connect Hermes / Telegram)
+
+The Telegram bot must be running continuously for Hermes desktop or any Telegram client to connect.
+
+- Local/polling mode (best for Windows / dev):
+  - `.	elegram-bot\start-bot.ps1`
+  - or set `BOT_MODE=polling` and run `python -m bot.main`
+- Webhook mode (production / public HTTPS):
+  - set `BOT_MODE=webhook`
+  - set `BOT_WEBHOOK_URL=https://bot.yourdomain.com/webhook/secret-path-here`
+  - set `BOT_WEBHOOK_PATH=/webhook/secret-path-here`
+  - then run `python -m bot.main`
+
+If the bot is not running, Hermes desktop cannot deliver messages through Telegram.
 
 For Supabase (detailed guide: `docs/supabase-setup.md`):
 1. Run `database/schema_supabase.sql` in Supabase SQL Editor

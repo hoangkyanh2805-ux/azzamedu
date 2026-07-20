@@ -17,6 +17,7 @@ class BotConfig:
     token: str
     mode: str = "polling"
     webhook_path: str = "/webhook/secret"
+    webhook_url: str = ""
 
 
 @dataclass
@@ -99,8 +100,9 @@ def load_config(path: Path | None = None) -> Config:
     return Config(
         bot=BotConfig(
             token=token,
-            mode=data.get("bot", {}).get("mode", "polling"),
-            webhook_path=data.get("bot", {}).get("webhook_path", "/webhook/secret"),
+            mode=os.environ.get("BOT_MODE") or data.get("bot", {}).get("mode", "polling"),
+            webhook_path=os.environ.get("BOT_WEBHOOK_PATH") or data.get("bot", {}).get("webhook_path", "/webhook/secret"),
+            webhook_url=os.environ.get("BOT_WEBHOOK_URL") or data.get("bot", {}).get("webhook_url", ""),
         ),
         admin_ids=admin_ids,
         site=site,

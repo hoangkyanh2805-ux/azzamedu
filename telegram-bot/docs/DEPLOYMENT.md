@@ -45,6 +45,7 @@ python -m bot.main
 ```
 
 Use polling mode for local dev (`BOT_MODE=polling`).
+Use webhook mode for production if you have HTTPS and a public endpoint (`BOT_MODE=webhook`, `BOT_WEBHOOK_URL=https://bot.yourdomain.com/webhook/secret-path-here`).
 
 ---
 

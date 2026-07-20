@@ -122,7 +122,7 @@ WordPress → WooCommerce (orders) → FunnelKit (checkout UX)
 | Method | MVP | Notes |
 |--------|-----|-------|
 | PayPal | ✓ | WooCommerce PayPal Payments |
-| Crypto | Manual | "Email order ID for USDT invoice" on TY |
+| USDT TRC20 | Manual | Customer sends USDT on TRON/TRC20, then submits Order ID + TxID for admin review |
 | Stripe | Phase 2 | — |
 
 ---
