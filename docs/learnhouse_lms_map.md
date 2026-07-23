@@ -32,6 +32,20 @@ npx learnhouse backup   # weekly
 
 **Host:** `learn.[domain].com` · VPS 2 vCPU / 4GB · Docker
 
+## Current Production State
+
+Updated 2026-07-23:
+
+| Endpoint | Status |
+|----------|--------|
+| `https://learn.azzamedu.com/dash/courses` | Live course dashboard |
+| `https://learn.alex-mentor.com/` | Live LearnHouse clone |
+| `https://learn.tom-edu.com/` | Live LearnHouse clone (Tom Bennett) |
+| Eddric | Pending — next clone via `learnhouse-vps-clone-rebrand` |
+| Course library | 4 courses live (per instance) |
+
+Operational note: course delivery is live, but WooCommerce/FunnelKit -> LearnHouse auto-enroll is still Phase 2. Keep manual provision as the reliable launch workflow.
+
 ---
 
 ## Organization
@@ -166,7 +180,8 @@ Detail: `web/learnhouse/content/vip-resource-library/README.md`
 
 ## Acceptance criteria
 
-- [ ] ≥ 3 modules live with unlisted video  
+- [x] 4 courses live in LearnHouse
+- [ ] Videos/resources spot-checked from a learner account
 - [ ] Test student completes M1 on mobile  
 - [ ] Manual provision tested end-to-end  
 - [ ] All scripts pass compliance swap table  

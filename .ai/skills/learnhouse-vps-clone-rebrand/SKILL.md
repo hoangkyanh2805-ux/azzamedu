@@ -5,7 +5,7 @@ description: >-
   rebrand domain so images/logo/thumbnails work. Use when the user clones
   LearnHouse between iNET VPS boxes, reports broken images after clone, needs
   domain migrate + SSL for a new learn.* host, or prepares another brand/channel
-  instance (e.g. Azzam Gold / alex-mentor / Tom Bennett Trading Expert).
+  instance (e.g. Azzam Gold / alex-mentor / Tom Bennett / Eddric).
 ---
 
 # LearnHouse — VPS Clone + Domain Rebrand
@@ -23,7 +23,8 @@ description: >-
 |-----------------|------------|--------|
 | Azzam Gold (source) | `https://learn.azzamedu.com` | VPS1 source of truth for clone |
 | Alex Mentor | `https://learn.alex-mentor.com` | Cloned from azzamedu; fixed 2026-07-20 |
-| Tom Bennett Trading Expert | *(pending)* | Telegram: [t.me/TomBennettTradingExpert](https://t.me/TomBennettTradingExpert) — reuse this skill when LMS domain + VPS ready |
+| Tom Bennett Trading Expert | `https://learn.tom-edu.com` | Cloned from alex-mentor snapshot; fixed 2026-07-23. Telegram: [t.me/TomBennettTradingExpert](https://t.me/TomBennettTradingExpert) |
+| Eddric | *(pending)* | Next clone target. Need: LMS domain + VPS IP + SSH port + root password after Reset. Preferred source: `learn.tom-edu.com` or `learn.alex-mentor.com`. |
 
 Do **not** put root passwords in this skill. Use gitignored env files under `web/learnhouse/scripts/`.
 
@@ -71,14 +72,16 @@ Clone rebrand progress:
 | `web/learnhouse/scripts/fix-alex-mentor-ssl.sh` | Certbot webroot + SSL nginx (pattern from `enable-https.sh`) |
 | `web/learnhouse/scripts/run-alex-mentor-fix.py` | SSH upload/run clone fix |
 | `web/learnhouse/scripts/run-alex-mentor-ssl.py` | SSH upload/run SSL fix |
-| `web/learnhouse/scripts/deploy-alex-mentor.env` | **Gitignored** creds for alex-mentor |
+| `web/learnhouse/scripts/run-tom-bennett-rebrand.py` | Full rebrand runner (clone fix + SSL) via `deploy-tom-bennett.env` |
+| `web/learnhouse/scripts/deploy-alex-mentor.env` / `deploy-tom-bennett.env` | **Gitignored** per-brand creds |
 | `web/learnhouse/scripts/enable-https.sh` | Original HTTPS helper (azzamedu) |
 
-For a **new** brand (Tom Bennett):
+For a **new** brand (Eddric next):
 
-1. Copy `deploy-alex-mentor.env` → `deploy-<brand>.env` (gitignored)
-2. Copy fix scripts or parameterize `OLD_*` / `NEW_*` / `LEARNHOUSE_INSTALL_DIR`
-3. Add `**/deploy-*.env` patterns already covered for production + alex-mentor in `.gitignore`
+1. Create `deploy-eddric.env` (gitignored) from the template fields in Inputs
+2. Prefer source snapshot from a **already-fixed** LMS (`learn.tom-edu.com` or `learn.alex-mentor.com`)
+3. Run parameterized fix: same shell scripts + `OLD_*` / `NEW_*` / `LEARNHOUSE_INSTALL_DIR=/root/.learnhouse/default`
+4. Or copy `run-tom-bennett-rebrand.py` → `run-eddric-rebrand.py` pointing at `deploy-eddric.env`
 
 ## Diagnose in 2 minutes
 
@@ -113,17 +116,36 @@ Quick verify from agent machine:
 
 Do not point nginx at `live/NEW_DOMAIN` until the cert exists (or nginx loops).
 
-## Tom Bennett — prep (when ready)
+## Tom Bennett — done
 
-Channel: [Tom Bennett Channel - Trading Expert](https://t.me/TomBennettTradingExpert)
+- LMS: `https://learn.tom-edu.com`
+- Runner: `web/learnhouse/scripts/run-tom-bennett-rebrand.py`
+- Channel: [t.me/TomBennettTradingExpert](https://t.me/TomBennettTradingExpert)
+
+## Eddric — prep (next)
 
 When user provides LMS domain + VPS:
 
-1. Decide source clone (usually current best LMS, e.g. alex-mentor or azzamedu)
-2. Panel backup → new VPS
-3. Run this skill end-to-end with Tom Bennett `NEW_DOMAIN`
-4. Rebrand org name / logo in LearnHouse UI after images work
-5. Wire Telegram channel / bot links separately (out of scope of media fix)
+1. Decide source clone (prefer `learn.tom-edu.com` or `learn.alex-mentor.com`)
+2. Panel backup/snapshot → new VPS
+3. DNS `learn.<eddric-domain>` → new IP
+4. Reset root password on new VPS
+5. Send agent: `OLD_DOMAIN`, `NEW_DOMAIN`, `NEW_TOP`, `VPS_HOST`, `VPS_PORT`, `VPS_PASSWORD`
+6. Agent runs this skill end-to-end
+7. Rebrand org name / logo in LearnHouse UI after images work
+8. Wire Eddric Telegram channel / bot separately (out of scope of media fix)
+
+Paste template for agent:
+
+```text
+Dùng skill learnhouse-vps-clone-rebrand cho Eddric
+OLD_DOMAIN=learn.tom-edu.com
+NEW_DOMAIN=learn.<eddric>.com
+NEW_TOP=<eddric>.com
+VPS_HOST=...
+VPS_PORT=24700
+VPS_PASSWORD=...
+```
 
 ## Do not
 

@@ -7,6 +7,17 @@
 
 ## Pre-flight (all must pass)
 
+## Current launch state
+
+Updated 2026-07-23:
+
+- [x] LearnHouse course dashboard live at `https://learn.azzamedu.com/dash/courses`
+- [x] Alex Mentor LearnHouse live at `https://learn.alex-mentor.com/`
+- [x] Tom Bennett LearnHouse live at `https://learn.tom-edu.com/`
+- [ ] Eddric LearnHouse clone (pending domain + VPS)
+- [x] 4 courses live in LearnHouse
+- [ ] Remaining launch QA: learner mobile access, checkout handoff, Brevo/Telegram access messaging
+
 ### Ground truth
 - [ ] `project-mission.md` agreed by owner
 - [ ] Pricing filled — no `[FILL]` on launch SKUs (`offer_stack.md`)
@@ -37,8 +48,9 @@
 - [ ] Provision SOP dry run ≤24h (`playbook/ops/learnhouse-provision-sop.md`)
 
 ### LMS
-- [ ] LearnHouse HTTPS + `learnhouse doctor` OK
-- [ ] Modules 1–3 published, videos play mobile
+- [x] LearnHouse HTTPS + `learnhouse doctor` OK
+- [x] 4 courses live
+- [ ] Modules/videos spot-checked on mobile learner account
 - [ ] Video 15s disclaimer on each lesson
 
 ### VIP (if launching in same release)

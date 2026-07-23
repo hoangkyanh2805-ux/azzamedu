@@ -12,6 +12,22 @@ Self-hosted course delivery for SMC course access, VIP packages, deposit bundles
 | Admin | Manual provision within 24h |
 
 Production LMS: `https://learn.azzamedu.com`
+Clones: `https://learn.alex-mentor.com/` · `https://learn.tom-edu.com/`
+Next clone: **Eddric** (pending domain + VPS) — skill `.ai/skills/learnhouse-vps-clone-rebrand/SKILL.md`
+
+## Current Status
+
+Updated 2026-07-23:
+
+| Area | Status |
+|---|---|
+| Azzam LearnHouse dashboard | Live: `https://learn.azzamedu.com/dash/courses` |
+| Alex Mentor LearnHouse | Live: `https://learn.alex-mentor.com/` |
+| Tom Bennett LearnHouse | Live: `https://learn.tom-edu.com/` |
+| Eddric LearnHouse | Pending next clone |
+| Course library | 4 courses live (per instance) |
+| Provisioning | Manual user creation/enroll remains the supported MVP workflow |
+| Next ops focus | Eddric VPS clone + QA learner access / checkout handoff |
 
 ---
 
@@ -35,6 +51,7 @@ Use LearnHouse **UserGroups** as the source of truth. Add users to the right gro
 | Access case | Dashboard group / slug | Courses / access |
 |---|---|---|
 | Course 1 only | `smc-cours` | Advanced SMC Course |
+| Course library | course-specific group(s) | 4 live LearnHouse courses |
 | VIP $1000 | `vip-1000` | VIP access + 1-2 bonus courses |
 | Deposit $3k-$5k | `deposit-3k-5k` | Mid-tier course bundle |
 | Deposit >$5k-$10k | `full-access` | Full course library |
@@ -119,9 +136,11 @@ web/learnhouse/
 
 ## MVP Acceptance
 
-- [ ] `npx learnhouse doctor` passes on VPS
-- [ ] HTTPS live at `https://learn.azzamedu.com`
-- [ ] Primary course published and visible to `smc-cours` users
+- [x] `npx learnhouse doctor` passes on VPS
+- [x] HTTPS live at `https://learn.azzamedu.com`
+- [x] HTTPS live at `https://learn.alex-mentor.com/`
+- [x] 4 LearnHouse courses live
+- [x] Primary course published and visible to `smc-cours` users
 - [ ] Test learner can complete first lesson on mobile
 - [ ] Manual provision dry-run completed under 24h SLA
 - [ ] SMTP invite tested, or manual signup fallback documented

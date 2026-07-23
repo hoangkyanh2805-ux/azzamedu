@@ -26,13 +26,26 @@ Manual LearnHouse + Telegram provision ≤24h at launch.
 
 | Column | Focus |
 |--------|--------|
-| **Now** | Pricing, Gameplan PDF, Brevo, homepage opt-in |
-| **Next** | Apprentice checkout, LearnHouse, provision SOP |
+| **Now** | Pricing, Gameplan PDF, Brevo, homepage opt-in, checkout QA |
+| **Next** | Provision SOP, Telegram/VIP access QA, downstream links |
 | **Later** | VIP, Quant, automation, ads |
-| **Blocked** | PayPal live, domain, legal entity |
-| **Done** | Planning docs, agent OS, funnel maps |
+| **Blocked** | PayPal live, legal entity |
+| **Done** | Planning docs, agent OS, funnel maps, LearnHouse live, 4 courses live |
 
 Full board: [docs/backlog.md](docs/backlog.md)
+
+## Current LMS Status
+
+Updated 2026-07-23:
+
+| Item | Status |
+|------|--------|
+| Azzam LearnHouse admin | Live at `https://learn.azzamedu.com/dash/courses` |
+| Alex Mentor LearnHouse | Live at `https://learn.alex-mentor.com/` |
+| Tom Bennett LearnHouse | Live at `https://learn.tom-edu.com/` |
+| Eddric LearnHouse | Pending — next VPS clone via `learnhouse-vps-clone-rebrand` skill |
+| Courses | 4 courses live (per clone) |
+| Delivery mode | Manual LearnHouse provision remains the MVP fallback until checkout -> enroll automation is approved |
 
 ## Stack
 
@@ -59,6 +72,6 @@ WordPress/Elementor · WooCommerce · FunnelKit · LearnHouse · Brevo · YouTub
 
 ## Start this week
 
-1. Unblock **B-02** domain + **B-01** PayPal (owner)  
-2. Complete **N-01** pricing (G0)  
-3. Execute **Sprint 1** in [sprint-roadmap.md](docs/sprint-roadmap.md)
+1. Complete **N-01** pricing (G0)
+2. Finish checkout/payment live QA (**B-01** PayPal)
+3. Link WordPress/Brevo/Telegram access copy to the live LearnHouse URLs
